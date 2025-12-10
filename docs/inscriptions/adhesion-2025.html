@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Bulletin d'adhésion 2025 - Crécyvélo77</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    /* Mise en page générale */
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+      background: #ffffff;
+      padding: 30px 40px;
+      border: 1px solid #ccc;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    }
+
+    /* Bandeau haut façon logo */
+    .header-banner {
+      background: #0059b3;
+      color: #ffffff;
+      text-align: center;
+      padding: 18px 10px;
+      margin: -30px -40px 20px -40px;
+    }
+
+    .header-banner h1 {
+      margin: 0;
+      font-size: 28px;
+      font-weight: bold;
+    }
+
+    .header-banner h2 {
+      margin: 4px 0 0 0;
+      font-size: 14px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .club-info-top {
+      text-align: center;
+      font-size: 13px;
+      margin-bottom: 10px;
+    }
+
+    .title-main {
+      text-align: center;
+      font-weight: bold;
+      font-size: 20px;
+      text-transform: uppercase;
+      margin: 10px 0 15px 0;
+    }
+
+    .intro-text {
+      font-size: 13px;
+      margin-bottom: 8px;
+      text-align: justify;
+    }
+
+    .nota-bene {
+      font-size: 12px;
+      margin: 10px 0 20px 0;
+      text-align: justify;
+    }
+
+    .nota-bene strong {
+      text-transform: none;
+    }
+
+    /* Tableau des cotisations */
+    h2.section-title {
+      font-size: 16px;
+      margin-top: 15px;
+      margin-bottom: 8px;
+    }
+
+    table.cotisations {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      margin-bottom: 20px;
+    }
+
+    table.cotisations th,
+    table.cotisations td {
+      border: 1px solid #cccccc;
+      padding: 6px 8px;
+      text-align: center;
+    }
+
+    table.cotisations th {
+      background: #f0f0f0;
+      font-weight: bold;
+    }
+
+    table.cotisations td.label-col {
+      text-align: left;
+      font-weight: normal;
+      width: 40%;
+    }
+
+    table.cotisations tr.section-row td {
+      background: #f7f7f7;
+      font-weight: bold;
+      text-align: left;
+    }
+
+    .tarif-option {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      justify-content: center;
+    }
+
+    .tarif-option input[type="radio"] {
+      margin: 0;
+    }
+
+    /* Bloc questionnaire de santé */
+    .questionnaire-sante {
+      margin-top: 15px;
+      margin-bottom: 20px;
+      border: 1px solid #cccccc;
+      background: #f4f4f4;
+      padding: 10px 12px;
+      font-size: 12px;
+    }
+
+    .questionnaire-sante-title {
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 8px;
+    }
+
+    .questionnaire-sante p {
+      margin: 4px 0;
+      text-align: justify;
+    }
+
+    .questionnaire-sante .ack-row {
+      margin-top: 8px;
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
+    }
+
+    .questionnaire-sante .ack-row input[type="checkbox"] {
+      margin-top: 2px;
+    }
+
+    /* Formulaire d'inscription */
+    .inscription-title {
+      text-align: center;
+      font-size: 16px;
+      font-weight: bold;
+      margin-top: 25px;
+      margin-bottom: 20px;
+    }
+
+    form {
+      font-size: 13px;
+    }
+
+    .form-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 10px;
+      align-items: center;
+    }
+
+    .form-row label {
+      flex: 0 0 140px;
+      font-weight: bold;
+    }
+
+    .form-row input[type="text"],
+    .form-row input[type="email"],
+    .form-row input[type="tel"],
+    .form-row input[type="date"],
+    .form-row input[type="file"] {
+      flex: 1;
+      padding: 4px 6px;
+      border: 1px solid #999;
+      border-radius: 2px;
+      font-size: 13px;
+    }
+
+    .form-row-half {
+      display: flex;
+      flex: 1;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .form-row-half label {
+      flex: 0 0 40px;
+      font-weight: bold;
+    }
+
+    .form-row-half input {
+      flex: 1;
+      padding: 4px 6px;
+      border: 1px solid #999;
+      border-radius: 2px;
+      font-size: 13px;
+    }
+
+    .signature-line {
+      margin-top: 20px;
+      font-size: 13px;
+    }
+
+    .signature-line .label {
+      margin-bottom: 4px;
+    }
+
+    .signature-line .value {
+      min-height: 20px;
+      border-bottom: 1px solid #000;
+    }
+
+    .form-footer-note {
+      font-size: 12px;
+      margin-top: 20px;
+      text-align: justify;
+    }
+
+    .buttons {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .buttons button {
+      padding: 7px 16px;
+      margin: 0 5px;
+      font-size: 13px;
+      cursor: pointer;
+    }
+
+    /* Responsive */
+    @media (max-width: 700px) {
+      .page {
+        padding: 20px;
+        margin: 0;
+      }
+
+      .header-banner {
+        margin: -20px -20px 15px -20px;
+      }
+
+      .form-row {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .form-row label {
+        flex: none;
+        width: 100%;
+      }
+
+      .form-row-half {
+        flex-direction: column;
+        align-items: flex-start;
+        width: 100%;
+      }
+
+      .form-row-half label {
+        width: 100%;
+      }
+
+      table.cotisations th,
+      table.cotisations td {
+        font-size: 12px;
+        padding: 4px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+
+    <!-- Bandeau supérieur -->
+    <div class="header-banner">
+      <h1>Crécyvélo 77</h1>
+      <h2>Le club vélo de Crécy-la-Chapelle</h2>
+    </div>
+
+    <!-- Informations club -->
+    <div class="club-info-top">
+      Siège social&nbsp;: Mairie 77580 Crécy la Chapelle – Affiliation FFCT n° 07666
+    </div>
+
+    <!-- Titre principal -->
+    <div class="title-main">
+      BULLETIN D’ADHÉSION POUR LA SAISON 2025
+    </div>
+
+    <p class="intro-text">
+      L’adhésion à l’association est obligatoire pour participer aux activités.
+      Elle comprend la cotisation à l’association, l’obtention de la licence FFCT et une assurance.
+    </p>
+
+    <p class="nota-bene">
+      <strong>Nota bene&nbsp;:</strong>
+      Tout organisateur d'activités physiques et sportives a l'obligation de souscrire des contrats collectifs d'assurance
+      couvrant la responsabilité civile de tous les participants. Les associations sportives doivent en outre indiquer aux
+      pratiquants l'intérêt que présente pour eux la prise de garanties d'assurance personnelles couvrant les dommages
+      causés à soi-même par soi-même (accidents, blessures).
+    </p>
+
+    <!-- Tableau des cotisations -->
+    <h2 class="section-title">Montant des cotisations (cochez votre choix)</h2>
+
+    <form
+      method="post"
+      action="#"
+      enctype="multipart/form-data"
+      <!--
+        Remplacez # par l’URL de traitement (Formspree, backend, etc.),
+        par exemple :
+        action="https://formspree.io/f/xxxxxxxx"
+        Veillez à ce que le service supporte bien les fichiers (photo d’identité).
+      -->
+    >
+
+      <table class="cotisations">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Mini-braquet</th>
+            <th>Petit-Braquet</th>
+            <th>Grand-Braquet</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <!-- Individuel -->
+          <tr class="section-row">
+            <td colspan="4">Individuel</td>
+          </tr>
+          <tr>
+            <td class="label-col">Adultes</td>
+            <td>
+              <label class="tarif-option">
+                <input type="radio" name="cotisation" value="individuel_adulte_mini" required />
+                93,50&nbsp;€
+              </label>
+            </td>
+            <td>
+              <label class="tarif-option">
+                <input type="radio" name="cotisation" value="individuel_adulte_petit" />
+                95,50&nbsp;€
+              </label>
+            </td>
+            <td>
+              <label class="tarif-option">
+                <input type="radio" name="cotisation" value="individuel_adulte_grand" />
+                147,00&nbsp;€
+              </label>
+            </td>
+          </tr>
+          <tr>
+            <td class="label-col">Jeunes de 18 à 25 ans</td>
+            <td>
+              <label class="tarif-option">
+                <input type="radio" name="cotisation" value="individuel_jeune_mini" />
+                66,00&nbsp;€
+              </label>
+            </td>
+            <td>
+              <label class="tarif-option">
+                <input type="radio" name="cotisation" value="individuel_jeune_petit" />
+                68,00&nbsp;€
+              </label>
+            </td>
+            <td>
+              <label class="tarif-option">
+                <input type="radio" name="cotisation" value="individuel_jeune_grand" />
+                119,50&nbsp;€
+              </label>
+            </td>
+          </tr>
+
+          <!-- Famille -->
+          <tr class="section-row">
+            <td colspan="4">Famille</td>
+          </tr>
+          <tr>
+            <td class="label-col">1er adulte</td>
+            <td>
+              <label class="tarif-option">
+                <input type="radio" name="cotisation" value="famille_1eradulte_mini" />
+                93,50&nbsp;€
+              </label>
+            </td>
+            <td>
+              <label class="tarif-option">
+                <input type="radio" name="cotisation" value="famille_1eradulte_petit" />
+                95,50&nbsp;€
+              </label>
+            </td>
+            <td>
+              <label class="tarif-option">
+                <input type="radio" name="cotisation" value="famille_1eradulte_grand" />
+                147,00&nbsp;€
+              </label>
+            </td>
+          </tr>
+          <tr>
+            <td class="label-col">2ème adulte</td>
+            <td>
+              <label class="tarif-option">
+                <input type="radio" name="cotisation" value="famille_2emeadulte_mini" />
+                78,00&nbsp;€
+              </label>
+            </td>
+            <td>
+              <label class="tarif-option">
+                <input type="radio" name="cotisation" value="famille_2emeadulte_petit" />
+                80,00&nbsp;€
+              </label>
+            </td>
+            <td>
+              <label class="tarif-option">
+                <input type="radio" name="cotisation" value="famille_2emeadulte_grand" />
+                131,50&nbsp;€
+              </label>
+            </td>
+          </tr>
+          <tr>
+            <td class="label-col">Jeunes de 18 à 25 ans</td>
+            <td>
+              <label class="tarif-option">
+                <input type="radio" name="cotisation" value="famille_jeune18_25_mini" />
+                66,00&nbsp;€
+              </label>
+            </td>
+            <td>
+              <label class="tarif-option">
+                <input type="radio" name="cotisation" value="famille_jeune18_25_petit" />
+                68,00&nbsp;€
+              </label>
+            </td>
+            <td>
+              <label class="tarif-option">
+                <input type="radio" name="cotisation" value="famille_jeune18_25_grand" />
+                119,50&nbsp;€
+              </label>
+            </td>
+          </tr>
+          <tr>
+            <td class="label-col">Jeunes -18 ans</td>
+            <td>
+              <label class="tarif-option">
+                <input type="radio" name="cotisation" value="famille_jeune_moins18_mini" />
+                38,00&nbsp;€
+              </label>
+            </td>
+            <td>
+              <label class="tarif-option">
+                <input type="radio" name="cotisation" value="famille_jeune_moins18_petit" />
+                39,00&nbsp;€
+              </label>
+            </td>
+            <td>
+              <label class="tarif-option">
+                <input type="radio" name="cotisation" value="famille_jeune_moins18_grand" />
+                90,00&nbsp;€
+              </label>
+            </td>
+          </tr>
+
+          <!-- Licencié extérieur -->
+          <tr class="section-row">
+            <td colspan="4">Licencié extérieur</td>
+          </tr>
+          <tr>
+            <td class="label-col">Cotisation individuelle</td>
+            <td colspan="3">
+              <label class="tarif-option">
+                <input type="radio" name="cotisation" value="licencie_exterieur" />
+                41,00&nbsp;€
+              </label>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Questionnaire de santé -->
+      <div class="questionnaire-sante">
+        <div class="questionnaire-sante-title">Questionnaire de santé</div>
+        <p>
+          J'ai bien pris note de ces questions et comprends que certaines situations ou symptômes peuvent
+          entraîner un risque pour ma santé et/ou pour mes performances.
+        </p>
+        <p>
+          J'atteste sur l'honneur avoir déjà pris, ou prendre les dispositions nécessaires selon les
+          recommandations données en cas de réponse positive à l'une des questions des différents questionnaires.
+        </p>
+        <div class="ack-row">
+          <input
+            type="checkbox"
+            id="sante_ack"
+            name="sante_ack"
+            value="oui"
+            required
+          />
+          <label for="sante_ack">
+            Je confirme avoir pris connaissance et accepte les conditions ci-dessus.
+          </label>
+        </div>
+      </div>
+
+      <!-- Inscription pour la saison 2025 -->
+      <div class="inscription-title">Inscription pour la saison 2025</div>
+
+      <div class="form-row">
+        <label for="nom">NOM</label>
+        <input type="text" id="nom" name="nom" required />
+      </div>
+
+      <div class="form-row">
+        <label for="prenom">PRENOM</label>
+        <input type="text" id="prenom" name="prenom" required />
+      </div>
+
+      <div class="form-row">
+        <label for="date_naissance">DATE DE NAISSANCE</label>
+        <input type="date" id="date_naissance" name="date_naissance" required />
+      </div>
+
+      <div class="form-row">
+        <label for="adresse">ADRESSE</label>
+        <input type="text" id="adresse" name="adresse" required />
+      </div>
+
+      <div class="form-row">
+        <div class="form-row-half">
+          <label for="cp">CP</label>
+          <input type="text" id="cp" name="cp" required />
+        </div>
+        <div class="form-row-half">
+          <label for="ville">VILLE</label>
+          <input type="text" id="ville" name="ville" required />
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-row-half">
+          <label for="telephone">TELEPHONE</label>
+          <input type="tel" id="telephone" name="telephone" />
+        </div>
+        <div class="form-row-half">
+          <label for="email">EMAIL</label>
+          <input type="email" id="email" name="email" />
+        </div>
+      </div>
+
+      <!-- Ajout : photo d’identité -->
+      <div class="form-row">
+        <label for="photo_identite">Photo d'identité</label>
+        <input
+          type="file"
+          id="photo_identite"
+          name="photo_identite"
+          accept="image/*"
+        />
+      </div>
+
+      <div class="form-row signature-line">
+        <div style="flex:1;">
+          <div class="label">Date</div>
+          <input
+            type="date"
+            id="date_signature"
+            name="date_signature"
+            style="width: 160px; padding:4px 6px; border:1px solid #999; border-radius:2px; font-size:13px;"
+          />
+        </div>
+        <div style="flex:1;">
+          <div class="label">Signature</div>
+          <div class="value"></div>
+        </div>
+      </div>
+
+      <!-- Boutons -->
+      <div class="buttons">
+        <button type="reset">Effacer</button>
+        <button type="submit">Envoyer le bulletin</button>
+      </div>
+
+      <!-- Note de bas de page -->
+      <p class="form-footer-note">
+        Ce bulletin est à envoyer accompagné d’un chèque du montant de votre adhésion établi à l’ordre de
+        <strong>CRECYVELO77</strong> et de la déclaration du licencié incluse dans le résumé de la notice d’information AXA – Saison 2025 à&nbsp;:
+        <strong>Stéphane NOTELET – 2 rue des Écoles 77515 POMMEUSE</strong>.
+      </p>
+
+    </form>
+  </div>
+
+  <!-- Script de pré-remplissage via paramètres d’URL -->
+  <script>
+    (function () {
+      const params = new URLSearchParams(window.location.search);
+
+      // Pré-remplissage des champs texte / email / tel / date
+      const simpleFields = [
+        "nom",
+        "prenom",
+        "date_naissance",
+        "adresse",
+        "cp",
+        "ville",
+        "telephone",
+        "email",
+        "date_signature"
+      ];
+
+      simpleFields.forEach(function (id) {
+        const el = document.getElementById(id);
+        if (!el) return;
+        const value = params.get(id);
+        if (value !== null) {
+          el.value = value;
+        }
+      });
+
+      // Pré-sélection de la cotisation
+      const cotisationValue = params.get("cotisation");
+      if (cotisationValue) {
+        const radio = document.querySelector(
+          'input[name="cotisation"][value="' + cotisationValue + '"]'
+        );
+        if (radio) {
+          radio.checked = true;
+        }
+      }
+
+      // Pré-cochage de la case questionnaire de santé
+      const santeParam = params.get("sante_ack");
+      if (santeParam) {
+        const shouldCheck = ["1", "true", "on", "oui", "yes"].includes(
+          santeParam.toLowerCase()
+        );
+        const checkbox = document.getElementById("sante_ack");
+        if (checkbox && shouldCheck) {
+          checkbox.checked = true;
+        }
+      }
+    })();
+  </script>
+</body>
+</html>
