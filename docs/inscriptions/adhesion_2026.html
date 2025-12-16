@@ -768,9 +768,9 @@ function getCheckedValues(form, name){
       });
 
       const json = await res.json().catch(() => ({}));
-      if (!res.ok || !json.ok) {
-        throw new Error(json.message || "Erreur lors de l’envoi.");
-      }
+			if (!json.ok) {
+			  throw new Error(json.message || "Erreur lors de l’envoi.");
+			}
 
       statusMsg.textContent = "✅ Inscription reçue ! Email de confirmation en cours…";
       alert("✅ Inscription reçue ! Un email de confirmation va être envoyé.");
