@@ -1,160 +1,842 @@
 <!doctype html>
 <html lang="fr">
 <head>
-<meta charset="utf-8">
-<title>Adhésion 2026 – Crécyvélo 77</title>
-<meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bulletin d’adhésion 2026 – Crécyvélo 77</title>
 
-<style>
-@page{size:A4;margin:10mm}
-body{font-family:Arial,sans-serif;background:#eee;margin:0}
-.page{width:210mm;margin:auto;background:#fff;padding:14px}
-fieldset{border:1px solid #aaa;border-radius:8px;margin:10px 0;padding:10px}
-legend{font-weight:bold}
-label{font-weight:bold;display:block;margin-top:6px}
-input,select{width:100%;padding:6px;border-radius:6px;border:1px solid #ccc}
-.choices{display:flex;gap:14px;flex-wrap:wrap}
-.pill{display:flex;gap:6px;align-items:center}
-table{width:100%;border-collapse:collapse}
-td,th{border:1px solid #ccc;padding:4px}
-.btn{padding:10px 16px;border-radius:8px;border:0;font-weight:bold;cursor:pointer}
-.btn-primary{background:#1c8f4a;color:#fff}
-.btn-ghost{background:#ddd}
-.hidden{display:none}
-canvas{border:1px solid #666}
-</style>
+  <style>
+    :root{
+      --pageW: 210mm;
+      --pageH: 297mm;
+      --border:#cfcfcf;
+      --muted:#666;
+      --bg:#f2f2f2;
+      --err:#b00000;
+      --ok:#12a454;
+    }
+
+    body{
+      margin:0;
+      background:var(--bg);
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color:#111;
+    }
+
+    /* A4 on screen */
+    .page{
+      width: var(--pageW);
+      min-height: var(--pageH);
+      margin: 20px auto;
+      background:#fff;
+      border: 1px solid #ddd;
+      box-shadow: 0 10px 30px rgba(0,0,0,.15);
+      border-radius: 10px;
+      padding: 18px;
+      box-sizing: border-box;
+    }
+    @media (max-width: 980px){
+      .page{
+        width: calc(100vw - 16px);
+        min-height: unset;
+        margin: 0 auto;
+        border-radius: 0;
+        box-shadow: none;
+      }
+    }
+
+    h1{ font-size: 22px; margin: 0 0 6px; font-weight: 800; }
+    .subtitle{ margin: 0 0 14px; color: var(--muted); font-size: 14px; }
+
+    fieldset{
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px;
+      margin: 14px 0;
+    }
+    legend{ font-weight: 800; padding: 0 8px; }
+
+    .row2{ display:grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .row3{ display:grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+    .full{ grid-column: 1 / -1; }
+
+    label{ display:block; font-weight: 800; margin-bottom: 6px; }
+
+    input[type="text"],
+    input[type="date"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="file"],
+    select{
+      width:100%;
+      border:1px solid #d0d0d0;
+      border-radius:10px;
+      padding:10px 12px;
+      font-size:14px;
+      box-sizing:border-box;
+      background:#fff;
+    }
+
+    .choices{ display:flex; gap:18px; flex-wrap:wrap; }
+    .pill{ display:inline-flex; align-items:center; gap:8px; font-weight:700; }
+
+    .hint{ font-size:12px; color:var(--muted); margin-top:6px; }
+    .error{ font-size:13px; color:var(--err); margin-top:6px; }
+
+    .actions{ display:flex; gap:12px; margin-top:16px; align-items:center; }
+    .btn{ padding:10px 16px; border-radius:10px; border:0; font-weight:800; cursor:pointer; }
+    .btn-primary{ background:var(--ok); color:#fff; }
+    .btn-ghost{ background:#eee; }
+
+    .hidden{ display:none !important; }
+
+    table th, table td{ vertical-align: top; }
+    table td .pill{ font-weight:600; }
+
+    /* signature */
+    .sigbox{
+      border:1px solid #d0d0d0;
+      border-radius:10px;
+      padding:10px;
+      background:#fff;
+    }
+    canvas{ border:1px dashed #999; border-radius:8px; touch-action: none; }
+
+    /* Print A4 */
+    @page{ size:A4; margin:10mm; }
+    @media print{
+      body{ background:#fff; }
+      .page{ width:auto; min-height:auto; margin:0; padding:0; border:none; box-shadow:none; border-radius:0; }
+      fieldset{ page-break-inside:avoid; }
+      .no-print{ display:none !important; }
+    }
+  </style>
 </head>
 
 <body>
+
+<!-- PAGE FORMULAIRE -->
 <div class="page" id="formPage">
+  <div class="no-print" style="display:flex;justify-content:flex-end;margin-bottom:10px;">
+    <button class="btn btn-ghost" type="button" onclick="window.print()">Imprimer (A4)</button>
+  </div>
 
-<h2>Bulletin d’adhésion 2026 – Crécyvélo 77</h2>
+  <h1>Bulletin d’adhésion 2026 – Crécyvélo 77</h1>
+  <p class="subtitle">Merci de compléter les informations ci-dessous. Les champs marqués * sont obligatoires.</p>
 
-<form id="adhesionForm">
+  <form id="adhesionForm">
 
-<fieldset>
-<legend>Type d’adhésion</legend>
-<div class="choices">
-<label class="pill"><input type="radio" name="type_adhesion" value="renouvellement" required>Renouvellement</label>
-<label class="pill"><input type="radio" name="type_adhesion" value="premiere">Première adhésion</label>
+    <!-- 1. Identité -->
+    <fieldset>
+      <legend>1. Identité du licencié</legend>
+
+      <div class="row2">
+        <div>
+          <label>Type d’adhésion *</label>
+          <div class="choices">
+            <label class="pill"><input type="radio" name="type_adhesion" value="renouvellement" required> Renouvellement</label>
+            <label class="pill"><input type="radio" name="type_adhesion" value="premiere"> Première adhésion</label>
+          </div>
+        </div>
+
+        <div>
+          <label>Civilité *</label>
+          <div class="choices">
+            <label class="pill"><input type="radio" name="civilite" value="Madame" required> Madame</label>
+            <label class="pill"><input type="radio" name="civilite" value="Monsieur"> Monsieur</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="row2">
+        <div>
+          <label>Nom *</label>
+          <input type="text" name="nom" autocomplete="family-name" required>
+        </div>
+        <div>
+          <label>Prénom *</label>
+          <input type="text" name="prenom" autocomplete="given-name" required>
+        </div>
+      </div>
+
+      <div class="row2">
+        <div>
+          <label>Nom de naissance</label>
+          <input type="text" name="nom_naissance">
+          <div class="hint">Optionnel (si différent du nom d’usage).</div>
+        </div>
+        <div>
+          <label>Date de naissance *</label>
+          <input type="date" name="date_naissance" required>
+        </div>
+      </div>
+
+      <div class="row3">
+        <div>
+          <label>Commune de naissance *</label>
+          <input type="text" name="commune_naissance" required>
+        </div>
+
+        <div id="wrap_departement_naissance">
+          <label>Département de naissance *</label>
+          <input type="text" name="departement_naissance" inputmode="numeric" placeholder="Ex: 77">
+          <div class="hint">Requis si né(e) en France.</div>
+        </div>
+
+        <div>
+          <label>Pays de naissance *</label>
+          <select name="pays_naissance" id="pays_naissance" required>
+            <option value="France" selected>France</option>
+            <option value="Etranger">À l’étranger</option>
+          </select>
+        </div>
+      </div>
+
+      <div id="wrap_pays_etranger" class="hidden">
+        <label>Pays (si né à l’étranger) *</label>
+        <input type="text" name="pays_naissance_detail" placeholder="Ex: Belgique">
+      </div>
+
+      <div class="row2">
+        <div>
+          <label>N° de licence (6 chiffres)</label>
+          <input type="text" name="licence" id="licence" inputmode="numeric" pattern="^[0-9]{6}$" placeholder="123456">
+          <div class="hint" id="licence_hint">Optionnel en première adhésion. Obligatoire en renouvellement.</div>
+        </div>
+      </div>
+
+      <div class="error" id="identite_error" style="display:none;"></div>
+    </fieldset>
+
+    <!-- 2. Coordonnées -->
+    <fieldset>
+      <legend>2. Coordonnées</legend>
+
+      <div class="row2">
+        <div class="full">
+          <label>Adresse *</label>
+          <input type="text" name="adresse" autocomplete="street-address" required>
+        </div>
+        <div>
+          <label>Code postal *</label>
+          <input type="text" name="cp" autocomplete="postal-code" required>
+        </div>
+        <div>
+          <label>Commune *</label>
+          <input type="text" name="ville" autocomplete="address-level2" required>
+        </div>
+        <div>
+          <label>Téléphone *</label>
+          <input type="tel" name="telephone" autocomplete="tel" required>
+        </div>
+        <div>
+          <label>Email *</label>
+          <input type="email" name="email" autocomplete="email" required>
+        </div>
+      </div>
+    </fieldset>
+
+    <!-- 3. Informations sportives -->
+    <fieldset>
+      <legend>3. Informations sportives</legend>
+
+      <label>Type de pratique *</label>
+      <div class="choices">
+        <label class="pill"><input type="checkbox" name="pratique" value="Route"> Route</label>
+        <label class="pill"><input type="checkbox" name="pratique" value="VTT"> VTT</label>
+        <label class="pill"><input type="checkbox" name="pratique" value="Gravel"> Gravel</label>
+      </div>
+      <div class="error" id="pratique_error" style="display:none;"></div>
+
+      <label style="margin-top:12px;">Pratique du VAE *</label>
+      <div class="choices">
+        <label class="pill"><input type="radio" name="vae" value="Oui" required> Oui</label>
+        <label class="pill"><input type="radio" name="vae" value="Non"> Non</label>
+      </div>
+    </fieldset>
+
+    <!-- 4. Cotisations -->
+    <fieldset>
+      <legend>Montant des cotisations (cochez votre choix)</legend>
+      <div class="hint">Choisir une seule ligne. Le montant sera repris sur le PDF.</div>
+
+      <div style="overflow:auto;">
+        <table style="width:100%; border-collapse:collapse; margin-top:10px;">
+          <thead>
+            <tr>
+              <th style="text-align:left; padding:8px; border-bottom:1px solid #ddd;">Catégorie</th>
+              <th style="text-align:center; padding:8px; border-bottom:1px solid #ddd;">Mini-braquet</th>
+              <th style="text-align:center; padding:8px; border-bottom:1px solid #ddd;">Petit-braquet</th>
+              <th style="text-align:center; padding:8px; border-bottom:1px solid #ddd;">Grand-braquet</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td colspan="4" style="padding:8px; font-weight:800;">Individuel</td></tr>
+
+            <tr>
+              <td style="padding:8px;">Adultes</td>
+              <td style="text-align:center; padding:8px;">
+                <label class="pill"><input type="radio" name="cotisation_choice" required
+                  data-code="IND_ADU_MINI" data-libelle="Individuel – Adultes – Mini-braquet" data-montant="93.50"> 93,50 €</label>
+              </td>
+              <td style="text-align:center; padding:8px;">
+                <label class="pill"><input type="radio" name="cotisation_choice"
+                  data-code="IND_ADU_PETIT" data-libelle="Individuel – Adultes – Petit-braquet" data-montant="95.50"> 95,50 €</label>
+              </td>
+              <td style="text-align:center; padding:8px;">
+                <label class="pill"><input type="radio" name="cotisation_choice"
+                  data-code="IND_ADU_GRAND" data-libelle="Individuel – Adultes – Grand-braquet" data-montant="147.00"> 147,00 €</label>
+              </td>
+            </tr>
+
+            <tr>
+              <td style="padding:8px;">Jeunes de 18 à 25 ans</td>
+              <td style="text-align:center; padding:8px;">
+                <label class="pill"><input type="radio" name="cotisation_choice"
+                  data-code="IND_JEUNE_MINI" data-libelle="Individuel – Jeunes 18–25 – Mini-braquet" data-montant="66.00"> 66,00 €</label>
+              </td>
+              <td style="text-align:center; padding:8px;">
+                <label class="pill"><input type="radio" name="cotisation_choice"
+                  data-code="IND_JEUNE_PETIT" data-libelle="Individuel – Jeunes 18–25 – Petit-braquet" data-montant="68.00"> 68,00 €</label>
+              </td>
+              <td style="text-align:center; padding:8px;">
+                <label class="pill"><input type="radio" name="cotisation_choice"
+                  data-code="IND_JEUNE_GRAND" data-libelle="Individuel – Jeunes 18–25 – Grand-braquet" data-montant="119.50"> 119,50 €</label>
+              </td>
+            </tr>
+
+            <tr><td colspan="4" style="padding:8px; font-weight:800;">Famille</td></tr>
+
+            <tr>
+              <td style="padding:8px;">1er adulte</td>
+              <td style="text-align:center; padding:8px;">
+                <label class="pill"><input type="radio" name="cotisation_choice"
+                  data-code="FAM_1_ADU_MINI" data-libelle="Famille – 1er adulte – Mini-braquet" data-montant="93.50"> 93,50 €</label>
+              </td>
+              <td style="text-align:center; padding:8px;">
+                <label class="pill"><input type="radio" name="cotisation_choice"
+                  data-code="FAM_1_ADU_PETIT" data-libelle="Famille – 1er adulte – Petit-braquet" data-montant="95.50"> 95,50 €</label>
+              </td>
+              <td style="text-align:center; padding:8px;">
+                <label class="pill"><input type="radio" name="cotisation_choice"
+                  data-code="FAM_1_ADU_GRAND" data-libelle="Famille – 1er adulte – Grand-braquet" data-montant="147.00"> 147,00 €</label>
+              </td>
+            </tr>
+
+            <tr>
+              <td style="padding:8px;">2ème adulte</td>
+              <td style="text-align:center; padding:8px;">
+                <label class="pill"><input type="radio" name="cotisation_choice"
+                  data-code="FAM_2_ADU_MINI" data-libelle="Famille – 2ème adulte – Mini-braquet" data-montant="78.00"> 78,00 €</label>
+              </td>
+              <td style="text-align:center; padding:8px;">
+                <label class="pill"><input type="radio" name="cotisation_choice"
+                  data-code="FAM_2_ADU_PETIT" data-libelle="Famille – 2ème adulte – Petit-braquet" data-montant="80.00"> 80,00 €</label>
+              </td>
+              <td style="text-align:center; padding:8px;">
+                <label class="pill"><input type="radio" name="cotisation_choice"
+                  data-code="FAM_2_ADU_GRAND" data-libelle="Famille – 2ème adulte – Grand-braquet" data-montant="131.50"> 131,50 €</label>
+              </td>
+            </tr>
+
+            <tr>
+              <td style="padding:8px;">Jeunes de 18 à 25 ans</td>
+              <td style="text-align:center; padding:8px;">
+                <label class="pill"><input type="radio" name="cotisation_choice"
+                  data-code="FAM_JEUNE_MINI" data-libelle="Famille – Jeunes 18–25 – Mini-braquet" data-montant="66.00"> 66,00 €</label>
+              </td>
+              <td style="text-align:center; padding:8px;">
+                <label class="pill"><input type="radio" name="cotisation_choice"
+                  data-code="FAM_JEUNE_PETIT" data-libelle="Famille – Jeunes 18–25 – Petit-braquet" data-montant="68.00"> 68,00 €</label>
+              </td>
+              <td style="text-align:center; padding:8px;">
+                <label class="pill"><input type="radio" name="cotisation_choice"
+                  data-code="FAM_JEUNE_GRAND" data-libelle="Famille – Jeunes 18–25 – Grand-braquet" data-montant="119.50"> 119,50 €</label>
+              </td>
+            </tr>
+
+            <tr>
+              <td style="padding:8px;">Jeunes -18 ans</td>
+              <td style="text-align:center; padding:8px;">
+                <label class="pill"><input type="radio" name="cotisation_choice"
+                  data-code="FAM_M18_MINI" data-libelle="Famille – Jeunes -18 – Mini-braquet" data-montant="38.00"> 38,00 €</label>
+              </td>
+              <td style="text-align:center; padding:8px;">
+                <label class="pill"><input type="radio" name="cotisation_choice"
+                  data-code="FAM_M18_PETIT" data-libelle="Famille – Jeunes -18 – Petit-braquet" data-montant="39.00"> 39,00 €</label>
+              </td>
+              <td style="text-align:center; padding:8px;">
+                <label class="pill"><input type="radio" name="cotisation_choice"
+                  data-code="FAM_M18_GRAND" data-libelle="Famille – Jeunes -18 – Grand-braquet" data-montant="90.00"> 90,00 €</label>
+              </td>
+            </tr>
+
+            <tr><td colspan="4" style="padding:8px; font-weight:800;">Licencié extérieur</td></tr>
+
+            <tr>
+              <td style="padding:8px;">Cotisation individuelle</td>
+              <td style="text-align:center; padding:8px;">
+                <label class="pill"><input type="radio" name="cotisation_choice"
+                  data-code="EXT_IND" data-libelle="Licencié extérieur – Cotisation individuelle" data-montant="41.00"> 41,00 €</label>
+              </td>
+              <td style="text-align:center; padding:8px; color:#888;">—</td>
+              <td style="text-align:center; padding:8px; color:#888;">—</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="row2" style="margin-top:12px;">
+        <div>
+          <label>Montant sélectionné</label>
+          <input type="text" id="cotisation_affiche" readonly value="">
+          <div class="hint">Le montant est calculé automatiquement.</div>
+        </div>
+      </div>
+
+      <input type="hidden" name="cotisation_code" id="cotisation_code">
+      <input type="hidden" name="cotisation_libelle" id="cotisation_libelle">
+      <input type="hidden" name="cotisation_montant" id="cotisation_montant">
+    </fieldset>
+
+    <!-- Mode de règlement -->
+    <fieldset>
+      <legend>Mode de règlement *</legend>
+      <div class="choices">
+        <label class="pill"><input type="radio" name="reglement" value="Virement" required> Virement</label>
+        <label class="pill"><input type="radio" name="reglement" value="Chèque"> Chèque</label>
+        <label class="pill"><input type="radio" name="reglement" value="CB (TPE)"> CB (avec TPE)</label>
+        <label class="pill"><input type="radio" name="reglement" value="Espèces"> Espèces</label>
+      </div>
+    </fieldset>
+
+    <!-- Photo -->
+    <fieldset>
+      <legend>Photo d’identité</legend>
+      <label>Ajouter une photo (JPEG/PNG)</label>
+      <input type="file" name="photo_identite" accept="image/jpeg,image/png">
+      <div class="hint">Optionnel.</div>
+    </fieldset>
+
+    <!-- Signature -->
+    <fieldset>
+      <legend>Signature</legend>
+      <div class="sigbox">
+        <div class="hint" style="margin-top:0;">Signez dans le cadre ci-dessous (doigt/souris).</div>
+        <canvas id="signaturePad" width="520" height="170"></canvas>
+        <div style="margin-top:10px; display:flex; gap:10px;">
+          <button type="button" class="btn btn-ghost" id="clearSig">Effacer</button>
+        </div>
+        <input type="hidden" id="signature_data">
+      </div>
+    </fieldset>
+
+    <!-- Attestation -->
+    <fieldset>
+      <legend>Attestation</legend>
+      <label class="pill" style="align-items:flex-start;">
+        <input type="checkbox" name="sante_ack" id="sante_ack" required>
+        <span>
+          J'ai bien pris note de ces questions et comprends que certaines situations ou symptômes peuvent entraîner
+          un risque pour ma santé et/ou pour mes performances.
+          J'atteste sur l'honneur avoir déjà pris, ou prendre les dispositions nécessaires selon les recommandations
+          données en cas de réponse positive à l'une des questions des différents questionnaires.
+        </span>
+      </label>
+    </fieldset>
+
+    <div class="actions">
+      <button type="submit" class="btn btn-primary" id="submitBtn">Envoyer le bulletin</button>
+      <button type="button" class="btn btn-ghost" id="resetBtn">Réinitialiser</button>
+      <span class="hint" id="statusMsg" style="margin-left:auto;"></span>
+    </div>
+
+  </form>
 </div>
-</fieldset>
 
-<fieldset>
-<legend>Identité</legend>
-<label>Civilité</label>
-<div class="choices">
-<label class="pill"><input type="radio" name="civilite" value="Madame" required>Madame</label>
-<label class="pill"><input type="radio" name="civilite" value="Monsieur">Monsieur</label>
-</div>
-
-<label>Nom</label><input name="nom" required>
-<label>Prénom</label><input name="prenom" required>
-<label>Nom de naissance</label><input name="nom_naissance">
-<label>Date de naissance</label><input type="date" name="date_naissance" required>
-<label>Commune de naissance</label><input name="commune_naissance" required>
-<label>Département de naissance</label><input name="departement_naissance">
-<label>Pays de naissance</label>
-<select name="pays_naissance"><option>France</option><option>Etranger</option></select>
-<label>N° licence (6 chiffres)</label><input name="licence">
-</fieldset>
-
-<fieldset>
-<legend>Coordonnées</legend>
-<label>Adresse</label><input name="adresse" required>
-<label>CP</label><input name="cp" required>
-<label>Ville</label><input name="ville" required>
-<label>Téléphone</label><input name="telephone" required>
-<label>Email</label><input type="email" name="email" required>
-</fieldset>
-
-<fieldset>
-<legend>Informations sportives</legend>
-<label>Pratique</label>
-<div class="choices">
-<label class="pill"><input type="checkbox" name="pratique" value="Route">Route</label>
-<label class="pill"><input type="checkbox" name="pratique" value="VTT">VTT</label>
-<label class="pill"><input type="checkbox" name="pratique" value="Gravel">Gravel</label>
-</div>
-
-<label>VAE</label>
-<div class="choices">
-<label class="pill"><input type="radio" name="vae" value="Oui" required>Oui</label>
-<label class="pill"><input type="radio" name="vae" value="Non">Non</label>
-</div>
-</fieldset>
-
-<fieldset>
-<legend>Mode de règlement</legend>
-<div class="choices">
-<label class="pill"><input type="radio" name="reglement" value="Virement" required>Virement</label>
-<label class="pill"><input type="radio" name="reglement" value="Chèque">Chèque</label>
-<label class="pill"><input type="radio" name="reglement" value="CB (TPE)">CB (TPE)</label>
-<label class="pill"><input type="radio" name="reglement" value="Espèces">Espèces</label>
-</div>
-</fieldset>
-
-<fieldset>
-<legend>Signature</legend>
-<canvas id="sig" width="400" height="120"></canvas>
-<button type="button" class="btn btn-ghost" id="clearSig">Effacer</button>
-<input type="hidden" id="signature_data">
-</fieldset>
-
-<fieldset>
-<label class="pill">
-<input type="checkbox" id="sante_ack" required>
-Attestation santé validée
-</label>
-</fieldset>
-
-<button class="btn btn-primary" type="submit">Envoyer l’adhésion</button>
-</form>
-</div>
-
+<!-- PAGE CONFIRMATION -->
 <div class="page hidden" id="confirmPage">
-<h2>✅ Inscription enregistrée</h2>
-<p>Merci pour votre inscription.</p>
-<p><b>N° d’adhésion :</b> <span id="numAdh"></span></p>
-<a id="pdfLink" class="btn btn-primary" target="_blank">Télécharger le PDF</a>
+  <h1>✅ Inscription enregistrée</h1>
+  <p>Merci, votre inscription a bien été prise en compte.</p>
+  <p><b>N° d’adhésion :</b> <span id="confNum"></span></p>
+  <p>
+    <a class="btn btn-primary" id="confPdf" target="_blank">Télécharger le PDF</a>
+    <button class="btn btn-ghost" id="backBtn" type="button">Faire une autre inscription</button>
+  </p>
 </div>
 
 <script>
+/** ========= CONFIG ========= */
 const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyFote2couQvnAFGuZ0A84nGnyGBfJtpZlddwLfZ8Qb1PMeWlad8u6H9biiTz8ubIko1w/exec";
 
-/* Signature */
-(()=>{
-const c=document.getElementById("sig"),ctx=c.getContext("2d");
-let d=false;
-c.onmousedown=e=>{d=true;ctx.beginPath();ctx.moveTo(e.offsetX,e.offsetY)}
-c.onmousemove=e=>{if(d){ctx.lineTo(e.offsetX,e.offsetY);ctx.stroke()}}
-c.onmouseup=()=>d=false;
-document.getElementById("clearSig").onclick=()=>ctx.clearRect(0,0,c.width,c.height);
-document.getElementById("adhesionForm").onsubmit=async e=>{
-e.preventDefault();
-document.getElementById("signature_data").value=c.toDataURL();
-const f=e.target;
-const payload={
-nom:f.nom.value,prenom:f.prenom.value,nom_naissance:f.nom_naissance.value,
-type_adhesion:f.type_adhesion.value,civilite:f.civilite.value,
-date_naissance:f.date_naissance.value,commune_naissance:f.commune_naissance.value,
-departement_naissance:f.departement_naissance.value,
-pays_naissance:f.pays_naissance.value,licence:f.licence.value,
-adresse:f.adresse.value,cp:f.cp.value,ville:f.ville.value,
-telephone:f.telephone.value,email:f.email.value,
-pratique:[...f.querySelectorAll('input[name="pratique"]:checked')].map(x=>x.value),
-vae:f.vae.value,reglement:f.reglement.value,
-signature:{dataUrl:document.getElementById("signature_data").value},
-sante_ack:document.getElementById("sante_ack").checked
-};
-const r=await fetch(APPS_SCRIPT_URL,{method:"POST",headers:{"Content-Type":"text/plain"},body:JSON.stringify(payload)});
-const j=await r.json();
-document.getElementById("formPage").classList.add("hidden");
-document.getElementById("confirmPage").classList.remove("hidden");
-document.getElementById("numAdh").textContent=j.adhesionNumber;
-document.getElementById("pdfLink").href=j.pdfUrl;
-};
+/** ========= Helpers ========= */
+function normalizeSpaces(s){ return (s||"").replace(/\s+/g," ").trim(); }
+function formatEUR(v){
+  const n = Number(v);
+  if (!Number.isFinite(n)) return "";
+  return n.toFixed(2).replace(".", ",") + " €";
+}
+function getRadio(form, name){
+  return form.querySelector(`input[name="${name}"]:checked`)?.value || "";
+}
+function getCheckedValues(form, name){
+  return Array.from(form.querySelectorAll(`input[name="${name}"]:checked`)).map(x => x.value);
+}
+function fileToDataUrl(file) {
+  return new Promise((resolve, reject) => {
+    const r = new FileReader();
+    r.onload = () => resolve(String(r.result));
+    r.onerror = reject;
+    r.readAsDataURL(file);
+  });
+}
+
+/** ========= Signature pad ========= */
+function setupSignaturePad(){
+  const canvas = document.getElementById("signaturePad");
+  const clearBtn = document.getElementById("clearSig");
+  if(!canvas || !clearBtn) return;
+
+  const ctx = canvas.getContext("2d");
+  ctx.lineWidth = 2;
+  ctx.lineCap = "round";
+
+  let drawing = false;
+
+  function getPos(e){
+    const r = canvas.getBoundingClientRect();
+    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+    const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+    return { x: clientX - r.left, y: clientY - r.top };
+  }
+
+  function start(e){ drawing = true; ctx.beginPath(); const p = getPos(e); ctx.moveTo(p.x,p.y); e.preventDefault(); }
+  function move(e){ if(!drawing) return; const p = getPos(e); ctx.lineTo(p.x,p.y); ctx.stroke(); e.preventDefault(); }
+  function end(){ drawing = false; }
+
+  canvas.addEventListener("mousedown", start);
+  canvas.addEventListener("mousemove", move);
+  canvas.addEventListener("mouseup", end);
+  canvas.addEventListener("mouseleave", end);
+
+  canvas.addEventListener("touchstart", start, {passive:false});
+  canvas.addEventListener("touchmove", move, {passive:false});
+  canvas.addEventListener("touchend", end);
+
+  clearBtn.addEventListener("click", () => ctx.clearRect(0,0,canvas.width,canvas.height));
+
+  return {
+    toDataURL: () => canvas.toDataURL("image/png")
+  };
+}
+
+/** ========= Main ========= */
+(function(){
+  const form = document.getElementById("adhesionForm");
+  const formPage = document.getElementById("formPage");
+  const confirmPage = document.getElementById("confirmPage");
+  const confNum = document.getElementById("confNum");
+  const confPdf = document.getElementById("confPdf");
+  const backBtn = document.getElementById("backBtn");
+
+  const paysSelect = document.getElementById("pays_naissance");
+  const wrapDept = document.getElementById("wrap_departement_naissance");
+  const deptInput = form.querySelector('input[name="departement_naissance"]');
+  const wrapPaysEtranger = document.getElementById("wrap_pays_etranger");
+  const paysDetail = form.querySelector('input[name="pays_naissance_detail"]');
+
+  const licenceInput = document.getElementById("licence");
+  const licenceHint = document.getElementById("licence_hint");
+  const identiteError = document.getElementById("identite_error");
+  const pratiqueError = document.getElementById("pratique_error");
+
+  const cotAff = document.getElementById("cotisation_affiche");
+  const cotCode = document.getElementById("cotisation_code");
+  const cotLib = document.getElementById("cotisation_libelle");
+  const cotMont = document.getElementById("cotisation_montant");
+
+  const resetBtn = document.getElementById("resetBtn");
+  const submitBtn = document.getElementById("submitBtn");
+  const statusMsg = document.getElementById("statusMsg");
+
+  const sig = setupSignaturePad();
+
+  function adhesionType(){
+    return form.querySelector('input[name="type_adhesion"]:checked')?.value || "";
+  }
+
+  function setPaysUI(){
+    const isFrance = (paysSelect.value === "France");
+    wrapDept.classList.toggle("hidden", !isFrance);
+    deptInput.required = isFrance;
+    if (!isFrance) deptInput.value = "";
+
+    wrapPaysEtranger.classList.toggle("hidden", isFrance);
+    paysDetail.required = !isFrance;
+    if (isFrance) paysDetail.value = "";
+  }
+
+  function setLicenceUI(){
+    const required = (adhesionType() === "renouvellement");
+    licenceInput.required = required;
+    licenceHint.textContent = required
+      ? "Obligatoire en renouvellement (6 chiffres)."
+      : "Optionnel en première adhésion. Obligatoire en renouvellement.";
+  }
+
+  function updateCotisation(){
+    const r = form.querySelector('input[name="cotisation_choice"]:checked');
+    if(!r){
+      cotAff.value = "";
+      cotCode.value = "";
+      cotLib.value = "";
+      cotMont.value = "";
+      return;
+    }
+    cotCode.value = r.dataset.code || "";
+    cotLib.value = r.dataset.libelle || "";
+    cotMont.value = r.dataset.montant || "";
+    cotAff.value = (cotLib.value ? cotLib.value + " — " : "") + formatEUR(cotMont.value);
+  }
+
+  function validatePratique(){
+    const checked = form.querySelectorAll('input[name="pratique"]:checked').length;
+    if (checked < 1){
+      pratiqueError.style.display = "block";
+      pratiqueError.textContent = "Merci de choisir au moins un type de pratique (Route, VTT, Gravel).";
+      return false;
+    }
+    pratiqueError.style.display = "none";
+    pratiqueError.textContent = "";
+    return true;
+  }
+
+  function validateLicence(){
+    const type = adhesionType();
+    const v = normalizeSpaces(licenceInput.value);
+
+    if (type === "renouvellement"){
+      if (!/^[0-9]{6}$/.test(v)){
+        identiteError.style.display = "block";
+        identiteError.textContent = "Renouvellement : le N° de licence est obligatoire et doit contenir 6 chiffres.";
+        return false;
+      }
+    } else {
+      if (v && !/^[0-9]{6}$/.test(v)){
+        identiteError.style.display = "block";
+        identiteError.textContent = "Le N° de licence doit contenir 6 chiffres (ou laisser vide en première adhésion).";
+        return false;
+      }
+    }
+    identiteError.style.display = "none";
+    identiteError.textContent = "";
+    return true;
+  }
+
+  function validateCotisation(){
+    return !!form.querySelector('input[name="cotisation_choice"]:checked');
+  }
+
+  function prefillFromQuery(){
+    const params = new URLSearchParams(window.location.search);
+
+    const setVal = (name, value) => {
+      const el = form.querySelector(`[name="${name}"]`);
+      if (el && typeof value === "string") el.value = value;
+    };
+    const setRadio = (name, value) => {
+      const r = form.querySelector(`input[type="radio"][name="${name}"][value="${value}"]`);
+      if (r) r.checked = true;
+    };
+
+    ["nom","prenom","nom_naissance","date_naissance","commune_naissance","departement_naissance",
+     "adresse","cp","ville","telephone","email","licence","pays_naissance_detail"
+    ].forEach(k => { if (params.has(k)) setVal(k, params.get(k)); });
+
+    if (params.has("pays_naissance")){
+      const v = params.get("pays_naissance");
+      paysSelect.value = (v === "Etranger" || v === "À l’étranger") ? "Etranger" : "France";
+    }
+
+    if (params.has("type_adhesion")) setRadio("type_adhesion", params.get("type_adhesion"));
+    if (params.has("civilite")) setRadio("civilite", params.get("civilite"));
+    if (params.has("vae")) setRadio("vae", params.get("vae"));
+    if (params.has("reglement")) setRadio("reglement", params.get("reglement"));
+
+    if (params.has("pratique")){
+      (params.get("pratique")||"").split(",").map(s=>s.trim()).filter(Boolean).forEach(v=>{
+        const c = form.querySelector(`input[type="checkbox"][name="pratique"][value="${v}"]`);
+        if (c) c.checked = true;
+      });
+    }
+
+    if (params.has("sante_ack")){
+      const v = params.get("sante_ack");
+      const ack = document.getElementById("sante_ack");
+      if (ack) ack.checked = (v === "1" || v === "true" || v === "oui");
+    }
+
+    if (params.has("cotisation_code")){
+      const code = params.get("cotisation_code");
+      const r = form.querySelector(`input[name="cotisation_choice"][data-code="${code}"]`);
+      if (r) r.checked = true;
+    }
+
+    setPaysUI();
+    setLicenceUI();
+    updateCotisation();
+    validateLicence();
+    validatePratique();
+  }
+
+  // listeners
+  paysSelect.addEventListener("change", setPaysUI);
+  form.querySelectorAll('input[name="type_adhesion"]').forEach(r => r.addEventListener("change", () => { setLicenceUI(); validateLicence(); }));
+  licenceInput.addEventListener("input", validateLicence);
+  form.querySelectorAll('input[name="pratique"]').forEach(c => c.addEventListener("change", validatePratique));
+  form.querySelectorAll('input[name="cotisation_choice"]').forEach(el => el.addEventListener("change", updateCotisation));
+
+  ["nom","prenom","nom_naissance","commune_naissance","pays_naissance_detail","ville","adresse"].forEach(name=>{
+    const input = form.querySelector(`[name="${name}"]`);
+    if (!input) return;
+    input.addEventListener("blur", () => input.value = normalizeSpaces(input.value));
+  });
+
+  resetBtn.addEventListener("click", () => {
+    form.reset();
+    identiteError.style.display = "none";
+    pratiqueError.style.display = "none";
+    statusMsg.textContent = "";
+    setPaysUI(); setLicenceUI(); updateCotisation();
+  });
+
+  backBtn.addEventListener("click", () => {
+    confirmPage.classList.add("hidden");
+    formPage.classList.remove("hidden");
+    form.reset();
+    statusMsg.textContent = "";
+    setPaysUI(); setLicenceUI(); updateCotisation();
+  });
+
+  // submit
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    statusMsg.textContent = "";
+
+    updateCotisation();
+    if (!validateCotisation()){
+      alert("Merci de sélectionner une cotisation.");
+      return;
+    }
+    if (!validateLicence() || !validatePratique()) return;
+    if (!form.reportValidity()) return;
+
+    if (!APPS_SCRIPT_URL || APPS_SCRIPT_URL.includes("COLLE_ICI")){
+      alert("⚠️ APPS_SCRIPT_URL n’est pas configurée dans la page.");
+      return;
+    }
+
+    const pratiques = getCheckedValues(form, "pratique");
+    const cot = form.querySelector('input[name="cotisation_choice"]:checked');
+
+    const payload = {
+      year: "2026",
+
+      // Identité
+      type_adhesion: getRadio(form, "type_adhesion"),
+      civilite: getRadio(form, "civilite"),
+      nom: normalizeSpaces(form.nom.value),
+      prenom: normalizeSpaces(form.prenom.value),
+      nom_naissance: normalizeSpaces(form.nom_naissance.value || ""),
+      date_naissance: form.date_naissance.value,
+      commune_naissance: normalizeSpaces(form.commune_naissance.value),
+      departement_naissance: normalizeSpaces(form.departement_naissance?.value || ""),
+      pays_naissance: form.pays_naissance.value,
+      pays_naissance_detail: normalizeSpaces(form.pays_naissance_detail?.value || ""),
+      licence: normalizeSpaces(form.licence?.value || ""),
+
+      // Coordonnées
+      adresse: normalizeSpaces(form.adresse.value),
+      cp: normalizeSpaces(form.cp.value),
+      ville: normalizeSpaces(form.ville.value),
+      telephone: normalizeSpaces(form.telephone.value),
+      email: normalizeSpaces(form.email.value),
+
+      // Sport
+      pratique: pratiques,
+      vae: getRadio(form, "vae"),
+
+      // Cotisation
+      cotisation: {
+        code: cot?.dataset.code || "",
+        libelle: cot?.dataset.libelle || "",
+        montant: cot?.dataset.montant || ""
+      },
+
+      // Paiement
+      reglement: getRadio(form, "reglement"),
+
+      // Attestation
+      sante_ack: !!document.getElementById("sante_ack")?.checked,
+
+      // Signature
+      signature: sig ? { dataUrl: sig.toDataURL(), mime: "image/png" } : null,
+
+      // Meta
+      client_timestamp: new Date().toISOString()
+    };
+
+    // Photo (optional)
+    const photoInput = form.querySelector('input[name="photo_identite"]');
+    if (photoInput && photoInput.files && photoInput.files[0]) {
+      const f = photoInput.files[0];
+      if (f.size > 2.5 * 1024 * 1024) {
+        alert("La photo est trop volumineuse (max ~2,5 Mo).");
+        return;
+      }
+      payload.photo = { dataUrl: await fileToDataUrl(f), mime: f.type };
+    }
+
+    submitBtn.disabled = true;
+    const old = submitBtn.textContent;
+    submitBtn.textContent = "Envoi…";
+    statusMsg.textContent = "Transmission…";
+
+    try {
+      // IMPORTANT: text/plain pour éviter le préflight CORS Apps Script
+      const res = await fetch(APPS_SCRIPT_URL, {
+        method: "POST",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify(payload)
+      });
+
+      const json = await res.json().catch(() => ({}));
+      if (!json.ok) throw new Error(json.message || "Erreur lors de l’envoi.");
+
+      // confirmation page
+      formPage.classList.add("hidden");
+      confirmPage.classList.remove("hidden");
+      confNum.textContent = json.adhesionNumber || "(non fourni)";
+      confPdf.href = json.pdfUrl || "#";
+
+    } catch (err) {
+      console.error(err);
+      statusMsg.textContent = "❌ Échec de l’envoi.";
+      alert("❌ " + (err.message || err));
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = old;
+      statusMsg.textContent = "";
+    }
+  });
+
+  // init
+  setPaysUI();
+  setLicenceUI();
+  updateCotisation();
+  prefillFromQuery();
 })();
 </script>
+
 </body>
 </html>
