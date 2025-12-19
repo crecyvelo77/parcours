@@ -8,17 +8,17 @@
         {
           "label": "Adultes",
           "prix": [
-            {"code":"IND_ADU_MINI","libelle":"Individuel – Adultes – Mini-braquet","montant":96.00},
-            {"code":"IND_ADU_PETIT","libelle":"Individuel – Adultes – Petit-braquet","montant":98.00},
-            {"code":"IND_ADU_GRAND","libelle":"Individuel – Adultes – Grand-braquet","montant":148.00}
+            { "code": "IND_ADU_MINI", "libelle": "Individuel - Adultes - Mini-braquet", "montant": 96.0 },
+            { "code": "IND_ADU_PETIT", "libelle": "Individuel - Adultes - Petit-braquet", "montant": 98.0 },
+            { "code": "IND_ADU_GRAND", "libelle": "Individuel - Adultes - Grand-braquet", "montant": 148.0 }
           ]
         },
         {
-          "label": "Jeunes de 18 à 25 ans",
+          "label": "Jeunes de 18 Ã  25 ans",
           "prix": [
-            {"code":"IND_JEUNE_MINI","libelle":"Individuel – Jeunes 18–25 – Mini-braquet","montant":68.50},
-            {"code":"IND_JEUNE_PETIT","libelle":"Individuel – Jeunes 18–25 – Petit-braquet","montant":70.50},
-            {"code":"IND_JEUNE_GRAND","libelle":"Individuel – Jeunes 18–25 – Grand-braquet","montant":120.50}
+            { "code": "IND_JEUNE_MINI", "libelle": "Individuel - Jeunes 18-25 - Mini-braquet", "montant": 68.5 },
+            { "code": "IND_JEUNE_PETIT", "libelle": "Individuel - Jeunes 18-25 - Petit-braquet", "montant": 70.5 },
+            { "code": "IND_JEUNE_GRAND", "libelle": "Individuel - Jeunes 18-25 - Grand-braquet", "montant": 120.5 }
           ]
         }
       ]
@@ -27,30 +27,30 @@
       "titre": "Famille",
       "lignes": [
         {
-          "label": "2ème adulte",
+          "label": "2Ã¨me adulte",
           "prix": [
-            {"code":"FAM_2_ADU_MINI","libelle":"Famille – 2ème adulte – Mini-braquet","montant":80.50},
-            {"code":"FAM_2_ADU_PETIT","libelle":"Famille – 2ème adulte – Petit-braquet","montant":82.50},
-            {"code":"FAM_2_ADU_GRAND","libelle":"Famille – 2ème adulte – Grand-braquet","montant":132.50}
+            { "code": "FAM_2_ADU_MINI", "libelle": "Famille - 2Ã¨me adulte - Mini-braquet", "montant": 80.5 },
+            { "code": "FAM_2_ADU_PETIT", "libelle": "Famille - 2Ã¨me adulte - Petit-braquet", "montant": 82.5 },
+            { "code": "FAM_2_ADU_GRAND", "libelle": "Famille - 2Ã¨me adulte - Grand-braquet", "montant": 132.5 }
           ]
         },
         {
           "label": "Jeunes -18 ans",
           "prix": [
-            {"code":"FAM_M18_MINI","libelle":"Famille – Jeunes -18 – Mini-braquet","montant":39.00},
-            {"code":"FAM_M18_PETIT","libelle":"Famille – Jeunes -18 – Petit-braquet","montant":40.00},
-            {"code":"FAM_M18_GRAND","libelle":"Famille – Jeunes -18 – Grand-braquet","montant":90.00}
+            { "code": "FAM_M18_MINI", "libelle": "Famille - Jeunes -18 - Mini-braquet", "montant": 39.0 },
+            { "code": "FAM_M18_PETIT", "libelle": "Famille - Jeunes -18 - Petit-braquet", "montant": 40.0 },
+            { "code": "FAM_M18_GRAND", "libelle": "Famille - Jeunes -18 - Grand-braquet", "montant": 90.0 }
           ]
         }
       ]
     },
     {
-      "titre": "Licencié extérieur",
+      "titre": "LicenciÃ© extÃ©rieur",
       "lignes": [
         {
           "label": "Cotisation individuelle",
           "prix": [
-            {"code":"EXT_IND","libelle":"Licencié extérieur – Cotisation individuelle","montant":41.00},
+            { "code": "EXT_IND", "libelle": "LicenciÃ© extÃ©rieur - Cotisation individuelle", "montant": 41.0 },
             null,
             null
           ]
