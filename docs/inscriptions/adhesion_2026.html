@@ -8,7 +8,6 @@
   <style>
     :root{
       --pageW: 210mm;
-      --pageH: 297mm;
       --border:#cfcfcf;
       --muted:#666;
       --bg:#f2f2f2;
@@ -23,18 +22,22 @@
       color:#111;
     }
 
-    /* A4 on screen */
+    /* A4 width on screen, height auto (no truncation) */
     .page{
       width: var(--pageW);
-      min-height: var(--pageH);
-      margin: 20px auto;
+      /* height: 297mm;  <-- removed on purpose */
+      min-height: 297mm; /* optional: keeps the “A4 feel” if content is short */
+      margin: 16px auto;
       background:#fff;
       border: 1px solid #ddd;
       box-shadow: 0 10px 30px rgba(0,0,0,.15);
       border-radius: 10px;
-      padding: 18px;
+      padding: 12mm;
       box-sizing: border-box;
+      position: relative;
+      overflow: visible;
     }
+
     @media (max-width: 980px){
       .page{
         width: calc(100vw - 16px);
@@ -42,25 +45,27 @@
         margin: 0 auto;
         border-radius: 0;
         box-shadow: none;
+        overflow: visible;
+        padding: 14px;
       }
     }
 
-    h1{ font-size: 22px; margin: 0 0 6px; font-weight: 800; }
-    .subtitle{ margin: 0 0 14px; color: var(--muted); font-size: 14px; }
+    h1{ font-size: 18px; margin: 0 0 4px; font-weight: 900; }
+    .subtitle{ margin: 0 0 10px; color: var(--muted); font-size: 12px; }
 
     fieldset{
       border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 14px;
-      margin: 14px 0;
+      border-radius: 9px;
+      padding: 7px;
+      margin: 6px 0;
     }
-    legend{ font-weight: 800; padding: 0 8px; }
+    legend{ font-weight: 500; padding: 0 6px; font-size: 13px; }
 
-    .row2{ display:grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-    .row3{ display:grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+    .row2{ display:grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .row3{ display:grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
     .full{ grid-column: 1 / -1; }
 
-    label{ display:block; font-weight: 800; margin-bottom: 6px; }
+    label{ display:block; font-weight: 500; margin-bottom: 4px; font-size: 12px; }
 
     input[type="text"],
     input[type="date"],
@@ -70,45 +75,118 @@
     select{
       width:100%;
       border:1px solid #d0d0d0;
-      border-radius:10px;
-      padding:10px 12px;
-      font-size:14px;
+      border-radius:9px;
+      padding:7px 10px;
+      font-size:12.5px;
       box-sizing:border-box;
       background:#fff;
     }
 
-    .choices{ display:flex; gap:18px; flex-wrap:wrap; }
-    .pill{ display:inline-flex; align-items:center; gap:8px; font-weight:700; }
+    .choices{ display:flex; gap:12px; flex-wrap:wrap; }
+    .pill{ display:inline-flex; align-items:center; gap:8px; font-weight:400; font-size:12px; }
 
-    .hint{ font-size:12px; color:var(--muted); margin-top:6px; }
-    .error{ font-size:13px; color:var(--err); margin-top:6px; }
+    .hint{ font-size:11px; color:var(--muted); margin-top:4px; line-height:1.25; }
+    .error{ font-size:12px; color:var(--err); margin-top:4px; line-height:1.25; }
 
-    .actions{ display:flex; gap:12px; margin-top:16px; align-items:center; }
-    .btn{ padding:10px 16px; border-radius:10px; border:0; font-weight:800; cursor:pointer; }
+    .actions{
+      display:flex;
+      gap:10px;
+      margin-top:10px;
+      align-items:center;
+      flex-wrap:wrap;
+    }
+    .btn{
+      padding:9px 14px;
+      border-radius:10px;
+      border:0;
+      font-weight:600;
+      cursor:pointer;
+      font-size:13px;
+    }
     .btn-primary{ background:var(--ok); color:#fff; }
     .btn-ghost{ background:#eee; }
-
     .hidden{ display:none !important; }
 
-    table th, table td{ vertical-align: top; }
-    table td .pill{ font-weight:600; }
+    /* Tarifs (compact) */
+    .tarifs-wrap{ overflow:hidden; }
+    .tarifs{
+      width:100%;
+      border-collapse:collapse;
+      font-size:12px;
+      table-layout: fixed;
+    }
+    .tarifs th{
+      text-align:center;
+      font-weight:600;
+      padding:4px 6px;
+      border-bottom:1px solid #d8d8d8;
+      white-space:nowrap;
+    }
+    .tarifs td{
+      padding:4px 6px;
+      border-bottom:1px solid #eee;
+      vertical-align:middle;
+    }
+    .tarifs .grp td{
+      border-bottom:0;
+      padding:7px 6px 3px;
+      font-weight:600;
+      font-style:italic;
+      font-size:12px;
+    }
+    .tarifs .label{
+      font-weight:600;
+      white-space:nowrap;
+      text-align:right;
+      padding-right:10px;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+    .tarifs .price{
+      text-align:center;
+      white-space:nowrap;
+    }
+    .tarifs .radioPrice{
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      font-weight:600;
+      font-size:12px;
+    }
+    .tarifs input[type="radio"]{
+      transform: translateY(1px) scale(0.95);
+    }
+    .tarifs tr:nth-child(even):not(.grp){ background:#fafafa; }
 
     /* signature */
     .sigbox{
       border:1px solid #d0d0d0;
-      border-radius:10px;
-      padding:10px;
+      border-radius:9px;
+      padding:8px;
       background:#fff;
     }
-    canvas{ border:1px dashed #999; border-radius:8px; touch-action: none; }
+    canvas{
+      border:1px dashed #999;
+      border-radius:8px;
+      touch-action: none;
+      display:block;
+    }
 
-    /* Print A4 */
+    /* Print */
     @page{ size:A4; margin:10mm; }
     @media print{
       body{ background:#fff; }
-      .page{ width:auto; min-height:auto; margin:0; padding:0; border:none; box-shadow:none; border-radius:0; }
-      fieldset{ page-break-inside:avoid; }
+      .page{
+        width:auto;
+        min-height:auto;
+        margin:0;
+        padding:0;
+        border:none;
+        box-shadow:none;
+        border-radius:0;
+      }
       .no-print{ display:none !important; }
+      fieldset{ page-break-inside:avoid; }
     }
   </style>
 </head>
@@ -117,9 +195,6 @@
 
 <!-- PAGE FORMULAIRE -->
 <div class="page" id="formPage">
-  <div class="no-print" style="display:flex;justify-content:flex-end;margin-bottom:10px;">
-    <button class="btn btn-ghost" type="button" onclick="window.print()">Imprimer (A4)</button>
-  </div>
 
   <h1>Bulletin d’adhésion 2026 – Crécyvélo 77</h1>
   <p class="subtitle">Merci de compléter les informations ci-dessous. Les champs marqués * sont obligatoires.</p>
@@ -203,6 +278,7 @@
           <input type="text" name="licence" id="licence" inputmode="numeric" pattern="^[0-9]{6}$" placeholder="123456">
           <div class="hint" id="licence_hint">Optionnel en première adhésion. Obligatoire en renouvellement.</div>
         </div>
+        <div></div>
       </div>
 
       <div class="error" id="identite_error" style="display:none;"></div>
@@ -248,7 +324,7 @@
       </div>
       <div class="error" id="pratique_error" style="display:none;"></div>
 
-      <label style="margin-top:12px;">Pratique du VAE *</label>
+      <label style="margin-top:8px;">Pratique du VAE *</label>
       <div class="choices">
         <label class="pill"><input type="radio" name="vae" value="Oui" required> Oui</label>
         <label class="pill"><input type="radio" name="vae" value="Non"> Non</label>
@@ -257,142 +333,72 @@
 
     <!-- 4. Cotisations -->
     <fieldset>
-      <legend>Montant des cotisations (cochez votre choix)</legend>
-      <div class="hint">Choisir une seule ligne. Le montant sera repris sur le PDF.</div>
+      <legend>Montant des cotisations *</legend>
+      <div class="hint">Choisir une seule ligne.</div>
 
-      <div style="overflow:auto;">
-        <table style="width:100%; border-collapse:collapse; margin-top:10px;">
+      <div class="tarifs-wrap">
+        <table class="tarifs">
           <thead>
             <tr>
-              <th style="text-align:left; padding:8px; border-bottom:1px solid #ddd;">Catégorie</th>
-              <th style="text-align:center; padding:8px; border-bottom:1px solid #ddd;">Mini-braquet</th>
-              <th style="text-align:center; padding:8px; border-bottom:1px solid #ddd;">Petit-braquet</th>
-              <th style="text-align:center; padding:8px; border-bottom:1px solid #ddd;">Grand-braquet</th>
+              <th style="text-align:left; width:38%;"> </th>
+              <th style="width:20%;">Mini-braquet</th>
+              <th style="width:20%;">Petit-braquet</th>
+              <th style="width:22%;">Grand-braquet</th>
             </tr>
           </thead>
           <tbody>
-            <tr><td colspan="4" style="padding:8px; font-weight:800;">Individuel</td></tr>
-
+            <tr class="grp"><td colspan="4">Individuel</td></tr>
             <tr>
-              <td style="padding:8px;">Adultes</td>
-              <td style="text-align:center; padding:8px;">
-                <label class="pill"><input type="radio" name="cotisation_choice" required
-                  data-code="IND_ADU_MINI" data-libelle="Individuel – Adultes – Mini-braquet" data-montant="93.50"> 93,50 €</label>
-              </td>
-              <td style="text-align:center; padding:8px;">
-                <label class="pill"><input type="radio" name="cotisation_choice"
-                  data-code="IND_ADU_PETIT" data-libelle="Individuel – Adultes – Petit-braquet" data-montant="95.50"> 95,50 €</label>
-              </td>
-              <td style="text-align:center; padding:8px;">
-                <label class="pill"><input type="radio" name="cotisation_choice"
-                  data-code="IND_ADU_GRAND" data-libelle="Individuel – Adultes – Grand-braquet" data-montant="147.00"> 147,00 €</label>
-              </td>
+              <td class="label">Adultes</td>
+              <td class="price"><label class="radioPrice"><input type="radio" name="cotisation_choice" required data-code="IND_ADU_MINI" data-libelle="Individuel – Adultes – Mini-braquet" data-montant="93.50">93,50 €</label></td>
+              <td class="price"><label class="radioPrice"><input type="radio" name="cotisation_choice" data-code="IND_ADU_PETIT" data-libelle="Individuel – Adultes – Petit-braquet" data-montant="95.50">95,50 €</label></td>
+              <td class="price"><label class="radioPrice"><input type="radio" name="cotisation_choice" data-code="IND_ADU_GRAND" data-libelle="Individuel – Adultes – Grand-braquet" data-montant="147.00">147,00 €</label></td>
+            </tr>
+            <tr>
+              <td class="label">Jeunes de 18 à 25 ans</td>
+              <td class="price"><label class="radioPrice"><input type="radio" name="cotisation_choice" data-code="IND_JEUNE_MINI" data-libelle="Individuel – Jeunes 18–25 – Mini-braquet" data-montant="66.00">66,00 €</label></td>
+              <td class="price"><label class="radioPrice"><input type="radio" name="cotisation_choice" data-code="IND_JEUNE_PETIT" data-libelle="Individuel – Jeunes 18–25 – Petit-braquet" data-montant="68.00">68,00 €</label></td>
+              <td class="price"><label class="radioPrice"><input type="radio" name="cotisation_choice" data-code="IND_JEUNE_GRAND" data-libelle="Individuel – Jeunes 18–25 – Grand-braquet" data-montant="119.50">119,50 €</label></td>
             </tr>
 
+            <tr class="grp"><td colspan="4">Famille</td></tr>
+            <!-- ✅ Removed: "1er adulte" -->
             <tr>
-              <td style="padding:8px;">Jeunes de 18 à 25 ans</td>
-              <td style="text-align:center; padding:8px;">
-                <label class="pill"><input type="radio" name="cotisation_choice"
-                  data-code="IND_JEUNE_MINI" data-libelle="Individuel – Jeunes 18–25 – Mini-braquet" data-montant="66.00"> 66,00 €</label>
-              </td>
-              <td style="text-align:center; padding:8px;">
-                <label class="pill"><input type="radio" name="cotisation_choice"
-                  data-code="IND_JEUNE_PETIT" data-libelle="Individuel – Jeunes 18–25 – Petit-braquet" data-montant="68.00"> 68,00 €</label>
-              </td>
-              <td style="text-align:center; padding:8px;">
-                <label class="pill"><input type="radio" name="cotisation_choice"
-                  data-code="IND_JEUNE_GRAND" data-libelle="Individuel – Jeunes 18–25 – Grand-braquet" data-montant="119.50"> 119,50 €</label>
-              </td>
+              <td class="label">2ème adulte</td>
+              <td class="price"><label class="radioPrice"><input type="radio" name="cotisation_choice" data-code="FAM_2_ADU_MINI" data-libelle="Famille – 2ème adulte – Mini-braquet" data-montant="78.00">78,00 €</label></td>
+              <td class="price"><label class="radioPrice"><input type="radio" name="cotisation_choice" data-code="FAM_2_ADU_PETIT" data-libelle="Famille – 2ème adulte – Petit-braquet" data-montant="80.00">80,00 €</label></td>
+              <td class="price"><label class="radioPrice"><input type="radio" name="cotisation_choice" data-code="FAM_2_ADU_GRAND" data-libelle="Famille – 2ème adulte – Grand-braquet" data-montant="131.50">131,50 €</label></td>
             </tr>
 
-            <tr><td colspan="4" style="padding:8px; font-weight:800;">Famille</td></tr>
+            <!-- ✅ Removed: "Jeunes de 18 à 25 ans" (Famille) -->
 
             <tr>
-              <td style="padding:8px;">1er adulte</td>
-              <td style="text-align:center; padding:8px;">
-                <label class="pill"><input type="radio" name="cotisation_choice"
-                  data-code="FAM_1_ADU_MINI" data-libelle="Famille – 1er adulte – Mini-braquet" data-montant="93.50"> 93,50 €</label>
-              </td>
-              <td style="text-align:center; padding:8px;">
-                <label class="pill"><input type="radio" name="cotisation_choice"
-                  data-code="FAM_1_ADU_PETIT" data-libelle="Famille – 1er adulte – Petit-braquet" data-montant="95.50"> 95,50 €</label>
-              </td>
-              <td style="text-align:center; padding:8px;">
-                <label class="pill"><input type="radio" name="cotisation_choice"
-                  data-code="FAM_1_ADU_GRAND" data-libelle="Famille – 1er adulte – Grand-braquet" data-montant="147.00"> 147,00 €</label>
-              </td>
+              <td class="label">Jeunes -18 ans</td>
+              <td class="price"><label class="radioPrice"><input type="radio" name="cotisation_choice" data-code="FAM_M18_MINI" data-libelle="Famille – Jeunes -18 – Mini-braquet" data-montant="38.00">38,00 €</label></td>
+              <td class="price"><label class="radioPrice"><input type="radio" name="cotisation_choice" data-code="FAM_M18_PETIT" data-libelle="Famille – Jeunes -18 – Petit-braquet" data-montant="39.00">39,00 €</label></td>
+              <td class="price"><label class="radioPrice"><input type="radio" name="cotisation_choice" data-code="FAM_M18_GRAND" data-libelle="Famille – Jeunes -18 – Grand-braquet" data-montant="90.00">90,00 €</label></td>
             </tr>
 
+            <tr class="grp"><td colspan="4">Licencié extérieur</td></tr>
             <tr>
-              <td style="padding:8px;">2ème adulte</td>
-              <td style="text-align:center; padding:8px;">
-                <label class="pill"><input type="radio" name="cotisation_choice"
-                  data-code="FAM_2_ADU_MINI" data-libelle="Famille – 2ème adulte – Mini-braquet" data-montant="78.00"> 78,00 €</label>
-              </td>
-              <td style="text-align:center; padding:8px;">
-                <label class="pill"><input type="radio" name="cotisation_choice"
-                  data-code="FAM_2_ADU_PETIT" data-libelle="Famille – 2ème adulte – Petit-braquet" data-montant="80.00"> 80,00 €</label>
-              </td>
-              <td style="text-align:center; padding:8px;">
-                <label class="pill"><input type="radio" name="cotisation_choice"
-                  data-code="FAM_2_ADU_GRAND" data-libelle="Famille – 2ème adulte – Grand-braquet" data-montant="131.50"> 131,50 €</label>
-              </td>
-            </tr>
-
-            <tr>
-              <td style="padding:8px;">Jeunes de 18 à 25 ans</td>
-              <td style="text-align:center; padding:8px;">
-                <label class="pill"><input type="radio" name="cotisation_choice"
-                  data-code="FAM_JEUNE_MINI" data-libelle="Famille – Jeunes 18–25 – Mini-braquet" data-montant="66.00"> 66,00 €</label>
-              </td>
-              <td style="text-align:center; padding:8px;">
-                <label class="pill"><input type="radio" name="cotisation_choice"
-                  data-code="FAM_JEUNE_PETIT" data-libelle="Famille – Jeunes 18–25 – Petit-braquet" data-montant="68.00"> 68,00 €</label>
-              </td>
-              <td style="text-align:center; padding:8px;">
-                <label class="pill"><input type="radio" name="cotisation_choice"
-                  data-code="FAM_JEUNE_GRAND" data-libelle="Famille – Jeunes 18–25 – Grand-braquet" data-montant="119.50"> 119,50 €</label>
-              </td>
-            </tr>
-
-            <tr>
-              <td style="padding:8px;">Jeunes -18 ans</td>
-              <td style="text-align:center; padding:8px;">
-                <label class="pill"><input type="radio" name="cotisation_choice"
-                  data-code="FAM_M18_MINI" data-libelle="Famille – Jeunes -18 – Mini-braquet" data-montant="38.00"> 38,00 €</label>
-              </td>
-              <td style="text-align:center; padding:8px;">
-                <label class="pill"><input type="radio" name="cotisation_choice"
-                  data-code="FAM_M18_PETIT" data-libelle="Famille – Jeunes -18 – Petit-braquet" data-montant="39.00"> 39,00 €</label>
-              </td>
-              <td style="text-align:center; padding:8px;">
-                <label class="pill"><input type="radio" name="cotisation_choice"
-                  data-code="FAM_M18_GRAND" data-libelle="Famille – Jeunes -18 – Grand-braquet" data-montant="90.00"> 90,00 €</label>
-              </td>
-            </tr>
-
-            <tr><td colspan="4" style="padding:8px; font-weight:800;">Licencié extérieur</td></tr>
-
-            <tr>
-              <td style="padding:8px;">Cotisation individuelle</td>
-              <td style="text-align:center; padding:8px;">
-                <label class="pill"><input type="radio" name="cotisation_choice"
-                  data-code="EXT_IND" data-libelle="Licencié extérieur – Cotisation individuelle" data-montant="41.00"> 41,00 €</label>
-              </td>
-              <td style="text-align:center; padding:8px; color:#888;">—</td>
-              <td style="text-align:center; padding:8px; color:#888;">—</td>
+              <td class="label">Cotisation individuelle</td>
+              <td class="price"><label class="radioPrice"><input type="radio" name="cotisation_choice" data-code="EXT_IND" data-libelle="Licencié extérieur – Cotisation individuelle" data-montant="41.00">41,00 €</label></td>
+              <td class="price" style="color:#999;">—</td>
+              <td class="price" style="color:#999;">—</td>
             </tr>
           </tbody>
         </table>
       </div>
 
-      <div class="row2" style="margin-top:12px;">
+      <div class="row2" style="margin-top:6px;">
         <div>
           <label>Montant sélectionné</label>
-          <input type="text" id="cotisation_affiche" readonly value="">
-          <div class="hint">Le montant est calculé automatiquement.</div>
+          <input type="text" id="cotisation_affiche" readonly>
         </div>
+        <div></div>
       </div>
+
+      <div class="error" id="cotisation_error" style="display:none;"></div>
 
       <input type="hidden" name="cotisation_code" id="cotisation_code">
       <input type="hidden" name="cotisation_libelle" id="cotisation_libelle">
@@ -405,8 +411,9 @@
       <div class="choices">
         <label class="pill"><input type="radio" name="reglement" value="Virement" required> Virement</label>
         <label class="pill"><input type="radio" name="reglement" value="Chèque"> Chèque</label>
-        <label class="pill"><input type="radio" name="reglement" value="CB (TPE)"> CB (avec TPE)</label>
+        <label class="pill"><input type="radio" name="reglement" value="Carte bleue"> Carte bleue</label>
         <label class="pill"><input type="radio" name="reglement" value="Espèces"> Espèces</label>
+        <label class="pill"><input type="radio" name="reglement" value="Licence fin de saison (gratuit)"> Licence fin de saison (gratuit)</label>
       </div>
     </fieldset>
 
@@ -418,36 +425,37 @@
       <div class="hint">Optionnel.</div>
     </fieldset>
 
-    <!-- Signature -->
-    <fieldset>
-      <legend>Signature</legend>
-      <div class="sigbox">
-        <div class="hint" style="margin-top:0;">Signez dans le cadre ci-dessous (doigt/souris).</div>
-        <canvas id="signaturePad" width="520" height="170"></canvas>
-        <div style="margin-top:10px; display:flex; gap:10px;">
-          <button type="button" class="btn btn-ghost" id="clearSig">Effacer</button>
-        </div>
-        <input type="hidden" id="signature_data">
-      </div>
-    </fieldset>
-
     <!-- Attestation -->
     <fieldset>
-      <legend>Attestation</legend>
+      <legend>Attestation *</legend>
       <label class="pill" style="align-items:flex-start;">
         <input type="checkbox" name="sante_ack" id="sante_ack" required>
         <span>
           J'ai bien pris note de ces questions et comprends que certaines situations ou symptômes peuvent entraîner
-          un risque pour ma santé et/ou pour mes performances.
-          J'atteste sur l'honneur avoir déjà pris, ou prendre les dispositions nécessaires selon les recommandations
-          données en cas de réponse positive à l'une des questions des différents questionnaires.
+          un risque pour ma santé et/ou pour mes performances. J'atteste sur l'honneur avoir déjà pris, ou prendre
+          les dispositions nécessaires selon les recommandations données en cas de réponse positive à l'une des
+          questions des différents questionnaires.
         </span>
       </label>
     </fieldset>
 
+    <!-- Signature -->
+    <fieldset>
+      <legend>Signature</legend>
+      <div class="sigbox">
+        <div class="hint" style="margin-top:0;">Signez dans le cadre ci-dessous (doigt/souris). (Optionnel si vide)</div>
+        <canvas id="signaturePad"></canvas>
+        <div style="margin-top:8px; display:flex; gap:10px;">
+          <button type="button" class="btn btn-ghost" id="clearSig">Effacer</button>
+        </div>
+      </div>
+    </fieldset>
+
+    <!-- Actions -->
     <div class="actions">
       <button type="submit" class="btn btn-primary" id="submitBtn">Envoyer le bulletin</button>
       <button type="button" class="btn btn-ghost" id="resetBtn">Réinitialiser</button>
+      <button class="btn btn-ghost no-print" type="button" id="printBtn">Imprimer</button>
       <span class="hint" id="statusMsg" style="margin-left:auto;"></span>
     </div>
 
@@ -455,7 +463,7 @@
 </div>
 
 <!-- PAGE CONFIRMATION -->
-<div class="page hidden" id="confirmPage">
+<div class="page hidden" id="confirmPage" style="min-height:auto;">
   <h1>✅ Inscription enregistrée</h1>
   <p>Merci, votre inscription a bien été prise en compte.</p>
   <p><b>N° d’adhésion :</b> <span id="confNum"></span></p>
@@ -467,7 +475,7 @@
 
 <script>
 /** ========= CONFIG ========= */
-const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxn9aFwg4TjAb0FGADe9YMtJC9Xo2D_eX7gTMGW8MYszfDd6PfqWkjuKGpVJFiE9mbktg/exec";
+const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyFote2couQvnAFGuZ0A84nGnyGBfJtpZlddwLfZ8Qb1PMeWlad8u6H9biiTz8ubIko1w/exec";
 
 /** ========= Helpers ========= */
 function normalizeSpaces(s){ return (s||"").replace(/\s+/g," ").trim(); }
@@ -491,17 +499,30 @@ function fileToDataUrl(file) {
   });
 }
 
-/** ========= Signature pad ========= */
+/** ========= Signature pad (responsive + retina + empty detection) ========= */
 function setupSignaturePad(){
   const canvas = document.getElementById("signaturePad");
   const clearBtn = document.getElementById("clearSig");
   if(!canvas || !clearBtn) return;
 
-  const ctx = canvas.getContext("2d");
-  ctx.lineWidth = 2;
-  ctx.lineCap = "round";
+  canvas.style.width = "100%";
+  canvas.style.maxWidth = "520px";
+  canvas.style.height = "130px";
 
+  const ctx = canvas.getContext("2d");
   let drawing = false;
+
+  function resizeCanvas(){
+    const dpr = window.devicePixelRatio || 1;
+    const rect = canvas.getBoundingClientRect();
+    canvas.width = Math.round(rect.width * dpr);
+    canvas.height = Math.round(rect.height * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.lineWidth = 2;
+    ctx.lineCap = "round";
+  }
+  resizeCanvas();
+  window.addEventListener("resize", resizeCanvas);
 
   function getPos(e){
     const r = canvas.getBoundingClientRect();
@@ -525,8 +546,17 @@ function setupSignaturePad(){
 
   clearBtn.addEventListener("click", () => ctx.clearRect(0,0,canvas.width,canvas.height));
 
+  function isEmpty(){
+    const img = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+    for (let i = 3; i < img.length; i += 4) {
+      if (img[i] !== 0) return false;
+    }
+    return true;
+  }
+
   return {
-    toDataURL: () => canvas.toDataURL("image/png")
+    toDataURL: () => canvas.toDataURL("image/png"),
+    isEmpty
   };
 }
 
@@ -549,6 +579,7 @@ function setupSignaturePad(){
   const licenceHint = document.getElementById("licence_hint");
   const identiteError = document.getElementById("identite_error");
   const pratiqueError = document.getElementById("pratique_error");
+  const cotError = document.getElementById("cotisation_error");
 
   const cotAff = document.getElementById("cotisation_affiche");
   const cotCode = document.getElementById("cotisation_code");
@@ -557,6 +588,7 @@ function setupSignaturePad(){
 
   const resetBtn = document.getElementById("resetBtn");
   const submitBtn = document.getElementById("submitBtn");
+  const printBtn = document.getElementById("printBtn");
   const statusMsg = document.getElementById("statusMsg");
 
   const sig = setupSignaturePad();
@@ -634,7 +666,15 @@ function setupSignaturePad(){
   }
 
   function validateCotisation(){
-    return !!form.querySelector('input[name="cotisation_choice"]:checked');
+    const ok = !!form.querySelector('input[name="cotisation_choice"]:checked');
+    if (!ok){
+      cotError.style.display = "block";
+      cotError.textContent = "Merci de sélectionner une cotisation.";
+      return false;
+    }
+    cotError.style.display = "none";
+    cotError.textContent = "";
+    return true;
   }
 
   function prefillFromQuery(){
@@ -687,6 +727,7 @@ function setupSignaturePad(){
     updateCotisation();
     validateLicence();
     validatePratique();
+    validateCotisation();
   }
 
   // listeners
@@ -694,7 +735,8 @@ function setupSignaturePad(){
   form.querySelectorAll('input[name="type_adhesion"]').forEach(r => r.addEventListener("change", () => { setLicenceUI(); validateLicence(); }));
   licenceInput.addEventListener("input", validateLicence);
   form.querySelectorAll('input[name="pratique"]').forEach(c => c.addEventListener("change", validatePratique));
-  form.querySelectorAll('input[name="cotisation_choice"]').forEach(el => el.addEventListener("change", updateCotisation));
+  form.querySelectorAll('input[name="cotisation_choice"]').forEach(el => el.addEventListener("change", () => { updateCotisation(); validateCotisation(); }));
+  printBtn.addEventListener("click", () => window.print());
 
   ["nom","prenom","nom_naissance","commune_naissance","pays_naissance_detail","ville","adresse"].forEach(name=>{
     const input = form.querySelector(`[name="${name}"]`);
@@ -706,6 +748,7 @@ function setupSignaturePad(){
     form.reset();
     identiteError.style.display = "none";
     pratiqueError.style.display = "none";
+    cotError.style.display = "none";
     statusMsg.textContent = "";
     setPaysUI(); setLicenceUI(); updateCotisation();
   });
@@ -724,17 +767,9 @@ function setupSignaturePad(){
     statusMsg.textContent = "";
 
     updateCotisation();
-    if (!validateCotisation()){
-      alert("Merci de sélectionner une cotisation.");
-      return;
-    }
+    if (!validateCotisation()) return;
     if (!validateLicence() || !validatePratique()) return;
     if (!form.reportValidity()) return;
-
-    if (!APPS_SCRIPT_URL || APPS_SCRIPT_URL.includes("COLLE_ICI")){
-      alert("⚠️ APPS_SCRIPT_URL n’est pas configurée dans la page.");
-      return;
-    }
 
     const pratiques = getCheckedValues(form, "pratique");
     const cot = form.querySelector('input[name="cotisation_choice"]:checked');
@@ -742,7 +777,6 @@ function setupSignaturePad(){
     const payload = {
       year: "2026",
 
-      // Identité
       type_adhesion: getRadio(form, "type_adhesion"),
       civilite: getRadio(form, "civilite"),
       nom: normalizeSpaces(form.nom.value),
@@ -755,38 +789,32 @@ function setupSignaturePad(){
       pays_naissance_detail: normalizeSpaces(form.pays_naissance_detail?.value || ""),
       licence: normalizeSpaces(form.licence?.value || ""),
 
-      // Coordonnées
       adresse: normalizeSpaces(form.adresse.value),
       cp: normalizeSpaces(form.cp.value),
       ville: normalizeSpaces(form.ville.value),
       telephone: normalizeSpaces(form.telephone.value),
       email: normalizeSpaces(form.email.value),
 
-      // Sport
       pratique: pratiques,
       vae: getRadio(form, "vae"),
 
-      // Cotisation
       cotisation: {
         code: cot?.dataset.code || "",
         libelle: cot?.dataset.libelle || "",
         montant: cot?.dataset.montant || ""
       },
 
-      // Paiement
       reglement: getRadio(form, "reglement"),
-
-      // Attestation
       sante_ack: !!document.getElementById("sante_ack")?.checked,
 
-      // Signature
-      signature: sig ? { dataUrl: sig.toDataURL(), mime: "image/png" } : null,
-
-      // Meta
+      signature: null,
       client_timestamp: new Date().toISOString()
     };
 
-    // Photo (optional)
+    if (sig && !sig.isEmpty()) {
+      payload.signature = { dataUrl: sig.toDataURL(), mime: "image/png" };
+    }
+
     const photoInput = form.querySelector('input[name="photo_identite"]');
     if (photoInput && photoInput.files && photoInput.files[0]) {
       const f = photoInput.files[0];
@@ -803,7 +831,6 @@ function setupSignaturePad(){
     statusMsg.textContent = "Transmission…";
 
     try {
-      // IMPORTANT: text/plain pour éviter le préflight CORS Apps Script
       const res = await fetch(APPS_SCRIPT_URL, {
         method: "POST",
         headers: { "Content-Type": "text/plain;charset=utf-8" },
@@ -813,9 +840,8 @@ function setupSignaturePad(){
       const json = await res.json().catch(() => ({}));
       if (!json.ok) throw new Error(json.message || "Erreur lors de l’envoi.");
 
-      // confirmation page
-      formPage.classList.add("hidden");
-      confirmPage.classList.remove("hidden");
+      document.getElementById("formPage").classList.add("hidden");
+      document.getElementById("confirmPage").classList.remove("hidden");
       confNum.textContent = json.adhesionNumber || "(non fourni)";
       confPdf.href = json.pdfUrl || "#";
 
@@ -840,4 +866,3 @@ function setupSignaturePad(){
 
 </body>
 </html>
-
