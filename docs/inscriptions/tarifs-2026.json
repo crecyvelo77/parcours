@@ -8,7 +8,7 @@
         {
           "label": "Adultes",
           "prix": [
-            { "code": "IND_ADU_MINI", "libelle": "Individuel - Adultes - Mini-braquet", "montant": 96.0 },
+            { "code": "IND_ADU_MINI", "libelle": "Individuel - Adultes - Mini-braquet", "montant": 96.00 },
             { "code": "IND_ADU_PETIT", "libelle": "Individuel - Adultes - Petit-braquet", "montant": 98.0 },
             { "code": "IND_ADU_GRAND", "libelle": "Individuel - Adultes - Grand-braquet", "montant": 148.0 }
           ]
@@ -59,3 +59,4 @@
     }
   ]
 }
+
