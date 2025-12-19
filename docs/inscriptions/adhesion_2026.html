@@ -483,9 +483,20 @@ async function loadTarifsAndRender(){
   if (!body) return;
 
   try {
-    const res = await fetch(TARIFS_URL, { cache: "no-store" });
-    if (!res.ok) throw new Error("Impossible de charger " + TARIFS_URL);
-    const data = await res.json();
+    const url = "/parcours/inscriptions/tarifs-2026.json?v=" + Date.now();
+    const res = await fetch(url, { cache: "no-store" });
+
+    const text = await res.text(); // <-- on lit en texte d'abord (plus robuste)
+    if (!res.ok) {
+      throw new Error(`HTTP ${res.status} en chargeant ${url}\nDébut réponse: ${text.slice(0,120)}`);
+    }
+
+    let data;
+    try {
+      data = JSON.parse(text); // <-- parse explicite
+    } catch (e) {
+      throw new Error(`JSON invalide: ${e.message}\nDébut fichier: ${text.slice(0,120)}`);
+    }
 
     // colonnes
     const cols = data.colonnes || ["Mini-braquet","Petit-braquet","Grand-braquet"];
@@ -502,10 +513,9 @@ async function loadTarifsAndRender(){
       html += `<tr class="grp"><td colspan="4">${escapeHtml(g.titre || "")}</td></tr>`;
 
       for (const ligne of (g.lignes || [])) {
-        html += `<tr>
-          <td class="label">${escapeHtml(ligne.label || "")}</td>`;
-
+        html += `<tr><td class="label">${escapeHtml(ligne.label || "")}</td>`;
         const prix = ligne.prix || [];
+
         for (let i = 0; i < 3; i++) {
           const p = prix[i];
           if (!p) {
@@ -514,7 +524,7 @@ async function loadTarifsAndRender(){
           }
           html += `<td class="price">
             <label class="radioPrice">
-              <input type="radio" name="cotisation_choice" ${/* required only once */""}
+              <input type="radio" name="cotisation_choice"
                 data-code="${escapeHtml(p.code)}"
                 data-libelle="${escapeHtml(p.libelle)}"
                 data-montant="${escapeHtml(p.montant)}">
@@ -528,35 +538,35 @@ async function loadTarifsAndRender(){
 
     body.innerHTML = html;
 
-    // rendre "required" sur le premier radio du groupe global
+    // required sur le 1er radio
     const firstRadio = document.querySelector('input[name="cotisation_choice"]');
     if (firstRadio) firstRadio.required = true;
 
-    // rebrancher listener updateCotisation()
+    // listeners
     document.querySelectorAll('input[name="cotisation_choice"]').forEach(el=>{
       el.addEventListener("change", () => {
         updateCotisation();
-        validateCotisation?.();
+        if (typeof validateCotisation === "function") validateCotisation();
       });
     });
 
-    // préselection via URL ?cotisation_code=
+    // préselect via ?cotisation_code=
     const params = new URLSearchParams(window.location.search);
-		if (params.has("cotisation_code")) {
-		  const code = params.get("cotisation_code");
-		  const radios = document.querySelectorAll('input[name="cotisation_choice"]');
-		  radios.forEach(r => {
-		    if (r.dataset.code === code) r.checked = true;
-		  });
-		}
+    if (params.has("cotisation_code")) {
+      const code = params.get("cotisation_code");
+      document.querySelectorAll('input[name="cotisation_choice"]').forEach(r=>{
+        if (r.dataset.code === code) r.checked = true;
+      });
+    }
 
     updateCotisation();
 
   } catch (e) {
     console.error(e);
-    body.innerHTML = `<tr><td colspan="4" style="padding:8px;color:#b00000;">
-      ❌ Tarifs indisponibles. Vérifie le fichier <b>${escapeHtml(TARIFS_URL)}</b>.
-    </td></tr>`;
+    body.innerHTML = `<tr><td colspan="4" style="padding:8px;color:#b00000;white-space:pre-wrap;">
+❌ Tarifs indisponibles.
+${escapeHtml(String(e.message || e))}
+</td></tr>`;
   }
 }
 
