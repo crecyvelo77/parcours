@@ -336,59 +336,21 @@
       <legend>Montant des cotisations *</legend>
       <div class="hint">Choisir une seule ligne.</div>
 
-      <div class="tarifs-wrap">
-        <table class="tarifs">
-          <thead>
-            <tr>
-              <th style="text-align:left; width:38%;"> </th>
-              <th style="width:20%;">Mini-braquet</th>
-              <th style="width:20%;">Petit-braquet</th>
-              <th style="width:22%;">Grand-braquet</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr class="grp"><td colspan="4">Individuel</td></tr>
-            <tr>
-              <td class="label">Adultes</td>
-              <td class="price"><label class="radioPrice"><input type="radio" name="cotisation_choice" required data-code="IND_ADU_MINI" data-libelle="Individuel – Adultes – Mini-braquet" data-montant="93.50">93,50 €</label></td>
-              <td class="price"><label class="radioPrice"><input type="radio" name="cotisation_choice" data-code="IND_ADU_PETIT" data-libelle="Individuel – Adultes – Petit-braquet" data-montant="95.50">95,50 €</label></td>
-              <td class="price"><label class="radioPrice"><input type="radio" name="cotisation_choice" data-code="IND_ADU_GRAND" data-libelle="Individuel – Adultes – Grand-braquet" data-montant="147.00">147,00 €</label></td>
-            </tr>
-            <tr>
-              <td class="label">Jeunes de 18 à 25 ans</td>
-              <td class="price"><label class="radioPrice"><input type="radio" name="cotisation_choice" data-code="IND_JEUNE_MINI" data-libelle="Individuel – Jeunes 18–25 – Mini-braquet" data-montant="66.00">66,00 €</label></td>
-              <td class="price"><label class="radioPrice"><input type="radio" name="cotisation_choice" data-code="IND_JEUNE_PETIT" data-libelle="Individuel – Jeunes 18–25 – Petit-braquet" data-montant="68.00">68,00 €</label></td>
-              <td class="price"><label class="radioPrice"><input type="radio" name="cotisation_choice" data-code="IND_JEUNE_GRAND" data-libelle="Individuel – Jeunes 18–25 – Grand-braquet" data-montant="119.50">119,50 €</label></td>
-            </tr>
-
-            <tr class="grp"><td colspan="4">Famille</td></tr>
-            <!-- ✅ Removed: "1er adulte" -->
-            <tr>
-              <td class="label">2ème adulte</td>
-              <td class="price"><label class="radioPrice"><input type="radio" name="cotisation_choice" data-code="FAM_2_ADU_MINI" data-libelle="Famille – 2ème adulte – Mini-braquet" data-montant="78.00">78,00 €</label></td>
-              <td class="price"><label class="radioPrice"><input type="radio" name="cotisation_choice" data-code="FAM_2_ADU_PETIT" data-libelle="Famille – 2ème adulte – Petit-braquet" data-montant="80.00">80,00 €</label></td>
-              <td class="price"><label class="radioPrice"><input type="radio" name="cotisation_choice" data-code="FAM_2_ADU_GRAND" data-libelle="Famille – 2ème adulte – Grand-braquet" data-montant="131.50">131,50 €</label></td>
-            </tr>
-
-            <!-- ✅ Removed: "Jeunes de 18 à 25 ans" (Famille) -->
-
-            <tr>
-              <td class="label">Jeunes -18 ans</td>
-              <td class="price"><label class="radioPrice"><input type="radio" name="cotisation_choice" data-code="FAM_M18_MINI" data-libelle="Famille – Jeunes -18 – Mini-braquet" data-montant="38.00">38,00 €</label></td>
-              <td class="price"><label class="radioPrice"><input type="radio" name="cotisation_choice" data-code="FAM_M18_PETIT" data-libelle="Famille – Jeunes -18 – Petit-braquet" data-montant="39.00">39,00 €</label></td>
-              <td class="price"><label class="radioPrice"><input type="radio" name="cotisation_choice" data-code="FAM_M18_GRAND" data-libelle="Famille – Jeunes -18 – Grand-braquet" data-montant="90.00">90,00 €</label></td>
-            </tr>
-
-            <tr class="grp"><td colspan="4">Licencié extérieur</td></tr>
-            <tr>
-              <td class="label">Cotisation individuelle</td>
-              <td class="price"><label class="radioPrice"><input type="radio" name="cotisation_choice" data-code="EXT_IND" data-libelle="Licencié extérieur – Cotisation individuelle" data-montant="41.00">41,00 €</label></td>
-              <td class="price" style="color:#999;">—</td>
-              <td class="price" style="color:#999;">—</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+			<div class="tarifs-wrap">
+			  <table class="tarifs">
+			    <thead>
+			      <tr>
+			        <th style="text-align:left; width:38%;"> </th>
+			        <th style="width:20%;" id="col0">Mini-braquet</th>
+			        <th style="width:20%;" id="col1">Petit-braquet</th>
+			        <th style="width:22%;" id="col2">Grand-braquet</th>
+			      </tr>
+			    </thead>
+			    <tbody id="tarifsBody">
+			      <tr><td colspan="4" style="padding:8px;color:#666;">Chargement des tarifs…</td></tr>
+			    </tbody>
+			  </table>
+			</div>
 
       <div class="row2" style="margin-top:6px;">
         <div>
@@ -497,6 +459,103 @@ function fileToDataUrl(file) {
     r.onerror = reject;
     r.readAsDataURL(file);
   });
+}
+
+const TARIFS_URL = "tarifs-2026.json"; // même dossier que l'HTML
+
+function eur(n){
+  const x = Number(n);
+  if (!Number.isFinite(x)) return "—";
+  return x.toFixed(2).replace(".", ",") + " €";
+}
+
+function escapeHtml(s){
+  return String(s ?? "")
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+}
+
+async function loadTarifsAndRender(){
+  const body = document.getElementById("tarifsBody");
+  if (!body) return;
+
+  try {
+    const res = await fetch(TARIFS_URL, { cache: "no-store" });
+    if (!res.ok) throw new Error("Impossible de charger " + TARIFS_URL);
+    const data = await res.json();
+
+    // colonnes
+    const cols = data.colonnes || ["Mini-braquet","Petit-braquet","Grand-braquet"];
+    const c0 = document.getElementById("col0");
+    const c1 = document.getElementById("col1");
+    const c2 = document.getElementById("col2");
+    if (c0) c0.textContent = cols[0] || "Mini-braquet";
+    if (c1) c1.textContent = cols[1] || "Petit-braquet";
+    if (c2) c2.textContent = cols[2] || "Grand-braquet";
+
+    // build rows
+    let html = "";
+    for (const g of (data.groupes || [])) {
+      html += `<tr class="grp"><td colspan="4">${escapeHtml(g.titre || "")}</td></tr>`;
+
+      for (const ligne of (g.lignes || [])) {
+        html += `<tr>
+          <td class="label">${escapeHtml(ligne.label || "")}</td>`;
+
+        const prix = ligne.prix || [];
+        for (let i = 0; i < 3; i++) {
+          const p = prix[i];
+          if (!p) {
+            html += `<td class="price" style="color:#999;">—</td>`;
+            continue;
+          }
+          html += `<td class="price">
+            <label class="radioPrice">
+              <input type="radio" name="cotisation_choice" ${/* required only once */""}
+                data-code="${escapeHtml(p.code)}"
+                data-libelle="${escapeHtml(p.libelle)}"
+                data-montant="${escapeHtml(p.montant)}">
+              ${eur(p.montant)}
+            </label>
+          </td>`;
+        }
+        html += `</tr>`;
+      }
+    }
+
+    body.innerHTML = html;
+
+    // rendre "required" sur le premier radio du groupe global
+    const firstRadio = document.querySelector('input[name="cotisation_choice"]');
+    if (firstRadio) firstRadio.required = true;
+
+    // rebrancher listener updateCotisation()
+    document.querySelectorAll('input[name="cotisation_choice"]').forEach(el=>{
+      el.addEventListener("change", () => {
+        updateCotisation();
+        validateCotisation?.();
+      });
+    });
+
+    // préselection via URL ?cotisation_code=
+    const params = new URLSearchParams(window.location.search);
+    if (params.has("cotisation_code")) {
+      const code = params.get("cotisation_code");
+      const r = document.querySelector(`input[name="cotisation_choice"][data-code="${CSS.escape(code)}"]`);
+      if (r) r.checked = true;
+    }
+
+    updateCotisation();
+
+  } catch (e) {
+    console.error(e);
+    body.innerHTML = `<tr><td colspan="4" style="padding:8px;color:#b00000;">
+      ❌ Tarifs indisponibles. Vérifie le fichier <b>${escapeHtml(TARIFS_URL)}</b>.
+    </td></tr>`;
+  }
 }
 
 /** ========= Signature pad (responsive + retina + empty detection) ========= */
@@ -861,6 +920,7 @@ function setupSignaturePad(){
   setLicenceUI();
   updateCotisation();
   prefillFromQuery();
+  loadTarifsAndRender();
 })();
 </script>
 
