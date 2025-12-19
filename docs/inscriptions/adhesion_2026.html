@@ -47,7 +47,9 @@
         overflow: visible;
         padding: 14px;
       }
-    }
+		  .tarifs{ min-width: 560px; } /* un peu plus large pour respirer */
+		  .tarifs .radioPrice{ gap:4px; font-size:11px; }   
+		}   
 
     h1{ font-size: 18px; margin: 0 0 4px; font-weight: 900; }
     .subtitle{ margin: 0 0 10px; color: var(--muted); font-size: 12px; }
@@ -107,9 +109,13 @@
     .hidden{ display:none !important; }
 
     /* Tarifs (compact) */
-    .tarifs-wrap{ overflow:hidden; }
+		.tarifs-wrap{
+		  overflow:auto;
+		  -webkit-overflow-scrolling: touch;
+		}
     .tarifs{
       width:100%;
+      min-width: 520px;      /* empêche l’écrasement */
       border-collapse:collapse;
       font-size:12px;
       table-layout: fixed;
@@ -193,6 +199,21 @@
       .no-print{ display:none !important; }
       fieldset{ page-break-inside:avoid; }
     }
+    .alert{
+		  border:1px solid #f0b4b4;
+		  background:#fff4f4;
+		  color:#8a0000;
+		  border-radius:10px;
+		  padding:10px 12px;
+		  font-size:12px;
+		  margin: 0 0 10px;
+		}
+
+input:invalid, select:invalid{
+  outline: 2px solid rgba(176,0,0,.25);
+  outline-offset: 2px;
+}
+
   </style>
 </head>
 
@@ -203,7 +224,7 @@
 
   <h1>Bulletin d’adhésion 2026 – Crécyvélo 77</h1>
   <p class="subtitle">Merci de compléter les informations ci-dessous. Les champs marqués * sont obligatoires.</p>
-
+	<div id="formAlert" class="alert hidden" role="alert" aria-live="polite"></div>
   <form id="adhesionForm">
 
     <!-- 1. Identité -->
@@ -916,6 +937,26 @@ function setupSignaturePad(){
     r.addEventListener("change", applyReglementRules)
   );
 
+	function showFormAlert(msg){
+	  const box = document.getElementById("formAlert");
+	  if(!box) return;
+	  box.textContent = msg;
+	  box.classList.remove("hidden");
+	}
+	function hideFormAlert(){
+	  const box = document.getElementById("formAlert");
+	  if(!box) return;
+	  box.classList.add("hidden");
+	  box.textContent = "";
+	}
+	function scrollToFirstInvalid(form){
+	  const first = form.querySelector(":invalid");
+	  if(!first) return;
+	  first.scrollIntoView({ behavior: "smooth", block: "center" });
+	  // petit focus pour afficher clavier + indicateur
+	  setTimeout(() => { try{ first.focus({preventScroll:true}); }catch(e){} }, 250);
+	}
+
   ["nom","prenom","email","telephone"].forEach(n => {
     const el = form.querySelector(`[name="${n}"]`);
     if (el) el.addEventListener("input", updateRecap);
@@ -973,6 +1014,28 @@ function setupSignaturePad(){
     updateCotisation();
     if (!validateCotisation()) return;
     if (!validateLicence() || !validatePratique()) return;
+		hideFormAlert();
+		
+		if (!validateCotisation()) {
+		  showFormAlert("Merci de sélectionner une cotisation (ou choisissez “Licence fin de saison (gratuit)”).");
+		  scrollToFirstInvalid(form);
+		  return;
+		}
+		if (!validateLicence() || !validatePratique()) {
+		  showFormAlert("Merci de compléter les champs obligatoires indiqués.");
+		  scrollToFirstInvalid(form);
+		  return;
+		}
+		
+		// Validité HTML native
+		if (!form.checkValidity()){
+		  showFormAlert("Merci de compléter les champs obligatoires indiqués.");
+		  scrollToFirstInvalid(form);
+		  // Optionnel : déclenche l’UI native si elle existe
+		  form.reportValidity();
+		  return;
+		}
+
     if (!form.reportValidity()) return;
 
     const pratiques = getCheckedValues(form, "pratique");
