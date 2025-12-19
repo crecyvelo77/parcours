@@ -22,10 +22,10 @@
       color:#111;
     }
 
-    /* Desktop / grand écran : A4 (largeur) */
+    /* A4 width on screen, height auto (no truncation) */
     .page{
       width: var(--pageW);
-      min-height: 297mm;
+      min-height: 297mm; /* keeps “A4 feel” if content is short */
       margin: 16px auto;
       background:#fff;
       border: 1px solid #ddd;
@@ -37,19 +37,19 @@
       overflow: visible;
     }
 
-    /* Mobile : fond fluide (saisie confortable) */
     @media (max-width: 980px){
       .page{
-        width: 100%;
-        min-width: 100vw;
-        min-height: auto;
-        margin: 0;
+        width: calc(100vw - 16px);
+        min-height: unset;
+        margin: 0 auto;
         border-radius: 0;
         box-shadow: none;
-        overflow-x: visible;
+        overflow: visible;
         padding: 14px;
       }
-    }
+		  .tarifs{ min-width: 560px; } /* un peu plus large pour respirer */
+		  .tarifs .radioPrice{ gap:4px; font-size:11px; }   
+		}   
 
     h1{ font-size: 18px; margin: 0 0 4px; font-weight: 900; }
     .subtitle{ margin: 0 0 10px; color: var(--muted); font-size: 12px; }
@@ -108,36 +108,17 @@
     .btn-ghost{ background:#eee; }
     .hidden{ display:none !important; }
 
-    /* Bandeau d'erreur (utile sur mobile) */
-    .alert{
-      border:1px solid #f0b4b4;
-      background:#fff4f4;
-      color:#8a0000;
-      border-radius:10px;
-      padding:10px 12px;
-      font-size:12px;
-      margin: 0 0 10px;
-    }
-
-    input:invalid, select:invalid{
-      outline: 2px solid rgba(176,0,0,.25);
-      outline-offset: 2px;
-    }
-
     /* Tarifs (compact) */
-    .tarifs-wrap{
-      max-width: 100%;
-      overflow-x: auto;
-      overflow-y: hidden;
-      -webkit-overflow-scrolling: touch;
-    }
+		.tarifs-wrap{
+		  overflow:auto;
+		  -webkit-overflow-scrolling: touch;
+		}
     .tarifs{
       width:100%;
-      min-width: 560px;     /* lisible sur mobile, scroll dans .tarifs-wrap */
+      min-width: 520px;      /* empêche l’écrasement */
       border-collapse:collapse;
       font-size:12px;
       table-layout: fixed;
-      box-sizing:border-box;
     }
     .tarifs th{
       text-align:center;
@@ -145,15 +126,11 @@
       padding:4px 6px;
       border-bottom:1px solid #d8d8d8;
       white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
     }
     .tarifs td{
       padding:4px 6px;
       border-bottom:1px solid #eee;
       vertical-align:middle;
-      overflow:hidden;
-      text-overflow:ellipsis;
     }
     .tarifs .grp td{
       border-bottom:0;
@@ -180,12 +157,17 @@
       gap:6px;
       font-weight:600;
       font-size:12px;
-      white-space:nowrap;
     }
     .tarifs input[type="radio"]{
       transform: translateY(1px) scale(0.95);
     }
     .tarifs tr:nth-child(even):not(.grp){ background:#fafafa; }
+
+    /* recap */
+    #recapBox{
+      font-size:12px;
+      line-height:1.35;
+    }
 
     /* signature */
     .sigbox{
@@ -201,25 +183,37 @@
       display:block;
     }
 
-    /* Print / PDF : A4 strict */
+    /* Print */
     @page{ size:A4; margin:10mm; }
     @media print{
       body{ background:#fff; }
       .page{
         width:auto;
-        min-width:auto;
         min-height:auto;
         margin:0;
         padding:0;
         border:none;
         box-shadow:none;
         border-radius:0;
-        overflow: visible;
       }
-      .tarifs-wrap{ overflow: visible; } /* pas de scroll en PDF */
       .no-print{ display:none !important; }
       fieldset{ page-break-inside:avoid; }
     }
+    .alert{
+		  border:1px solid #f0b4b4;
+		  background:#fff4f4;
+		  color:#8a0000;
+		  border-radius:10px;
+		  padding:10px 12px;
+		  font-size:12px;
+		  margin: 0 0 10px;
+		}
+
+input:invalid, select:invalid{
+  outline: 2px solid rgba(176,0,0,.25);
+  outline-offset: 2px;
+}
+
   </style>
 </head>
 
@@ -230,10 +224,7 @@
 
   <h1>Bulletin d’adhésion 2026 – Crécyvélo 77</h1>
   <p class="subtitle">Merci de compléter les informations ci-dessous. Les champs marqués * sont obligatoires.</p>
-
-  <!-- Bandeau d'erreur (mobile-friendly) -->
-  <div id="formAlert" class="alert hidden" role="alert" aria-live="polite"></div>
-
+	<div id="formAlert" class="alert hidden" role="alert" aria-live="polite"></div>
   <form id="adhesionForm">
 
     <!-- 1. Identité -->
@@ -369,7 +360,7 @@
     <!-- 4. Cotisations -->
     <fieldset>
       <legend>Montant des cotisations *</legend>
-      <div class="hint">Choisir une seule ligne. Sur mobile : faites glisser la grille droite/gauche si besoin.</div>
+      <div class="hint">Choisir une seule ligne.</div>
 
       <div class="tarifs-wrap">
         <table class="tarifs">
@@ -412,6 +403,7 @@
         <label class="pill"><input type="radio" name="reglement" value="Espèces"> Espèces</label>
         <label class="pill"><input type="radio" name="reglement" value="Licence fin de saison (gratuit)"> Licence fin de saison (gratuit)</label>
       </div>
+      <div class="hint">Si “Licence fin de saison (gratuit)” est choisi, la cotisation est automatiquement forcée à 0 €.</div>
     </fieldset>
 
     <!-- Photo -->
@@ -446,6 +438,12 @@
           <button type="button" class="btn btn-ghost" id="clearSig">Effacer</button>
         </div>
       </div>
+    </fieldset>
+
+    <!-- Récap -->
+    <fieldset>
+      <legend>Récapitulatif</legend>
+      <div id="recapBox" class="hint">—</div>
     </fieldset>
 
     <!-- Actions -->
@@ -496,30 +494,12 @@ function fileToDataUrl(file) {
   });
 }
 
-function showFormAlert(msg){
-  const box = document.getElementById("formAlert");
-  if(!box) return;
-  box.textContent = msg;
-  box.classList.remove("hidden");
-}
-function hideFormAlert(){
-  const box = document.getElementById("formAlert");
-  if(!box) return;
-  box.classList.add("hidden");
-  box.textContent = "";
-}
-function scrollToFirstInvalid(form){
-  const first = form.querySelector(":invalid");
-  if(!first) return;
-  first.scrollIntoView({ behavior: "smooth", block: "center" });
-  setTimeout(() => { try{ first.focus({preventScroll:true}); }catch(e){} }, 250);
-}
-
 function eur(n){
   const x = Number(n);
   if (!Number.isFinite(x)) return "—";
   return x.toFixed(2).replace(".", ",") + " €";
 }
+
 function escapeHtml(s){
   return String(s ?? "")
     .replaceAll("&","&amp;")
@@ -529,7 +509,7 @@ function escapeHtml(s){
     .replaceAll("'","&#039;");
 }
 
-/** ========= Tarifs (JSON -> table) ========= */
+/** ========= Tarifs JSON ========= */
 async function loadTarifsAndRender(onChangeCotisation){
   const body = document.getElementById("tarifsBody");
   if (!body) return;
@@ -539,11 +519,16 @@ async function loadTarifsAndRender(onChangeCotisation){
     const res = await fetch(url, { cache: "no-store" });
 
     const text = await res.text();
-    if (!res.ok) throw new Error(`HTTP ${res.status} en chargeant ${url}\nDébut réponse: ${text.slice(0,120)}`);
+    if (!res.ok) {
+      throw new Error(`HTTP ${res.status} en chargeant ${url}\nDébut réponse: ${text.slice(0,120)}`);
+    }
 
     let data;
-    try { data = JSON.parse(text); }
-    catch (e){ throw new Error(`JSON invalide: ${e.message}\nDébut fichier: ${text.slice(0,120)}`); }
+    try {
+      data = JSON.parse(text);
+    } catch (e) {
+      throw new Error(`JSON invalide: ${e.message}\nDébut fichier: ${text.slice(0,120)}`);
+    }
 
     const cols = data.colonnes || ["Mini-braquet","Petit-braquet","Grand-braquet"];
     const c0 = document.getElementById("col0");
@@ -563,7 +548,10 @@ async function loadTarifsAndRender(onChangeCotisation){
 
         for (let i = 0; i < 3; i++) {
           const p = prix[i];
-          if (!p) { html += `<td class="price" style="color:#999;">—</td>`; continue; }
+          if (!p) {
+            html += `<td class="price" style="color:#999;">—</td>`;
+            continue;
+          }
           html += `<td class="price">
             <label class="radioPrice">
               <input type="radio" name="cotisation_choice"
@@ -580,15 +568,18 @@ async function loadTarifsAndRender(onChangeCotisation){
 
     body.innerHTML = html;
 
+    // required only once
     const firstRadio = document.querySelector('input[name="cotisation_choice"]');
     if (firstRadio) firstRadio.required = true;
 
+    // listeners for dynamic radios
     document.querySelectorAll('input[name="cotisation_choice"]').forEach(el=>{
       el.addEventListener("change", () => {
         if (typeof onChangeCotisation === "function") onChangeCotisation();
       });
     });
 
+    // preselect via ?cotisation_code=
     const params = new URLSearchParams(window.location.search);
     if (params.has("cotisation_code")) {
       const code = params.get("cotisation_code");
@@ -728,6 +719,10 @@ function setupSignaturePad(){
   function updateCotisation(){
     const r = form.querySelector('input[name="cotisation_choice"]:checked');
     if(!r){
+      // ne vide pas si on est en “gratuit” (c’est forcé via applyReglementRules)
+      const isFree = (getRadio(form, "reglement") === "Licence fin de saison (gratuit)");
+      if (isFree) return;
+
       cotAff.value = "";
       cotCode.value = "";
       cotLib.value = "";
@@ -775,9 +770,13 @@ function setupSignaturePad(){
   }
 
   function validateCotisation(){
-    const reg = getRadio(form, "reglement");
-    const isFree = (reg === "Licence fin de saison (gratuit)");
-    if (isFree) return true;
+    // si “gratuit”, on accepte même sans radio de cotisation
+    const isFree = (getRadio(form, "reglement") === "Licence fin de saison (gratuit)");
+    if (isFree){
+      cotError.style.display = "none";
+      cotError.textContent = "";
+      return true;
+    }
 
     const ok = !!form.querySelector('input[name="cotisation_choice"]:checked');
     if (!ok){
@@ -790,9 +789,33 @@ function setupSignaturePad(){
     return true;
   }
 
+  function updateRecap(){
+    const recap = document.getElementById("recapBox");
+    if (!recap) return;
+
+    const pratiques = getCheckedValues(form, "pratique");
+    const reg = getRadio(form, "reglement");
+    const cotTxt = cotAff.value || "(non sélectionnée)";
+
+    recap.innerHTML = `
+<b>Identité :</b> ${escapeHtml(form.nom.value || "—")} ${escapeHtml(form.prenom.value || "—")}
+&nbsp;•&nbsp; <b>${escapeHtml(getRadio(form,"type_adhesion") || "—")}</b>
+&nbsp;•&nbsp; <b>${escapeHtml(getRadio(form,"civilite") || "—")}</b><br>
+
+<b>Contact :</b> ${escapeHtml(form.email.value || "—")} &nbsp;•&nbsp; ${escapeHtml(form.telephone.value || "—")}<br>
+
+<b>Sport :</b> ${escapeHtml(pratiques.join(", ") || "—")}
+&nbsp;•&nbsp; VAE: <b>${escapeHtml(getRadio(form,"vae") || "—")}</b><br>
+
+<b>Cotisation :</b> <b>${escapeHtml(cotTxt)}</b><br>
+<b>Règlement :</b> <b>${escapeHtml(reg || "—")}</b>
+`.trim();
+  }
+
   function cotisationChanged(){
     updateCotisation();
     validateCotisation();
+    updateRecap();
   }
 
   function setTarifsEnabled(enabled){
@@ -806,147 +829,289 @@ function setupSignaturePad(){
     const isFree = (reg === "Licence fin de saison (gratuit)");
 
     if (isFree){
+      // Désactive la grille + vide sélection éventuelle
       setTarifsEnabled(false);
       document.querySelectorAll('input[name="cotisation_choice"]').forEach(r => r.checked = false);
 
+      // Force champs cachés (utiles pour PDF côté Apps Script)
       cotCode.value = "FREE_LIC_FIN_SAISON";
       cotLib.value = "Licence fin de saison (gratuit)";
       cotMont.value = "0";
-      cotAff.value = "Licence fin de saison (gratuit) — 0,00 €";
 
-      cotError.style.display = "none";
-      cotError.textContent = "";
+      // Affichage
+      cotAff.value = "Licence fin de saison (gratuit) — 0,00 €";
     } else {
       setTarifsEnabled(true);
       updateCotisation();
     }
-  }
 
-  function prefillFromQuery(){
-    const params = new URLSearchParams(window.location.search);
-
-    const setVal = (name, value) => {
-      const el = form.querySelector(`[name="${name}"]`);
-      if (el && typeof value === "string") el.value = value;
-    };
-    const setRadio = (name, value) => {
-      const r = form.querySelector(`input[type="radio"][name="${name}"][value="${value}"]`);
-      if (r) r.checked = true;
-    };
-
-    ["nom","prenom","nom_naissance","date_naissance","commune_naissance","departement_naissance",
-     "adresse","cp","ville","telephone","email","licence","pays_naissance_detail"
-    ].forEach(k => { if (params.has(k)) setVal(k, params.get(k)); });
-
-    if (params.has("pays_naissance")){
-      const v = params.get("pays_naissance");
-      paysSelect.value = (v === "Etranger" || v === "À l’étranger") ? "Etranger" : "France";
-    }
-
-    if (params.has("type_adhesion")) setRadio("type_adhesion", params.get("type_adhesion"));
-    if (params.has("civilite")) setRadio("civilite", params.get("civilite"));
-    if (params.has("vae")) setRadio("vae", params.get("vae"));
-    if (params.has("reglement")) setRadio("reglement", params.get("reglement"));
-
-    if (params.has("pratique")){
-      (params.get("pratique")||"").split(",").map(s=>s.trim()).filter(Boolean).forEach(v=>{
-        const c = form.querySelector(`input[type="checkbox"][name="pratique"][value="${v}"]`);
-        if (c) c.checked = true;
-      });
-    }
-
-    if (params.has("sante_ack")){
-      const v = params.get("sante_ack");
-      const ack = document.getElementById("sante_ack");
-      if (ack) ack.checked = (v === "1" || v === "true" || v === "oui");
-    }
-
-    if (params.has("cotisation_code")){
-      const code = params.get("cotisation_code");
-      const r = form.querySelector(`input[name="cotisation_choice"][data-code="${code}"]`);
-      if (r) r.checked = true;
-    }
-
-    setPaysUI();
-    setLicenceUI();
-    applyReglementRules();
-    cotisationChanged();
-    validateLicence();
-    validatePratique();
     validateCotisation();
+    updateRecap();
   }
 
-  // listeners
-  paysSelect.addEventListener("change", setPaysUI);
-  licenceInput.addEventListener("input", validateLicence);
-  form.querySelectorAll('input[name="type_adhesion"]').forEach(r => r.addEventListener("change", setLicenceUI));
-  form.querySelectorAll('input[name="pratique"]').forEach(c => c.addEventListener("change", validatePratique));
-  printBtn.addEventListener("click", () => window.print());
+  function getCotisationForPayload(){
+    const isFree = (getRadio(form, "reglement") === "Licence fin de saison (gratuit)");
+    if (isFree){
+      return {
+        code: cotCode.value || "FREE_LIC_FIN_SAISON",
+        libelle: cotLib.value || "Licence fin de saison (gratuit)",
+        montant: cotMont.value || "0"
+      };
+    }
+
+    const cot = form.querySelector('input[name="cotisation_choice"]:checked');
+    return {
+      code: cot?.dataset.code || "",
+      libelle: cot?.dataset.libelle || "",
+      montant: cot?.dataset.montant || ""
+    };
+  }
+
+	function prefillFromQuery(form){
+	  const params = new URLSearchParams(window.location.search);
+
+	  const norm = (s) => (s || "").toString().trim();
+
+	  const setVal = (name, value) => {
+		const el = form.querySelector(`[name="${name}"]`);
+		if (el && typeof value === "string") el.value = value;
+	  };
+
+	  const setRadio = (name, value) => {
+		if (!value) return;
+		// Tolérance casse/accents simples
+		const v = value.toString();
+
+		// essai exact d’abord
+		let r = form.querySelector(`input[type="radio"][name="${name}"][value="${CSS.escape(v)}"]`);
+		if (r) { r.checked = true; return; }
+
+		// sinon essai "normalisé"
+		const target = v.toLowerCase();
+		const radios = Array.from(form.querySelectorAll(`input[type="radio"][name="${name}"]`));
+		r = radios.find(x => (x.value || "").toLowerCase() === target);
+		if (r) r.checked = true;
+	  };
+
+	  const setCheckbox = (name, value, checked=true) => {
+		const c = form.querySelector(`input[type="checkbox"][name="${name}"][value="${CSS.escape(value)}"]`);
+		if (c) c.checked = checked;
+	  };
+
+	  // --- 0) Forcer Renouvellement si demandé (ou si licence présente) ---
+	  // Tu peux mettre ?renouvellement=1 ou ?type_adhesion=renouvellement
+	  const forceRenouv =
+		params.get("type_adhesion")?.toLowerCase() === "renouvellement" ||
+		["1","true","oui","yes"].includes((params.get("renouvellement")||"").toLowerCase()) ||
+		params.has("licence");
+
+	  if (forceRenouv) setRadio("type_adhesion", "renouvellement");
+
+	  // --- 1) Civilité ---
+	  // Accepte: civilite=Madame/Monsieur ou civilite=madame/monsieur
+	  // ou civilite=F/M
+	  if (params.has("civilite")){
+		const c = params.get("civilite") || "";
+		const cl = c.toLowerCase();
+		if (cl === "m" || cl === "monsieur" || cl === "mr") setRadio("civilite", "Monsieur");
+		else if (cl === "f" || cl === "madame" || cl === "mme") setRadio("civilite", "Madame");
+		else setRadio("civilite", c);
+	  }
+
+	  // --- 2) Identité / naissance ---
+	  ["nom","prenom","date_naissance","commune_naissance","departement_naissance","licence","nom_naissance"]
+		.forEach(k => { if (params.has(k)) setVal(k, params.get(k)); });
+
+	  // Pays: France / Etranger (+ pays_naissance_detail)
+	  if (params.has("pays_naissance")){
+		const v = (params.get("pays_naissance") || "").toLowerCase();
+		const sel = form.querySelector(`[name="pays_naissance"]`);
+		if (sel){
+		  sel.value = (v === "etranger" || v === "à l’étranger" || v === "a l'etranger" || v === "international")
+			? "Etranger"
+			: "France";
+		}
+	  }
+	  if (params.has("pays_naissance_detail")) setVal("pays_naissance_detail", params.get("pays_naissance_detail"));
+
+	  // --- 3) Coordonnées ---
+	  ["adresse","cp","ville","telephone","email"]
+		.forEach(k => { if (params.has(k)) setVal(k, params.get(k)); });
+
+	  // --- 4) Pratique (checkbox) ---
+	  // pratique=Route,VTT,Gravel (séparateur virgule)
+	  if (params.has("pratique")){
+		// reset d’abord (si besoin)
+		form.querySelectorAll(`input[type="checkbox"][name="pratique"]`).forEach(c => c.checked = false);
+
+		(params.get("pratique") || "")
+		  .split(",")
+		  .map(s => s.trim())
+		  .filter(Boolean)
+		  .forEach(v => {
+			// tolérance casse
+			const vv = v.toLowerCase();
+			if (vv === "route") setCheckbox("pratique", "Route", true);
+			else if (vv === "vtt") setCheckbox("pratique", "VTT", true);
+			else if (vv === "gravel") setCheckbox("pratique", "Gravel", true);
+			else setCheckbox("pratique", v, true);
+		  });
+	  }
+
+	  // --- 5) VAE (radio) ---
+	  // vae=Oui/Non ou 1/0
+	  if (params.has("vae")){
+		const v = (params.get("vae") || "").toLowerCase();
+		if (["1","true","oui","yes"].includes(v)) setRadio("vae", "Oui");
+		else if (["0","false","non","no"].includes(v)) setRadio("vae", "Non");
+		else setRadio("vae", params.get("vae"));
+	  }
+
+	  // --- 6) Mode de règlement ---
+	  // reglement=Licence fin de saison (gratuit) ou reglement=licence_fin_saison
+	  if (params.has("reglement")){
+		const r = params.get("reglement") || "";
+		const rl = r.toLowerCase();
+		if (rl.includes("licence") || rl === "licence_fin_saison" || rl === "free") {
+		  setRadio("reglement", "Licence fin de saison (gratuit)");
+		} else {
+		  setRadio("reglement", r);
+		}
+	  }
+
+	  // --- 7) Attestation (si tu veux la pré-cocher, optionnel) ---
+	  // sante_ack=1
+	  if (params.has("sante_ack")){
+		const ack = form.querySelector("#sante_ack");
+		const v = (params.get("sante_ack") || "").toLowerCase();
+		if (ack) ack.checked = (v === "1" || v === "true" || v === "oui");
+	  }
+
+	  // --- 8) Cotisation (optionnel) ---
+	  // si tu fournis ?cotisation_code=...
+	  if (params.has("cotisation_code")){
+		const code = params.get("cotisation_code");
+		const radio = form.querySelector(`input[name="cotisation_choice"][data-code="${CSS.escape(code)}"]`);
+		if (radio) radio.checked = true;
+	  }
+	}
+
+  // listeners (généraux)
+  paysSelect.addEventListener("change", () => { setPaysUI(); updateRecap(); });
+  form.querySelectorAll('input[name="type_adhesion"]').forEach(r => r.addEventListener("change", () => { setLicenceUI(); validateLicence(); updateRecap(); }));
+  form.querySelectorAll('input[name="civilite"]').forEach(r => r.addEventListener("change", updateRecap));
+
+  licenceInput.addEventListener("input", () => { validateLicence(); updateRecap(); });
+
+  form.querySelectorAll('input[name="pratique"]').forEach(c => c.addEventListener("change", () => { validatePratique(); updateRecap(); }));
+  form.querySelectorAll('input[name="vae"]').forEach(r => r.addEventListener("change", updateRecap));
 
   form.querySelectorAll('input[name="reglement"]').forEach(r =>
-    r.addEventListener("change", () => {
-      applyReglementRules();
-      validateCotisation();
-    })
+    r.addEventListener("change", applyReglementRules)
   );
+
+	function showFormAlert(msg){
+	  const box = document.getElementById("formAlert");
+	  if(!box) return;
+	  box.textContent = msg;
+	  box.classList.remove("hidden");
+	}
+	function hideFormAlert(){
+	  const box = document.getElementById("formAlert");
+	  if(!box) return;
+	  box.classList.add("hidden");
+	  box.textContent = "";
+	}
+	function scrollToFirstInvalid(form){
+	  const first = form.querySelector(":invalid");
+	  if(!first) return;
+	  first.scrollIntoView({ behavior: "smooth", block: "center" });
+	  // petit focus pour afficher clavier + indicateur
+	  setTimeout(() => { try{ first.focus({preventScroll:true}); }catch(e){} }, 250);
+	}
+
+  ["nom","prenom","email","telephone"].forEach(n => {
+    const el = form.querySelector(`[name="${n}"]`);
+    if (el) el.addEventListener("input", updateRecap);
+  });
 
   ["nom","prenom","nom_naissance","commune_naissance","pays_naissance_detail","ville","adresse"].forEach(name=>{
     const input = form.querySelector(`[name="${name}"]`);
     if (!input) return;
-    input.addEventListener("blur", () => input.value = normalizeSpaces(input.value));
+    input.addEventListener("blur", () => { input.value = normalizeSpaces(input.value); updateRecap(); });
   });
+
+  printBtn.addEventListener("click", () => window.print());
 
   resetBtn.addEventListener("click", () => {
     form.reset();
-    hideFormAlert();
     identiteError.style.display = "none";
     pratiqueError.style.display = "none";
     cotError.style.display = "none";
     statusMsg.textContent = "";
-    setPaysUI(); setLicenceUI(); updateCotisation();
+    setPaysUI();
+    setLicenceUI();
+    // tarifs radios seront là → on les réactive
+    setTarifsEnabled(true);
+    cotAff.value = "";
+    cotCode.value = "";
+    cotLib.value = "";
+    cotMont.value = "";
+    updateRecap();
   });
 
   backBtn.addEventListener("click", () => {
     confirmPage.classList.add("hidden");
     formPage.classList.remove("hidden");
     form.reset();
-    hideFormAlert();
     statusMsg.textContent = "";
-    setPaysUI(); setLicenceUI(); updateCotisation();
+    setPaysUI();
+    setLicenceUI();
+    setTarifsEnabled(true);
+    cotAff.value = "";
+    cotCode.value = "";
+    cotLib.value = "";
+    cotMont.value = "";
+    updateRecap();
   });
 
   // submit
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
     statusMsg.textContent = "";
-    hideFormAlert();
 
+    // Applique règles (gratuit etc.) avant validations/payload
     applyReglementRules();
-    updateCotisation();
 
-    if (!validateCotisation()){
-      showFormAlert("Merci de sélectionner une cotisation (ou choisissez “Licence fin de saison (gratuit)”).");
-      scrollToFirstInvalid(form);
-      return;
-    }
-    if (!validateLicence() || !validatePratique()){
-      showFormAlert("Merci de compléter les champs obligatoires indiqués.");
-      scrollToFirstInvalid(form);
-      return;
-    }
-    if (!form.checkValidity()){
-      showFormAlert("Merci de compléter les champs obligatoires indiqués.");
-      scrollToFirstInvalid(form);
-      form.reportValidity();
-      return;
-    }
+    // Validations
+    updateCotisation();
+    if (!validateCotisation()) return;
+    if (!validateLicence() || !validatePratique()) return;
+		hideFormAlert();
+		
+		if (!validateCotisation()) {
+		  showFormAlert("Merci de sélectionner une cotisation (ou choisissez “Licence fin de saison (gratuit)”).");
+		  scrollToFirstInvalid(form);
+		  return;
+		}
+		if (!validateLicence() || !validatePratique()) {
+		  showFormAlert("Merci de compléter les champs obligatoires indiqués.");
+		  scrollToFirstInvalid(form);
+		  return;
+		}
+		
+		// Validité HTML native
+		if (!form.checkValidity()){
+		  showFormAlert("Merci de compléter les champs obligatoires indiqués.");
+		  scrollToFirstInvalid(form);
+		  // Optionnel : déclenche l’UI native si elle existe
+		  form.reportValidity();
+		  return;
+		}
+
+    if (!form.reportValidity()) return;
 
     const pratiques = getCheckedValues(form, "pratique");
-    const cot = form.querySelector('input[name="cotisation_choice"]:checked');
-
-    // si gratuit : on force une cotisation 0€
-    const reg = getRadio(form, "reglement");
-    const isFree = (reg === "Licence fin de saison (gratuit)");
 
     const payload = {
       year: "2026",
@@ -972,17 +1137,10 @@ function setupSignaturePad(){
       pratique: pratiques,
       vae: getRadio(form, "vae"),
 
-      cotisation: isFree ? {
-        code: "FREE_LIC_FIN_SAISON",
-        libelle: "Licence fin de saison (gratuit)",
-        montant: "0"
-      } : {
-        code: cot?.dataset.code || "",
-        libelle: cot?.dataset.libelle || "",
-        montant: cot?.dataset.montant || ""
-      },
+      // IMPORTANT pour le PDF : toujours cohérent (radio ou gratuit forcé)
+      cotisation: getCotisationForPayload(),
 
-      reglement: reg,
+      reglement: getRadio(form, "reglement"),
       sante_ack: !!document.getElementById("sante_ack")?.checked,
 
       signature: null,
@@ -997,7 +1155,7 @@ function setupSignaturePad(){
     if (photoInput && photoInput.files && photoInput.files[0]) {
       const f = photoInput.files[0];
       if (f.size > 2.5 * 1024 * 1024) {
-        showFormAlert("La photo est trop volumineuse (max ~2,5 Mo).");
+        alert("La photo est trop volumineuse (max ~2,5 Mo).");
         return;
       }
       payload.photo = { dataUrl: await fileToDataUrl(f), mime: f.type };
@@ -1026,8 +1184,7 @@ function setupSignaturePad(){
     } catch (err) {
       console.error(err);
       statusMsg.textContent = "❌ Échec de l’envoi.";
-      showFormAlert("❌ " + (err.message || err));
-      scrollToFirstInvalid(form);
+      alert("❌ " + (err.message || err));
     } finally {
       submitBtn.disabled = false;
       submitBtn.textContent = old;
@@ -1039,12 +1196,22 @@ function setupSignaturePad(){
   setPaysUI();
   setLicenceUI();
 
-  loadTarifsAndRender(cotisationChanged).then(() => {
-    prefillFromQuery();
-    cotisationChanged();
-    applyReglementRules();
-  });
+  // 1) charger les tarifs (crée les radios), puis appliquer sélection + affichage
+	loadTarifsAndRender(cotisationChanged).then(() => {
+	  prefillFromQuery(form);
 
+	  // applique tes règles de règlement après préfill
+	  if (typeof applyReglementRules === "function") applyReglementRules();
+
+	  // puis mise à jour affichage + validations
+	  updateCotisation();
+	  validateLicence();
+	  validatePratique();
+	  validateCotisation();
+	});
+
+  // recap initial (avant tarifs)
+  updateRecap();
 })();
 </script>
 
