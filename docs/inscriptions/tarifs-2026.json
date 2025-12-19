@@ -1,0 +1,61 @@
+{
+  "annee": "2026",
+  "colonnes": ["Mini-braquet", "Petit-braquet", "Grand-braquet"],
+  "groupes": [
+    {
+      "titre": "Individuel",
+      "lignes": [
+        {
+          "label": "Adultes",
+          "prix": [
+            {"code":"IND_ADU_MINI","libelle":"Individuel – Adultes – Mini-braquet","montant":93.50},
+            {"code":"IND_ADU_PETIT","libelle":"Individuel – Adultes – Petit-braquet","montant":95.50},
+            {"code":"IND_ADU_GRAND","libelle":"Individuel – Adultes – Grand-braquet","montant":147.00}
+          ]
+        },
+        {
+          "label": "Jeunes de 18 à 25 ans",
+          "prix": [
+            {"code":"IND_JEUNE_MINI","libelle":"Individuel – Jeunes 18–25 – Mini-braquet","montant":66.00},
+            {"code":"IND_JEUNE_PETIT","libelle":"Individuel – Jeunes 18–25 – Petit-braquet","montant":68.00},
+            {"code":"IND_JEUNE_GRAND","libelle":"Individuel – Jeunes 18–25 – Grand-braquet","montant":119.50}
+          ]
+        }
+      ]
+    },
+    {
+      "titre": "Famille",
+      "lignes": [
+        {
+          "label": "2ème adulte",
+          "prix": [
+            {"code":"FAM_2_ADU_MINI","libelle":"Famille – 2ème adulte – Mini-braquet","montant":78.00},
+            {"code":"FAM_2_ADU_PETIT","libelle":"Famille – 2ème adulte – Petit-braquet","montant":80.00},
+            {"code":"FAM_2_ADU_GRAND","libelle":"Famille – 2ème adulte – Grand-braquet","montant":131.50}
+          ]
+        },
+        {
+          "label": "Jeunes -18 ans",
+          "prix": [
+            {"code":"FAM_M18_MINI","libelle":"Famille – Jeunes -18 – Mini-braquet","montant":38.00},
+            {"code":"FAM_M18_PETIT","libelle":"Famille – Jeunes -18 – Petit-braquet","montant":39.00},
+            {"code":"FAM_M18_GRAND","libelle":"Famille – Jeunes -18 – Grand-braquet","montant":90.00}
+          ]
+        }
+      ]
+    },
+    {
+      "titre": "Licencié extérieur",
+      "lignes": [
+        {
+          "label": "Cotisation individuelle",
+          "prix": [
+            {"code":"EXT_IND","libelle":"Licencié extérieur – Cotisation individuelle","montant":41.00},
+            null,
+            null
+          ]
+        }
+      ]
+    }
+  ]
+}
