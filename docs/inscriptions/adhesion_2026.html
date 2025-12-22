@@ -183,34 +183,33 @@
       display:block;
     }
 
-    /* Print */
+		/* Print */
 		@page { size: A4; margin: 10mm; }
 		
 		@media print{
 		  html, body { margin:0 !important; padding:0 !important; background:#fff !important; }
 		
-		  /* Le conteneur prend toute la zone imprimable */
 		  .page{
-		    width: 100% !important;
-		    min-height: auto !important;
+		    width: 100% !important;          /* ✅ remplit la largeur imprimable */
 		    margin: 0 !important;
+		    padding: 0 !important;           /* ✅ pas de double marge (gérée par @page) */
 		    border: none !important;
 		    box-shadow: none !important;
 		    border-radius: 0 !important;
-		
-		    /* IMPORTANT : garder une “mise en page A4” lisible */
-		    padding: 0 !important;      /* on laisse @page gérer les marges */
 		    box-sizing: border-box !important;
 		  }
 		
-		  /* Optionnel mais souvent utile: éviter un conteneur qui “rétrécit” */
 		  form, fieldset, table{
 		    width: 100% !important;
 		  }
 		
 		  .no-print{ display:none !important; }
 		  fieldset{ page-break-inside: avoid; }
+		
+		  .tarifs-wrap{ overflow: visible !important; }
+		  .tarifs{ table-layout: fixed; width:100% !important; }
 		}
+
     .alert{
 		  border:1px solid #f0b4b4;
 		  background:#fff4f4;
