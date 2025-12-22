@@ -298,12 +298,13 @@ input:invalid, select:invalid{
           <input type="text" name="commune_naissance" >
         </div>
 
-        <div id="wrap_departement_naissance">
-					<label>
-					  Département de naissance
-					  <span class="optional">(facultatif)</span>
-					</label>
-        </div>
+				<div id="wrap_departement_naissance">
+				  <label>
+				    Département de naissance
+				    <span class="optional">(facultatif)</span>
+				  </label>
+				  <input type="text" name="departement_naissance" inputmode="text" placeholder="Ex: 77, 2A, 971">
+				</div>
 
         <div>
           <label>Pays de naissance *</label>
@@ -514,6 +515,28 @@ function fileToDataUrl(file) {
     r.readAsDataURL(file);
   });
 }
+function formatDepartement(value){
+  if (!value) return "";
+
+  let v = value.toString().trim().toUpperCase();
+
+  // Supprime espaces internes
+  v = v.replace(/\s+/g, "");
+
+  // Cas Corse
+  if (v === "2A" || v === "2B") return v;
+
+  // Cas DOM (971 à 976)
+  if (/^97[1-6]$/.test(v)) return v;
+
+  // Cas standard métropole (01 à 95)
+  if (/^\d{1,2}$/.test(v)) {
+    return v.padStart(2, "0");
+  }
+
+  // Sinon : on laisse tel quel (pas bloquant)
+  return v;
+}
 
 function eur(n){
   const x = Number(n);
@@ -692,7 +715,7 @@ function setupSignaturePad(){
 
   const paysSelect = document.getElementById("pays_naissance");
   const wrapDept = document.getElementById("wrap_departement_naissance");
-  const deptInput = form.querySelector('input[name="departement_naissance"]');
+	const deptInput = form.querySelector('[name="departement_naissance"]');
   const wrapPaysEtranger = document.getElementById("wrap_pays_etranger");
   const paysDetail = form.querySelector('input[name="pays_naissance_detail"]');
 
@@ -724,7 +747,11 @@ function setupSignaturePad(){
 	  // Département : affiché seulement si France, mais PLUS obligatoire
 	  wrapDept.classList.toggle("hidden", !isFrance);
 	  deptInput.required = false;
-	
+		if (deptInput){
+		  deptInput.addEventListener("blur", () => {
+		    deptInput.value = formatDepartement(deptInput.value);
+		  });
+		}	
 	  // Pays étranger : affiché + obligatoire uniquement si Etranger
 	  wrapPaysEtranger.classList.toggle("hidden", isFrance);
 	  paysDetail.required = !isFrance;
