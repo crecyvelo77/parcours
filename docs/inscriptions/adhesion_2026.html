@@ -198,32 +198,52 @@
       display:block;
     }
 
-    /* Print */
-    @page { size: A4; margin: 10mm; }
-
-    @media print{
-      html, body { margin:0 !important; padding:0 !important; background:#fff !important; }
-
-      .page{
-        width: 100% !important;
-        margin: 0 !important;
-        padding: 0 !important;
-        border: none !important;
-        box-shadow: none !important;
-        border-radius: 0 !important;
-        box-sizing: border-box !important;
-      }
-
-      form, fieldset, table{
-        width: 100% !important;
-      }
-
-      .no-print{ display:none !important; }
-      fieldset{ page-break-inside: avoid; }
-
-      .tarifs-wrap{ overflow: visible !important; }
-      .tarifs{ table-layout: fixed; width:100% !important; }
-    }
+		/* Print */
+		@page { size: A4; margin: 10mm; }
+		
+		@media print{
+		  html, body{
+		    margin:0 !important;
+		    padding:0 !important;
+		    background:#fff !important;
+		  }
+		
+		  /* On imprime le flux normal, sans contraintes "carte A4 à l’écran" */
+		  .page{
+		    width: auto !important;          /* <= évite les surprises */
+		    min-height: auto !important;
+		    margin: 0 !important;
+		    padding: 0 !important;           /* la marge est gérée par @page */
+		    border: none !important;
+		    box-shadow: none !important;
+		    border-radius: 0 !important;
+		    overflow: visible !important;
+		  }
+		
+		  /* Tout doit pouvoir se réduire à la largeur imprimable */
+		  .tarifs-wrap{
+		    overflow: visible !important;
+		  }
+		  .tarifs{
+		    width: 100% !important;
+		    table-layout: fixed !important;
+		    min-width: 0 !important;         /* ✅ IMPORTANT : annule le min-width écran/mobile */
+		  }
+		
+		  /* Annule la règle mobile si le navigateur l'applique au print */
+		  .tarifs .radioPrice{
+		    font-size: 12px !important;
+		    gap: 6px !important;
+		  }
+		
+		  form, fieldset, table{
+		    width: 100% !important;
+		    max-width: 100% !important;
+		  }
+		
+		  .no-print{ display:none !important; }
+		  fieldset{ page-break-inside: avoid; }
+		}
 
     .alert{
       border:1px solid #f0b4b4;
