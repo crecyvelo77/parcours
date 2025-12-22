@@ -87,6 +87,12 @@
     .pill{ display:inline-flex; align-items:center; gap:8px; font-weight:400; font-size:12px; }
 
     .hint{ font-size:11px; color:var(--muted); margin-top:4px; line-height:1.25; }
+    .optional{
+		  font-weight: 400;
+		  font-size: 11px;
+		  color: var(--muted);
+		}
+
     .error{ font-size:12px; color:var(--err); margin-top:4px; line-height:1.25; }
 
     .actions{
@@ -285,14 +291,18 @@ input:invalid, select:invalid{
 
       <div class="row3">
         <div>
-          <label>Commune de naissance *</label>
-          <input type="text" name="commune_naissance" required>
+				<label>
+				  Commune de naissance
+				  <span class="optional">(facultatif)</span>
+				</label>
+          <input type="text" name="commune_naissance" >
         </div>
 
         <div id="wrap_departement_naissance">
-          <label>Département de naissance *</label>
-          <input type="text" name="departement_naissance" inputmode="numeric" placeholder="Ex: 77">
-          <div class="hint">Requis si né(e) en France.</div>
+					<label>
+					  Département de naissance
+					  <span class="optional">(facultatif)</span>
+					</label>
         </div>
 
         <div>
@@ -708,16 +718,21 @@ function setupSignaturePad(){
     return form.querySelector('input[name="type_adhesion"]:checked')?.value || "";
   }
 
-  function setPaysUI(){
-    const isFrance = (paysSelect.value === "France");
-    wrapDept.classList.toggle("hidden", !isFrance);
-    deptInput.required = isFrance;
-    if (!isFrance) deptInput.value = "";
-
-    wrapPaysEtranger.classList.toggle("hidden", isFrance);
-    paysDetail.required = !isFrance;
-    if (isFrance) paysDetail.value = "";
-  }
+	function setPaysUI(){
+	  const isFrance = (paysSelect.value === "France");
+	
+	  // Département : affiché seulement si France, mais PLUS obligatoire
+	  wrapDept.classList.toggle("hidden", !isFrance);
+	  deptInput.required = false;
+	
+	  // Pays étranger : affiché + obligatoire uniquement si Etranger
+	  wrapPaysEtranger.classList.toggle("hidden", isFrance);
+	  paysDetail.required = !isFrance;
+	
+	  if (isFrance) {
+	    paysDetail.value = "";
+	  }
+	}
 
   function setLicenceUI(){
     const required = (adhesionType() === "renouvellement");
