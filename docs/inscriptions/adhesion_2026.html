@@ -15,6 +15,29 @@
       --ok:#12a454;
     }
 
+		.header{
+		  display:flex;
+		  align-items:flex-start;
+		  gap:10px;
+		  margin: 0 0 10px;
+		}
+		
+		.logo{
+		  height:26px;          /* petit = ne casse pas la mise en page */
+		  width:auto;
+		  flex:0 0 auto;
+		  transform: translateY(1px); /* micro-alignement visuel */
+		}
+		
+		.headerText{ min-width:0; }   /* évite les effets bizarres en flex */
+		.header h1{ margin:0 0 4px; } /* ton style existant est ok */
+		.header .subtitle{ margin:0; }
+		
+		/* Mobile : si besoin, on garde tout compact */
+		@media (max-width: 980px){
+		  .logo{ height:24px; }
+		}
+
     body{
       margin:0;
       background:var(--bg);
@@ -211,7 +234,9 @@
 
       /* moins agressif que *{max-width:100%} */
       img, canvas, table{ max-width: 100% !important; }
-
+			
+			.logo{ height:26px !important; }
+      
       .page{
         width: 210mm !important;
         min-height: 297mm !important;
@@ -262,8 +287,18 @@
 
 <div class="page" id="formPage">
 
-  <h1>Bulletin d’adhésion 2026 – Crécyvélo 77</h1>
-  <p class="subtitle">Merci de compléter les informations ci-dessous. Les champs marqués * sont obligatoires.</p>
+	<div class="header">
+	  <img
+	    class="logo"
+	    src="logo-crecyvelo-h26.png"
+	    srcset="logo-crecyvelo-h26.png 1x, logo-crecyvelo-h52.png 2x"
+	    alt="Crécyvélo 77"
+	  >
+	  <div class="headerText">
+	    <h1>Bulletin d’adhésion 2026 – Crécyvélo 77</h1>
+	    <p class="subtitle">Merci de compléter les informations ci-dessous. Les champs marqués * sont obligatoires.</p>
+	  </div>
+	</div>
   <div id="formAlert" class="alert hidden" role="alert" aria-live="polite"></div>
 
   <form id="adhesionForm">
