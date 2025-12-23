@@ -208,12 +208,13 @@
 		    background: #fff !important;
 		  }
 		
-		  /* On imprime la “page A4” telle quelle */
+		  *{ max-width: 100% !important; }
+		
 		  .page{
 		    width: 210mm !important;
 		    min-height: 297mm !important;
 		    margin: 0 !important;
-		    padding: 12mm !important;            /* ✅ on garde le padding écran */
+		    padding: 12mm !important;
 		    border: none !important;
 		    box-shadow: none !important;
 		    border-radius: 0 !important;
@@ -221,16 +222,14 @@
 		    overflow: visible !important;
 		  }
 		
-		  /* Évite les “rétrécissements” imprévus */
 		  form{ width: 100% !important; }
 		  fieldset{ page-break-inside: avoid; }
 		
-		  /* IMPORTANT : neutraliser les largeurs mini qui cassent l’impression */
 		  .tarifs-wrap{ overflow: visible !important; }
 		  .tarifs{
 		    width: 100% !important;
 		    table-layout: fixed !important;
-		    min-width: 0 !important;             /* ✅ sinon ça force un overflow */
+		    min-width: 0 !important;
 		  }
 		
 		  .no-print{ display:none !important; }
