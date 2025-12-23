@@ -198,51 +198,42 @@
       display:block;
     }
 
-		/* Print */
-		@page { size: A4; margin: 10mm; }
+		/* Print — rendre l'impression identique à l'écran (A4 + padding) */
+		@page { size: A4; margin: 0mm; }
 		
 		@media print{
 		  html, body{
-		    margin:0 !important;
-		    padding:0 !important;
-		    background:#fff !important;
+		    margin: 0 !important;
+		    padding: 0 !important;
+		    background: #fff !important;
 		  }
 		
-		  /* On imprime le flux normal, sans contraintes "carte A4 à l’écran" */
+		  /* On imprime la “page A4” telle quelle */
 		  .page{
-		    width: auto !important;          /* <= évite les surprises */
-		    min-height: auto !important;
+		    width: 210mm !important;
+		    min-height: 297mm !important;
 		    margin: 0 !important;
-		    padding: 0 !important;           /* la marge est gérée par @page */
+		    padding: 12mm !important;            /* ✅ on garde le padding écran */
 		    border: none !important;
 		    box-shadow: none !important;
 		    border-radius: 0 !important;
+		    box-sizing: border-box !important;
 		    overflow: visible !important;
 		  }
 		
-		  /* Tout doit pouvoir se réduire à la largeur imprimable */
-		  .tarifs-wrap{
-		    overflow: visible !important;
-		  }
+		  /* Évite les “rétrécissements” imprévus */
+		  form{ width: 100% !important; }
+		  fieldset{ page-break-inside: avoid; }
+		
+		  /* IMPORTANT : neutraliser les largeurs mini qui cassent l’impression */
+		  .tarifs-wrap{ overflow: visible !important; }
 		  .tarifs{
 		    width: 100% !important;
 		    table-layout: fixed !important;
-		    min-width: 0 !important;         /* ✅ IMPORTANT : annule le min-width écran/mobile */
-		  }
-		
-		  /* Annule la règle mobile si le navigateur l'applique au print */
-		  .tarifs .radioPrice{
-		    font-size: 12px !important;
-		    gap: 6px !important;
-		  }
-		
-		  form, fieldset, table{
-		    width: 100% !important;
-		    max-width: 100% !important;
+		    min-width: 0 !important;             /* ✅ sinon ça force un overflow */
 		  }
 		
 		  .no-print{ display:none !important; }
-		  fieldset{ page-break-inside: avoid; }
 		}
 
     .alert{
