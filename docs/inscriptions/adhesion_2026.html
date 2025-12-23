@@ -22,7 +22,7 @@
       color:#111;
     }
 
-    /* A4 width on screen, height auto (no truncation) */
+    /* A4 width on screen */
     .page{
       width: var(--pageW);
       min-height: 297mm;
@@ -37,7 +37,8 @@
       overflow: visible;
     }
 
-    @media (max-width: 980px){
+    /* ✅ IMPORTANT : mobile = screen only (ne pollue pas l'impression) */
+    @media screen and (max-width: 980px){
       .page{
         width: calc(100vw - 16px);
         min-height: unset;
@@ -48,7 +49,7 @@
         padding: 14px;
       }
 
-      /* ✅ IMPORTANT : empile les grilles sur mobile → le département redevient visible */
+      /* empile les grilles sur mobile */
       .row2, .row3{
         grid-template-columns: 1fr !important;
       }
@@ -72,7 +73,7 @@
     .row3{ display:grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
     .full{ grid-column: 1 / -1; }
 
-    /* ✅ évite que certains blocs de grille “disparaissent” quand le contenu déborde */
+    /* évite disparition/overflow en grid */
     .row2 > div, .row3 > div{ min-width:0; }
 
     label{ display:block; font-weight: 500; margin-bottom: 4px; font-size: 12px; }
@@ -198,42 +199,47 @@
       display:block;
     }
 
-		/* Print — rendre l'impression identique à l'écran (A4 + padding) */
-		@page { size: A4; margin: 0mm; }
-		
-		@media print{
-		  html, body{
-		    margin: 0 !important;
-		    padding: 0 !important;
-		    background: #fff !important;
-		  }
-		
-		  *{ max-width: 100% !important; }
-		
-		  .page{
-		    width: 210mm !important;
-		    min-height: 297mm !important;
-		    margin: 0 !important;
-		    padding: 12mm !important;
-		    border: none !important;
-		    box-shadow: none !important;
-		    border-radius: 0 !important;
-		    box-sizing: border-box !important;
-		    overflow: visible !important;
-		  }
-		
-		  form{ width: 100% !important; }
-		  fieldset{ page-break-inside: avoid; }
-		
-		  .tarifs-wrap{ overflow: visible !important; }
-		  .tarifs{
-		    width: 100% !important;
-		    table-layout: fixed !important;
-		    min-width: 0 !important;
-		  }
-		
-		  .no-print{ display:none !important; }
-		}
+    /* ✅ Print — identique écran (A4 + padding) + protège contre styles mobile */
+    @page { size: A4; margin: 0mm; }
+
+    @media print{
+      html, body{
+        margin: 0 !important;
+        padding: 0 !important;
+        background: #fff !important;
+      }
+
+      /* moins agressif que *{max-width:100%} */
+      img, canvas, table{ max-width: 100% !important; }
+
+      .page{
+        width: 210mm !important;
+        min-height: 297mm !important;
+        margin: 0 !important;
+        padding: 12mm !important;
+        border: none !important;
+        box-shadow: none !important;
+        border-radius: 0 !important;
+        box-sizing: border-box !important;
+        overflow: visible !important;
+      }
+
+      /* réimpose la mise en page PC */
+      .row2{ grid-template-columns: 1fr 1fr !important; }
+      .row3{ grid-template-columns: 1fr 1fr 1fr !important; }
+
+      form{ width: 100% !important; }
+      fieldset{ page-break-inside: avoid; }
+
+      .tarifs-wrap{ overflow: visible !important; }
+      .tarifs{
+        width: 100% !important;
+        table-layout: fixed !important;
+        min-width: 0 !important;
+      }
+
+      .no-print{ display:none !important; }
+    }
 
     .alert{
       border:1px solid #f0b4b4;
@@ -715,11 +721,9 @@ function setupSignaturePad(){
   function setPaysUI(){
     const isFrance = (paysSelect.value === "France");
 
-    // département : affiché si France (mais facultatif)
     wrapDept.classList.toggle("hidden", !isFrance);
     if (deptInput) deptInput.required = false;
 
-    // pays étranger : affiché si Etranger (obligatoire)
     wrapPaysEtranger.classList.toggle("hidden", isFrance);
     if (paysDetail) paysDetail.required = !isFrance;
     if (isFrance && paysDetail) paysDetail.value = "";
@@ -876,7 +880,6 @@ function setupSignaturePad(){
     };
   }
 
-  // ✅ Formatage département : une seule fois
   if (deptInput){
     deptInput.addEventListener("blur", () => {
       deptInput.value = formatDepartement(deptInput.value);
@@ -931,9 +934,7 @@ function setupSignaturePad(){
       }
     }
 
-    // ✅ recalcul UI après avoir positionné le select
     setPaysUI();
-
     if (params.has("pays_naissance_detail")) setVal("pays_naissance_detail", params.get("pays_naissance_detail"));
 
     ["adresse","cp","ville","telephone","email"].forEach(k => { if (params.has(k)) setVal(k, params.get(k)); });
@@ -1036,7 +1037,7 @@ function setupSignaturePad(){
     updateRecap();
   });
 
-  // submit (inchangé sur le fond)
+  // submit
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
     statusMsg.textContent = "";
