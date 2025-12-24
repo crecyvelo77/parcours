@@ -584,6 +584,13 @@ function formatEUR(v){
   if (!Number.isFinite(n)) return "";
   return n.toFixed(2).replace(".", ",") + " €";
 }
+function formatPhoneFR(value){
+  if (!value) return "";
+  // on garde uniquement les chiffres
+  const digits = value.replace(/\D+/g, "");
+  // groupe par 2 chiffres
+  return digits.replace(/(\d{2})(?=\d)/g, "$1 ").trim();
+}
 function getRadio(form, name){
   return form.querySelector(`input[name="${name}"]:checked`)?.value || "";
 }
@@ -1035,7 +1042,9 @@ function setupSignaturePad(){
 <b>Identité :</b> ${escapeHtml(getRadio(form,"civilite") || "—")} ${escapeHtml(form.nom.value || "—")} ${escapeHtml(form.prenom.value || "—")}
 &nbsp;•&nbsp; <b>${escapeHtml(getRadio(form,"type_adhesion") || "—")}</b><br>
 
-<b>Contact :</b> ${escapeHtml(form.email.value || "—")} &nbsp;•&nbsp; ${escapeHtml(form.telephone.value || "—")}<br>
+<b>Contact :</b> ${escapeHtml(form.email.value || "—")}
+&nbsp;•&nbsp;
+${escapeHtml(formatPhoneFR(form.telephone.value) || "—")}<br>
 
 <b>Sport :</b> ${escapeHtml(pratiques.join(", ") || "—")}
 &nbsp;•&nbsp; VAE: <b>${escapeHtml(getRadio(form,"vae") || "—")}</b><br>
@@ -1316,13 +1325,21 @@ function setupSignaturePad(){
 	  });
 	}
 
-if (clearPhotoBtn){
-  clearPhotoBtn.addEventListener("click", () => {
-    if (photoInput) photoInput.value = "";
-    photoPrepared = null;
-    if (photoBox) photoBox.style.display = "none";
-  });
-}
+	if (clearPhotoBtn){
+	  clearPhotoBtn.addEventListener("click", () => {
+	    if (photoInput) photoInput.value = "";
+	    photoPrepared = null;
+	    if (photoBox) photoBox.style.display = "none";
+	  });
+	}
+
+	const telInput = form.querySelector('input[name="telephone"]');
+	if (telInput){
+	  telInput.addEventListener("blur", () => {
+	    telInput.value = formatPhoneFR(telInput.value);
+	    updateRecap();
+	  });
+	}
 
   // submit
   form.addEventListener("submit", async (e) => {
