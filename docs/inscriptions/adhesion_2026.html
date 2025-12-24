@@ -1032,9 +1032,8 @@ function setupSignaturePad(){
     const cotTxt = cotAff.value || "(non sélectionnée)";
 
     recap.innerHTML = `
-<b>Identité :</b> ${escapeHtml(form.nom.value || "—")} ${escapeHtml(form.prenom.value || "—")}
-&nbsp;•&nbsp; <b>${escapeHtml(getRadio(form,"type_adhesion") || "—")}</b>
-&nbsp;•&nbsp; <b>${escapeHtml(getRadio(form,"civilite") || "—")}</b><br>
+<b>Identité :</b> ${escapeHtml(getRadio(form,"civilite") || "—")} ${escapeHtml(form.nom.value || "—")} ${escapeHtml(form.prenom.value || "—")}
+&nbsp;•&nbsp; <b>${escapeHtml(getRadio(form,"type_adhesion") || "—")}</b><br>
 
 <b>Contact :</b> ${escapeHtml(form.email.value || "—")} &nbsp;•&nbsp; ${escapeHtml(form.telephone.value || "—")}<br>
 
