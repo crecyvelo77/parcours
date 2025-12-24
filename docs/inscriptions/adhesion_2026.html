@@ -275,6 +275,32 @@
       outline: 2px solid rgba(176,0,0,.25);
       outline-offset: 2px;
     }
+    
+		.photoBox{
+		  margin-top:8px;
+		  display:flex;
+		  gap:10px;
+		  align-items:flex-start;
+		  flex-wrap:wrap;
+		}
+		
+		.photoPreview{
+		  border:1px solid #d0d0d0;
+		  border-radius:9px;
+		  padding:8px;
+		  background:#fff;
+		}
+		
+		#photoCanvas{
+		  width: 35mm;   /* affichage */
+		  height: 45mm;  /* affichage */
+		  border:1px dashed #999;
+		  border-radius:6px;
+		  display:block;
+		}
+		
+		.photoActions{ min-width: 220px; }
+    
   </style>
 </head>
 
@@ -479,12 +505,24 @@
       <div class="hint">Si “Licence fin de saison (gratuit)” est choisi, la cotisation est automatiquement forcée à 0 €.</div>
     </fieldset>
 
-    <fieldset>
-      <legend>Photo d’identité</legend>
-      <label>Ajouter une photo (JPEG/PNG)</label>
-      <input type="file" name="photo_identite" accept="image/jpeg,image/png">
-      <div class="hint">Optionnel.</div>
-    </fieldset>
+		<fieldset>
+		  <legend>Photo d’identité</legend>
+		
+		  <label>Ajouter une photo (JPEG/PNG)</label>
+		  <input type="file" name="photo_identite" id="photo_identite" accept="image/jpeg,image/png">
+		
+		  <div class="hint">Optionnel. Recadrage automatique au format identité (35×45 mm).</div>
+		
+		  <div class="photoBox" id="photoBox" style="display:none;">
+		    <div class="photoPreview">
+		      <canvas id="photoCanvas"></canvas>
+		    </div>
+		    <div class="photoActions">
+		      <button type="button" class="btn btn-ghost" id="clearPhoto">Retirer</button>
+		      <div class="hint" id="photoInfo"></div>
+		    </div>
+		  </div>
+		</fieldset>
 
     <fieldset>
       <legend>Attestation *</legend>
@@ -559,6 +597,68 @@ function fileToDataUrl(file) {
     r.onerror = reject;
     r.readAsDataURL(file);
   });
+}
+
+async function loadImageFromFile(file){
+  const dataUrl = await fileToDataUrl(file);
+  return await new Promise((resolve, reject) => {
+    const img = new Image();
+    img.onload = () => resolve({ img, dataUrl });
+    img.onerror = reject;
+    img.src = dataUrl;
+  });
+}
+
+// Recadrage auto “center crop” vers ratio 35:45, puis resize + compression JPEG
+async function makeIdPhotoDataUrl(file, opts = {}){
+  const {
+    targetW = 413,   // ~35mm à 300dpi
+    targetH = 531,   // ~45mm à 300dpi
+    quality = 0.82,  // compression JPEG
+    maxBytes = 250 * 1024 // garde léger (optionnel)
+  } = opts;
+
+  const { img } = await loadImageFromFile(file);
+
+  // ratio cible
+  const targetRatio = targetW / targetH;
+  const srcW = img.naturalWidth;
+  const srcH = img.naturalHeight;
+  const srcRatio = srcW / srcH;
+
+  // center crop
+  let cropW, cropH, cropX, cropY;
+  if (srcRatio > targetRatio) {
+    // trop large -> on coupe sur les côtés
+    cropH = srcH;
+    cropW = Math.round(srcH * targetRatio);
+    cropX = Math.round((srcW - cropW) / 2);
+    cropY = 0;
+  } else {
+    // trop haut -> on coupe en haut/bas
+    cropW = srcW;
+    cropH = Math.round(srcW / targetRatio);
+    cropX = 0;
+    cropY = Math.round((srcH - cropH) / 2);
+  }
+
+  const canvas = document.createElement("canvas");
+  canvas.width = targetW;
+  canvas.height = targetH;
+  const ctx = canvas.getContext("2d");
+  ctx.imageSmoothingEnabled = true;
+  ctx.imageSmoothingQuality = "high";
+  ctx.drawImage(img, cropX, cropY, cropW, cropH, 0, 0, targetW, targetH);
+
+  // compression progressive si besoin
+  let q = quality;
+  let out = canvas.toDataURL("image/jpeg", q);
+  while (out.length * 0.75 > maxBytes && q > 0.55) { // estimation base64->bytes
+    q -= 0.07;
+    out = canvas.toDataURL("image/jpeg", q);
+  }
+
+  return { dataUrl: out, mime: "image/jpeg", width: targetW, height: targetH, qualityUsed: q };
 }
 
 function formatDepartement(value){
@@ -820,6 +920,15 @@ function setupSignaturePad(){
   const statusMsg = document.getElementById("statusMsg");
 
   const sig = setupSignaturePad();
+
+	const photoInput = document.getElementById("photo_identite");
+	const photoBox = document.getElementById("photoBox");
+	const photoCanvas = document.getElementById("photoCanvas");
+	const clearPhotoBtn = document.getElementById("clearPhoto");
+	const photoInfo = document.getElementById("photoInfo");
+	
+	let photoPrepared = null; // {dataUrl, mime, ...}
+
 
   function adhesionType(){
     return form.querySelector('input[name="type_adhesion"]:checked')?.value || "";
@@ -1126,6 +1235,9 @@ function setupSignaturePad(){
     cotCode.value = "";
     cotLib.value = "";
     cotMont.value = "";
+		photoPrepared = null;
+		if (photoInput) photoInput.value = "";
+		if (photoBox) photoBox.style.display = "none";
     updateRecap();
   });
 
@@ -1141,8 +1253,77 @@ function setupSignaturePad(){
     cotCode.value = "";
     cotLib.value = "";
     cotMont.value = "";
+		photoPrepared = null;
+		if (photoInput) photoInput.value = "";
+		if (photoBox) photoBox.style.display = "none";  
     updateRecap();
   });
+
+	async function renderPhotoPreview(prepared){
+	  if (!photoCanvas) return;
+	  const ctx = photoCanvas.getContext("2d");
+	
+	  // canvas interne = même taille que l'image préparée
+	  photoCanvas.width = prepared.width;
+	  photoCanvas.height = prepared.height;
+	
+	  const img = new Image();
+	  await new Promise((res, rej) => {
+	    img.onload = res; img.onerror = rej; img.src = prepared.dataUrl;
+	  });
+	
+	  ctx.clearRect(0,0,photoCanvas.width,photoCanvas.height);
+	  ctx.drawImage(img, 0, 0);
+	
+	  const approxBytes = Math.round(prepared.dataUrl.length * 0.75);
+	  if (photoInfo){
+	    photoInfo.textContent = `Recadrée 35×45mm (${prepared.width}×${prepared.height}px) — ~${Math.round(approxBytes/1024)} Ko`;
+	  }
+	}
+	
+	if (photoInput){
+	  photoInput.addEventListener("change", async () => {
+	    const f = photoInput.files && photoInput.files[0];
+	    photoPrepared = null;
+	
+	    if (!f){
+	      if (photoBox) photoBox.style.display = "none";
+	      return;
+	    }
+	
+	    if (!/^image\/(jpeg|png)$/.test(f.type)){
+	      alert("Merci de choisir une image JPEG ou PNG.");
+	      photoInput.value = "";
+	      if (photoBox) photoBox.style.display = "none";
+	      return;
+	    }
+	
+	    try{
+	      // prépare (crop + compression)
+	      photoPrepared = await makeIdPhotoDataUrl(f, {
+	        targetW: 413, targetH: 531, quality: 0.82, maxBytes: 250*1024
+	      });
+	
+	      if (photoBox) photoBox.style.display = "flex";
+	      await renderPhotoPreview(photoPrepared);
+	
+	    } catch(e){
+	      console.error(e);
+	      alert("Impossible de traiter la photo.");
+	      photoInput.value = "";
+	      if (photoBox) photoBox.style.display = "none";
+	      photoPrepared = null;
+	    }
+	  });
+	}
+
+if (clearPhotoBtn){
+  clearPhotoBtn.addEventListener("click", () => {
+    if (photoInput) photoInput.value = "";
+    photoPrepared = null;
+    if (photoBox) photoBox.style.display = "none";
+  });
+}
 
   // submit
   form.addEventListener("submit", async (e) => {
@@ -1193,34 +1374,10 @@ function setupSignaturePad(){
     }
 
 		const photoInput = form.querySelector('input[name="photo_identite"]');
-		if (photoInput && photoInput.files && photoInput.files[0]) {
-		  const f = photoInput.files[0];
-		
-		  // (Optionnel) garde un “garde-fou” si quelqu’un met un fichier énorme
-		  if (f.size > 12 * 1024 * 1024) {
-		    alert("La photo est trop volumineuse (max 12 Mo).");
-		    return;
-		  }
-		
-		  try {
-		    const out = await compressImageToJpegDataUrl(f, {
-		      maxW: 900,
-		      maxH: 1200,
-		      qualityStart: 0.88,
-		      maxBytes: 400 * 1024
-		    });
-		
-		    payload.photo = { dataUrl: out.dataUrl, mime: out.mime };
-		
-		    // Si tu veux logguer en console pour vérifier :
-		    // console.log("Photo compressée:", out);
-		
-		  } catch (e) {
-		    console.error(e);
-		    alert("Impossible de traiter la photo. Essaie une autre image.");
-		    return;
-		  }
+		if (photoPrepared && photoPrepared.dataUrl){
+		  payload.photo = { dataUrl: photoPrepared.dataUrl, mime: photoPrepared.mime };
 		}
+
 
     submitBtn.disabled = true;
     const old = submitBtn.textContent;
