@@ -586,6 +586,81 @@ function escapeHtml(s){
     .replaceAll("'","&#039;");
 }
 
+/**
+ * Compresse un fichier image en JPEG (dataURL) en redimensionnant + ajustant la qualité.
+ * - maxW/maxH : dimensions max en pixels
+ * - qualityStart : qualité JPEG initiale (0..1)
+ * - maxBytes : taille max visée (en octets)
+ */
+async function compressImageToJpegDataUrl(file, {
+  maxW = 900,
+  maxH = 1200,
+  qualityStart = 0.88,
+  maxBytes = 400 * 1024, // ~400 Ko
+  minQuality = 0.55
+} = {}) {
+  if (!file || !file.type || !file.type.startsWith("image/")) {
+    throw new Error("Le fichier n'est pas une image.");
+  }
+
+  // 1) Charger l'image
+  const imgUrl = URL.createObjectURL(file);
+  const img = await new Promise((resolve, reject) => {
+    const i = new Image();
+    i.onload = () => resolve(i);
+    i.onerror = reject;
+    i.src = imgUrl;
+  });
+
+  // 2) Calcul du resize (conserve le ratio)
+  const iw = img.naturalWidth || img.width;
+  const ih = img.naturalHeight || img.height;
+
+  let scale = Math.min(maxW / iw, maxH / ih, 1); // jamais upscale
+  const tw = Math.max(1, Math.round(iw * scale));
+  const th = Math.max(1, Math.round(ih * scale));
+
+  // 3) Dessin sur canvas
+  const canvas = document.createElement("canvas");
+  canvas.width = tw;
+  canvas.height = th;
+
+  const ctx = canvas.getContext("2d", { alpha: false });
+  ctx.imageSmoothingEnabled = true;
+  ctx.imageSmoothingQuality = "high";
+  ctx.drawImage(img, 0, 0, tw, th);
+
+  URL.revokeObjectURL(imgUrl);
+
+  // 4) Encoder en JPEG + boucle si trop lourd
+  let quality = qualityStart;
+
+  const toBlob = (q) => new Promise((resolve) => {
+    canvas.toBlob((b) => resolve(b), "image/jpeg", q);
+  });
+
+  let blob = await toBlob(quality);
+
+  // Si c'est encore trop lourd, on baisse la qualité progressivement
+  while (blob && blob.size > maxBytes && quality > minQuality) {
+    quality = Math.max(minQuality, quality - 0.07);
+    blob = await toBlob(quality);
+  }
+
+  if (!blob) throw new Error("Impossible de compresser l'image (blob null).");
+
+  // 5) Blob -> dataURL
+  const dataUrl = await new Promise((resolve, reject) => {
+    const r = new FileReader();
+    r.onload = () => resolve(String(r.result));
+    r.onerror = reject;
+    r.readAsDataURL(blob);
+  });
+
+  return { dataUrl, mime: "image/jpeg", size: blob.size, width: tw, height: th, quality };
+}
+
+
 /** ========= Tarifs JSON ========= */
 async function loadTarifsAndRender(onChangeCotisation){
   const body = document.getElementById("tarifsBody");
@@ -1117,15 +1192,35 @@ function setupSignaturePad(){
       payload.signature = { dataUrl: sig.toDataURL(), mime: "image/png" };
     }
 
-    const photoInput = form.querySelector('input[name="photo_identite"]');
-    if (photoInput && photoInput.files && photoInput.files[0]) {
-      const f = photoInput.files[0];
-      if (f.size > 2.5 * 1024 * 1024) {
-        alert("La photo est trop volumineuse (max ~2,5 Mo).");
-        return;
-      }
-      payload.photo = { dataUrl: await fileToDataUrl(f), mime: f.type };
-    }
+		const photoInput = form.querySelector('input[name="photo_identite"]');
+		if (photoInput && photoInput.files && photoInput.files[0]) {
+		  const f = photoInput.files[0];
+		
+		  // (Optionnel) garde un “garde-fou” si quelqu’un met un fichier énorme
+		  if (f.size > 12 * 1024 * 1024) {
+		    alert("La photo est trop volumineuse (max 12 Mo).");
+		    return;
+		  }
+		
+		  try {
+		    const out = await compressImageToJpegDataUrl(f, {
+		      maxW: 900,
+		      maxH: 1200,
+		      qualityStart: 0.88,
+		      maxBytes: 400 * 1024
+		    });
+		
+		    payload.photo = { dataUrl: out.dataUrl, mime: out.mime };
+		
+		    // Si tu veux logguer en console pour vérifier :
+		    // console.log("Photo compressée:", out);
+		
+		  } catch (e) {
+		    console.error(e);
+		    alert("Impossible de traiter la photo. Essaie une autre image.");
+		    return;
+		  }
+		}
 
     submitBtn.disabled = true;
     const old = submitBtn.textContent;
