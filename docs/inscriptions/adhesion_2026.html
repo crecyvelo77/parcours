@@ -587,7 +587,7 @@
 
 <script>
 /** ========= CONFIG ========= */
-const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzvLlM3kNV_BB-iuetqKgSXjp4CSVxi19L4TwMlhJXugPE5tpSFeLX6JNzjgZWs6K5Lvg/exec";
+const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxIPFOYW6XwFtcLZL14ikwI7gxss3BBHm6KgdDBRo1b2eRFKlgq8nBuy9jPm3vOF4M6eA/exec";
 
 /** ========= Helpers ========= */
 function normalizeSpaces(s){ return (s||"").replace(/\s+/g," ").trim(); }
@@ -1408,6 +1408,7 @@ ${escapeHtml(formatPhoneFR(form.telephone.value) || "—")}<br>
       reglement: getRadio(form, "reglement"),
       sante_ack: !!document.getElementById("sante_ack")?.checked,
 
+	  photo_url: (document.getElementById("photo_url")?.value || "").trim(),
       signature: null,
       client_timestamp: new Date().toISOString()
     };
@@ -1428,14 +1429,22 @@ ${escapeHtml(formatPhoneFR(form.telephone.value) || "—")}<br>
     statusMsg.textContent = "Transmission…";
 
     try {
-      const res = await fetch(APPS_SCRIPT_URL, {
-        method: "POST",
-        headers: { "Content-Type": "text/plain;charset=utf-8" },
-        body: JSON.stringify(payload)
-      });
+			const res = await fetch(APPS_SCRIPT_URL, {
+				method: "POST",
+				mode: "cors", // important
+				headers: { "Content-Type": "text/plain;charset=utf-8" },
+				body: JSON.stringify(payload)
+			});
 
-      const json = await res.json().catch(() => ({}));
-      if (!json.ok) throw new Error(json.message || "Erreur lors de l’envoi.");
+			let json = {};
+			try {
+				const text = await res.text();
+				try { json = JSON.parse(text); } catch(e) { json = { ok:false, message:text }; }
+			} catch (e) {
+				throw new Error("Impossible de lire la réponse (CORS ou réseau).");
+			}
+
+			if (!json.ok) throw new Error(json.message || "Erreur lors de l’envoi.");
 
       formPage.classList.add("hidden");
       confirmPage.classList.remove("hidden");
@@ -1472,5 +1481,4 @@ ${escapeHtml(formatPhoneFR(form.telephone.value) || "—")}<br>
 </script>
 
 </body>
-
 </html>
