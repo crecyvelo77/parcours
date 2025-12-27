@@ -313,7 +313,6 @@
     <img
       class="logo"
       src="logo-crecyvelo-h52.png"
-      srcset="logo-crecyvelo-h52.png 1x, logo-crecyvelo-h52.png 2x"
       alt="Crécyvélo 77"
     >
     <div class="headerText">
@@ -598,10 +597,21 @@ function formatEUR(v){
 }
 function formatPhoneFR(value){
   if (!value) return "";
-  // on garde uniquement les chiffres
-  const digits = value.replace(/\D+/g, "");
-  // groupe par 2 chiffres
-  return digits.replace(/(\d{2})(?=\d)/g, "$1 ").trim();
+  let s = String(value).trim();
+
+  // convertir +33 -> 0
+  s = s.replace(/^\s*\+33\s*/, "0");
+
+  // ne garder que chiffres
+  const digits = s.replace(/\D+/g, "");
+
+  // format 10 chiffres FR -> "06 12 34 56 78"
+  if (digits.length === 10) {
+    return digits.replace(/(\d{2})(?=\d)/g, "$1 ").trim();
+  }
+
+  // sinon on renvoie au mieux (sans forcer)
+  return s;
 }
 function getRadio(form, name){
   return form.querySelector(`input[name="${name}"]:checked`)?.value || "";
@@ -616,6 +626,27 @@ function fileToDataUrl(file) {
     r.onerror = reject;
     r.readAsDataURL(file);
   });
+}
+
+function submitViaIframe_(payload){
+  // Crée un formulaire temporaire
+  const f = document.createElement("form");
+  f.method = "POST";
+  f.action = APPS_SCRIPT_URL + "?mode=iframe";
+  f.target = "cvSubmitFrame";
+  f.style.display = "none";
+
+  const inp = document.createElement("input");
+  inp.type = "hidden";
+  inp.name = "payload";
+  inp.value = JSON.stringify(payload);
+
+  f.appendChild(inp);
+  document.body.appendChild(f);
+  f.submit();
+
+  // clean après coup
+  setTimeout(() => f.remove(), 1000);
 }
 
 async function loadImageFromFile(file){
@@ -909,6 +940,24 @@ function setupSignaturePad(){
 
 /** ========= Main ========= */
 (function(){
+	window.addEventListener("message", (ev) => {
+		if (ev.origin !== "https://script.google.com") return; // sécurité basique
+		const data = ev.data || {};
+		if (!data || typeof data !== "object") return;
+
+		if (!data.ok) {
+			console.error("Retour serveur (iframe):", data);
+			alert("❌ " + (data.message || "Erreur lors de l’envoi."));
+			return;
+		}
+
+		// ✅ Affiche la confirmation (même logique que ton fetch)
+		formPage.classList.add("hidden");
+		confirmPage.classList.remove("hidden");
+		confNum.textContent = data.adhesionNumber || "(non fourni)";
+		confPdf.href = data.pdfUrl || "#";
+	});
+
   const form = document.getElementById("adhesionForm");
   const formPage = document.getElementById("formPage");
   const confirmPage = document.getElementById("confirmPage");
@@ -1135,7 +1184,8 @@ ${escapeHtml(formatPhoneFR(form.telephone.value) || "—")}<br>
 	  if (hidden) hidden.value = url;
 
 	  if (img && box && url) {
-		img.src = url;
+		img.src = url + (url.includes("?") ? "&" : "?") + "v=" + Date.now();
+		img.referrerPolicy = "no-referrer";
 		box.classList.remove("hidden");
 	  }
 	}
@@ -1428,38 +1478,9 @@ ${escapeHtml(formatPhoneFR(form.telephone.value) || "—")}<br>
     submitBtn.textContent = "Envoi…";
     statusMsg.textContent = "Transmission…";
 
-    try {
-			const res = await fetch(APPS_SCRIPT_URL, {
-				method: "POST",
-				mode: "cors", // important
-				headers: { "Content-Type": "text/plain;charset=utf-8" },
-				body: JSON.stringify(payload)
-			});
+		// ✅ Envoi sans CORS via <form> -> iframe
+		submitViaIframe_(payload);
 
-			let json = {};
-			try {
-				const text = await res.text();
-				try { json = JSON.parse(text); } catch(e) { json = { ok:false, message:text }; }
-			} catch (e) {
-				throw new Error("Impossible de lire la réponse (CORS ou réseau).");
-			}
-
-			if (!json.ok) throw new Error(json.message || "Erreur lors de l’envoi.");
-
-      formPage.classList.add("hidden");
-      confirmPage.classList.remove("hidden");
-      confNum.textContent = json.adhesionNumber || "(non fourni)";
-      confPdf.href = json.pdfUrl || "#";
-
-    } catch (err) {
-      console.error(err);
-      statusMsg.textContent = "❌ Échec de l’envoi.";
-      alert("❌ " + (err.message || err));
-    } finally {
-      submitBtn.disabled = false;
-      submitBtn.textContent = old;
-      statusMsg.textContent = "";
-    }
   });
 
   // init
@@ -1479,6 +1500,7 @@ ${escapeHtml(formatPhoneFR(form.telephone.value) || "—")}<br>
   updateRecap();
 })();
 </script>
-
+<!-- Iframe cachée pour submit sans CORS -->
+<iframe name="cvSubmitFrame" id="cvSubmitFrame" style="display:none;"></iframe>
 </body>
 </html>
