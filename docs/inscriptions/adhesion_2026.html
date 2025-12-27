@@ -507,6 +507,18 @@
 
 		<fieldset>
 		  <legend>Photo d’identité</legend>
+			<div id="photoPrefillBox" class="hidden" style="margin:6px 0 0;">
+			  <div class="hint" style="margin:0 0 6px;">
+				Photo pré-remplie (trombinoscope) :
+			  </div>
+			  <img id="photoPrefillImg" alt="Photo pré-remplie"
+				   style="display:block; width:35mm; height:45mm; object-fit:cover; border:1px solid #999; border-radius:6px;">
+			  <div class="hint" style="margin-top:6px;">
+				Vous pouvez remplacer cette photo en ajoutant un fichier ci-dessous.
+			  </div>
+			</div>
+
+			<input type="hidden" name="photo_url" id="photo_url">
 		
 		  <label>Ajouter une photo (JPEG/PNG)</label>
 		  <input type="file" name="photo_identite" id="photo_identite" accept="image/jpeg,image/png">
@@ -1112,6 +1124,21 @@ ${escapeHtml(formatPhoneFR(form.telephone.value) || "—")}<br>
 
   function prefillFromQuery(form){
     const params = new URLSearchParams(window.location.search);
+	
+	// Photo pré-remplie (URL trombi)
+	if (params.has("photo_url")) {
+	  const url = params.get("photo_url") || "";
+	  const hidden = document.getElementById("photo_url");
+	  const box = document.getElementById("photoPrefillBox");
+	  const img = document.getElementById("photoPrefillImg");
+
+	  if (hidden) hidden.value = url;
+
+	  if (img && box && url) {
+		img.src = url;
+		box.classList.remove("hidden");
+	  }
+	}
 
     const setVal = (name, value) => {
       const el = form.querySelector(`[name="${name}"]`);
