@@ -1511,8 +1511,6 @@ ${escapeHtml(formatPhoneFR(form.telephone.value) || "—")}<br>
 			alert("❌ Pas de réponse du serveur (timeout).");
 		}, 25000);
 
-		submitViaIframe_(payload);
-
 		// ✅ Envoi sans CORS via <form> -> iframe
 		submitViaIframe_(payload);
     
