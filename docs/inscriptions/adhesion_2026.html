@@ -940,30 +940,41 @@ function setupSignaturePad(){
 
 /** ========= Main ========= */
 (function(){
-	window.addEventListener("message", (ev) => {
-		if (ev.origin !== "https://script.google.com") return; // sécurité basique
-		const data = ev.data || {};
-		if (!data || typeof data !== "object") return;
-
-		if (!data.ok) {
-			console.error("Retour serveur (iframe):", data);
-			alert("❌ " + (data.message || "Erreur lors de l’envoi."));
-			return;
-		}
-
-		// ✅ Affiche la confirmation (même logique que ton fetch)
-		formPage.classList.add("hidden");
-		confirmPage.classList.remove("hidden");
-		confNum.textContent = data.adhesionNumber || "(non fourni)";
-		confPdf.href = data.pdfUrl || "#";
-	});
-
   const form = document.getElementById("adhesionForm");
   const formPage = document.getElementById("formPage");
   const confirmPage = document.getElementById("confirmPage");
   const confNum = document.getElementById("confNum");
   const confPdf = document.getElementById("confPdf");
   const backBtn = document.getElementById("backBtn");
+
+  window.addEventListener("message", (ev) => {
+		window.__cvTimeout && clearTimeout(window.__cvTimeout);
+    // 1) Vérif origin : Apps Script renvoie souvent depuis script.googleusercontent.com
+    const okOrigin =
+      ev.origin === "https://script.google.com" ||
+      ev.origin === "https://script.googleusercontent.com";
+
+    if (!okOrigin) return;
+
+    const data = ev.data || {};
+    if (!data || typeof data !== "object") return;
+
+    // ✅ on stoppe le "Transmission..."
+    submitBtn.disabled = false;
+    submitBtn.textContent = "Envoyer le bulletin";
+    statusMsg.textContent = "";
+
+    if (!data.ok) {
+      console.error("Retour serveur (iframe):", data);
+      alert("❌ " + (data.message || "Erreur lors de l’envoi."));
+      return;
+    }
+
+    formPage.classList.add("hidden");
+    confirmPage.classList.remove("hidden");
+    confNum.textContent = data.adhesionNumber || "(non fourni)";
+    confPdf.href = data.pdfUrl || "#";
+  });
 
   const paysSelect = document.getElementById("pays_naissance");
   const wrapDept = document.getElementById("wrap_departement_naissance");
@@ -1480,7 +1491,15 @@ ${escapeHtml(formatPhoneFR(form.telephone.value) || "—")}<br>
 
 		// ✅ Envoi sans CORS via <form> -> iframe
 		submitViaIframe_(payload);
-
+    
+		// sécurité anti-blocage (si pas de retour)
+    window.__cvTimeout && clearTimeout(window.__cvTimeout);
+    window.__cvTimeout = setTimeout(() => {
+      submitBtn.disabled = false;
+      submitBtn.textContent = old;
+      statusMsg.textContent = "❌ Pas de réponse du serveur (timeout).";
+      alert("❌ Pas de réponse du serveur. (Vérifie le déploiement Apps Script et l’origin postMessage)");
+    }, 20000);
   });
 
   // init
