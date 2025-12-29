@@ -586,7 +586,8 @@
 
 <script>
 /** ========= CONFIG ========= */
-const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxIPFOYW6XwFtcLZL14ikwI7gxss3BBHm6KgdDBRo1b2eRFKlgq8nBuy9jPm3vOF4M6eA/exec";
+//const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxIPFOYW6XwFtcLZL14ikwI7gxss3BBHm6KgdDBRo1b2eRFKlgq8nBuy9jPm3vOF4M6eA/exec";
+const APPS_SCRIPT_URL = "https://script.googleusercontent.com/macros/s/AKfycbxIPFOYW6XwFtcLZL14ikwI7gxss3BBHm6KgdDBRo1b2eRFKlgq8nBuy9jPm3vOF4M6eA/exec";
 
 /** ========= Helpers ========= */
 function normalizeSpaces(s){ return (s||"").replace(/\s+/g," ").trim(); }
@@ -1544,4 +1545,5 @@ ${escapeHtml(formatPhoneFR(form.telephone.value) || "—")}<br>
 <!-- Iframe cachée pour submit sans CORS -->
 <iframe name="cvSubmitFrame" id="cvSubmitFrame" style="display:none;"></iframe>
 </body>
+
 </html>
