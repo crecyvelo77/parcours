@@ -22,27 +22,22 @@
       color:#111;
     }
 
-    /* ===== Header + logo ===== */
     .header{
       display:flex;
       align-items:flex-start;
       gap:10px;
       margin: 0 0 10px;
     }
-
-    /* On affiche “petit”, mais on sert une image 52px (plus nette) */
     .logo{
-      height:40px;          /* desktop */
+      height:40px;
       width:auto;
       flex:0 0 auto;
       transform: translateY(1px);
     }
-
     .headerText{ min-width:0; }
     .header h1{ margin:0 0 4px; }
     .header .subtitle{ margin:0; }
 
-    /* A4 width on screen */
     .page{
       width: var(--pageW);
       min-height: 297mm;
@@ -57,7 +52,6 @@
       overflow: visible;
     }
 
-    /* ✅ Mobile = screen only (ne pollue pas l'impression) */
     @media screen and (max-width: 980px){
       .page{
         width: calc(100vw - 16px);
@@ -68,14 +62,8 @@
         overflow: visible;
         padding: 14px;
       }
-
-      .logo{ height:32px; } /* plus lisible que 24px */
-
-      /* empile les grilles sur mobile */
-      .row2, .row3{
-        grid-template-columns: 1fr !important;
-      }
-
+      .logo{ height:32px; }
+      .row2, .row3{ grid-template-columns: 1fr !important; }
       .tarifs{ min-width: 560px; }
       .tarifs .radioPrice{ gap:4px; font-size:11px; }
     }
@@ -117,12 +105,7 @@
     .pill{ display:inline-flex; align-items:center; gap:8px; font-weight:400; font-size:12px; }
 
     .hint{ font-size:11px; color:var(--muted); margin-top:4px; line-height:1.25; }
-    .optional{
-      font-weight: 400;
-      font-size: 11px;
-      color: var(--muted);
-    }
-
+    .optional{ font-weight: 400; font-size: 11px; color: var(--muted); }
     .error{ font-size:12px; color:var(--err); margin-top:4px; line-height:1.25; }
 
     .actions{
@@ -144,7 +127,6 @@
     .btn-ghost{ background:#eee; }
     .hidden{ display:none !important; }
 
-    /* Tarifs */
     .tarifs-wrap{
       overflow:auto;
       -webkit-overflow-scrolling: touch;
@@ -183,10 +165,7 @@
       overflow:hidden;
       text-overflow:ellipsis;
     }
-    .tarifs .price{
-      text-align:center;
-      white-space:nowrap;
-    }
+    .tarifs .price{ text-align:center; white-space:nowrap; }
     .tarifs .radioPrice{
       display:inline-flex;
       align-items:center;
@@ -194,15 +173,10 @@
       font-weight:600;
       font-size:12px;
     }
-    .tarifs input[type="radio"]{
-      transform: translateY(1px) scale(0.95);
-    }
+    .tarifs input[type="radio"]{ transform: translateY(1px) scale(0.95); }
     .tarifs tr:nth-child(even):not(.grp){ background:#fafafa; }
 
-    #recapBox{
-      font-size:12px;
-      line-height:1.35;
-    }
+    #recapBox{ font-size:12px; line-height:1.35; }
 
     .sigbox{
       border:1px solid #d0d0d0;
@@ -217,21 +191,11 @@
       display:block;
     }
 
-    /* ✅ Print — identique écran (A4 + padding) + protège contre styles mobile */
     @page { size: A4; margin: 0mm; }
-
     @media print{
-      html, body{
-        margin: 0 !important;
-        padding: 0 !important;
-        background: #fff !important;
-      }
-
+      html, body{ margin: 0 !important; padding: 0 !important; background: #fff !important; }
       img, canvas, table{ max-width: 100% !important; }
-
-      /* garde le logo lisible en print */
       .logo{ height:32px !important; }
-
       .page{
         width: 210mm !important;
         min-height: 297mm !important;
@@ -243,21 +207,11 @@
         box-sizing: border-box !important;
         overflow: visible !important;
       }
-
-      /* réimpose la mise en page PC */
       .row2{ grid-template-columns: 1fr 1fr !important; }
       .row3{ grid-template-columns: 1fr 1fr 1fr !important; }
-
-      form{ width: 100% !important; }
       fieldset{ page-break-inside: avoid; }
-
       .tarifs-wrap{ overflow: visible !important; }
-      .tarifs{
-        width: 100% !important;
-        table-layout: fixed !important;
-        min-width: 0 !important;
-      }
-
+      .tarifs{ width: 100% !important; table-layout: fixed !important; min-width: 0 !important; }
       .no-print{ display:none !important; }
     }
 
@@ -275,46 +229,36 @@
       outline: 2px solid rgba(176,0,0,.25);
       outline-offset: 2px;
     }
-    
-		.photoBox{
-		  margin-top:8px;
-		  display:flex;
-		  gap:10px;
-		  align-items:flex-start;
-		  flex-wrap:wrap;
-		}
-		
-		.photoPreview{
-		  border:1px solid #d0d0d0;
-		  border-radius:9px;
-		  padding:8px;
-		  background:#fff;
-		}
-		
-		#photoCanvas{
-		  width: 35mm;   /* affichage */
-		  height: 45mm;  /* affichage */
-		  border:1px dashed #999;
-		  border-radius:6px;
-		  display:block;
-		}
-		
-		.photoActions{ min-width: 220px; }
-    
+
+    .photoBox{
+      margin-top:8px;
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+      flex-wrap:wrap;
+    }
+    .photoPreview{
+      border:1px solid #d0d0d0;
+      border-radius:9px;
+      padding:8px;
+      background:#fff;
+    }
+    #photoCanvas{
+      width: 35mm;
+      height: 45mm;
+      border:1px dashed #999;
+      border-radius:6px;
+      display:block;
+    }
+    .photoActions{ min-width: 220px; }
   </style>
 </head>
 
 <body>
 
 <div class="page" id="formPage">
-
   <div class="header">
-    <!-- ✅ 52px partout (le 26px était trop petit) -->
-    <img
-      class="logo"
-      src="logo-crecyvelo-h52.png"
-      alt="Crécyvélo 77"
-    >
+    <img class="logo" src="logo-crecyvelo-h52.png" alt="Crécyvélo 77">
     <div class="headerText">
       <h1>Bulletin d’adhésion 2026 – Crécyvélo 77</h1>
       <p class="subtitle">Merci de compléter les informations ci-dessous. Les champs marqués * sont obligatoires.</p>
@@ -371,18 +315,12 @@
 
       <div class="row3">
         <div>
-          <label>
-            Commune de naissance
-            <span class="optional">(facultatif)</span>
-          </label>
+          <label>Commune de naissance <span class="optional">(facultatif)</span></label>
           <input type="text" name="commune_naissance">
         </div>
 
         <div id="wrap_departement_naissance">
-          <label>
-            Département de naissance
-            <span class="optional">(facultatif)</span>
-          </label>
+          <label>Département de naissance <span class="optional">(facultatif)</span></label>
           <input type="text" name="departement_naissance" inputmode="text" placeholder="Ex: 77, 2A, 971">
         </div>
 
@@ -504,36 +442,35 @@
       <div class="hint">Si “Licence fin de saison (gratuit)” est choisi, la cotisation est automatiquement forcée à 0 €.</div>
     </fieldset>
 
-		<fieldset>
-		  <legend>Photo d’identité</legend>
-			<div id="photoPrefillBox" class="hidden" style="margin:6px 0 0;">
-			  <div class="hint" style="margin:0 0 6px;">
-				Photo pré-remplie (trombinoscope) :
-			  </div>
-			  <img id="photoPrefillImg" alt="Photo pré-remplie"
-				   style="display:block; width:35mm; height:45mm; object-fit:cover; border:1px solid #999; border-radius:6px;">
-			  <div class="hint" style="margin-top:6px;">
-				Vous pouvez remplacer cette photo en ajoutant un fichier ci-dessous.
-			  </div>
-			</div>
+    <fieldset>
+      <legend>Photo d’identité</legend>
 
-			<input type="hidden" name="photo_url" id="photo_url">
-		
-		  <label>Ajouter une photo (JPEG/PNG)</label>
-		  <input type="file" name="photo_identite" id="photo_identite" accept="image/jpeg,image/png">
-		
-		  <div class="hint">Optionnel. Recadrage automatique au format identité (35×45 mm).</div>
-		
-		  <div class="photoBox" id="photoBox" style="display:none;">
-		    <div class="photoPreview">
-		      <canvas id="photoCanvas"></canvas>
-		    </div>
-		    <div class="photoActions">
-		      <button type="button" class="btn btn-ghost" id="clearPhoto">Retirer</button>
-		      <div class="hint" id="photoInfo"></div>
-		    </div>
-		  </div>
-		</fieldset>
+      <div id="photoPrefillBox" class="hidden" style="margin:6px 0 0;">
+        <div class="hint" style="margin:0 0 6px;">Photo pré-remplie (trombinoscope) :</div>
+        <img id="photoPrefillImg" alt="Photo pré-remplie"
+             style="display:block; width:35mm; height:45mm; object-fit:cover; border:1px solid #999; border-radius:6px;">
+        <div class="hint" style="margin-top:6px;">
+          Vous pouvez remplacer cette photo en ajoutant un fichier ci-dessous.
+        </div>
+      </div>
+
+      <input type="hidden" name="photo_url" id="photo_url">
+
+      <label>Ajouter une photo (JPEG/PNG)</label>
+      <input type="file" name="photo_identite" id="photo_identite" accept="image/jpeg,image/png">
+
+      <div class="hint">Optionnel. Recadrage automatique au format identité (35×45 mm).</div>
+
+      <div class="photoBox" id="photoBox" style="display:none;">
+        <div class="photoPreview">
+          <canvas id="photoCanvas"></canvas>
+        </div>
+        <div class="photoActions">
+          <button type="button" class="btn btn-ghost" id="clearPhoto">Retirer</button>
+          <div class="hint" id="photoInfo"></div>
+        </div>
+      </div>
+    </fieldset>
 
     <fieldset>
       <legend>Questionnaire de santé *</legend>
@@ -577,17 +514,17 @@
 <div class="page hidden" id="confirmPage" style="min-height:auto;">
   <h1>✅ Inscription enregistrée</h1>
   <p>Merci, votre inscription a bien été prise en compte.</p>
-  <p><b>N° d’adhésion :</b> <span id="confNum"></span></p>
+  <p><b>N° d’adhésion :</b> <span id="confNum">—</span></p>
+  <p class="hint">Le PDF est envoyé par email (vous n’aurez pas forcément un lien direct ici).</p>
   <p>
-    <a class="btn btn-primary" id="confPdf" target="_blank">Télécharger le PDF</a>
+    <a class="btn btn-primary" id="confPdf" href="#" role="button">Le PDF arrive par email</a>
     <button class="btn btn-ghost" id="backBtn" type="button">Faire une autre inscription</button>
   </p>
 </div>
 
 <script>
 /** ========= CONFIG ========= */
-//const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxIPFOYW6XwFtcLZL14ikwI7gxss3BBHm6KgdDBRo1b2eRFKlgq8nBuy9jPm3vOF4M6eA/exec";
-const APPS_SCRIPT_URL = "https://script.googleusercontent.com/macros/s/AKfycbxIPFOYW6XwFtcLZL14ikwI7gxss3BBHm6KgdDBRo1b2eRFKlgq8nBuy9jPm3vOF4M6eA/exec";
+const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxIPFOYW6XwFtcLZL14ikwI7gxss3BBHm6KgdDBRo1b2eRFKlgq8nBuy9jPm3vOF4M6eA/exec";
 
 /** ========= Helpers ========= */
 function normalizeSpaces(s){ return (s||"").replace(/\s+/g," ").trim(); }
@@ -599,19 +536,9 @@ function formatEUR(v){
 function formatPhoneFR(value){
   if (!value) return "";
   let s = String(value).trim();
-
-  // convertir +33 -> 0
   s = s.replace(/^\s*\+33\s*/, "0");
-
-  // ne garder que chiffres
   const digits = s.replace(/\D+/g, "");
-
-  // format 10 chiffres FR -> "06 12 34 56 78"
-  if (digits.length === 10) {
-    return digits.replace(/(\d{2})(?=\d)/g, "$1 ").trim();
-  }
-
-  // sinon on renvoie au mieux (sans forcer)
+  if (digits.length === 10) return digits.replace(/(\d{2})(?=\d)/g, "$1 ").trim();
   return s;
 }
 function getRadio(form, name){
@@ -628,7 +555,6 @@ function fileToDataUrl(file) {
     r.readAsDataURL(file);
   });
 }
-
 async function loadImageFromFile(file){
   const dataUrl = await fileToDataUrl(file);
   return await new Promise((resolve, reject) => {
@@ -638,34 +564,22 @@ async function loadImageFromFile(file){
     img.src = dataUrl;
   });
 }
-
-// Recadrage auto “center crop” vers ratio 35:45, puis resize + compression JPEG
 async function makeIdPhotoDataUrl(file, opts = {}){
-  const {
-    targetW = 413,   // ~35mm à 300dpi
-    targetH = 531,   // ~45mm à 300dpi
-    quality = 0.82,  // compression JPEG
-    maxBytes = 250 * 1024 // garde léger (optionnel)
-  } = opts;
-
+  const { targetW=413, targetH=531, quality=0.82, maxBytes=250*1024 } = opts;
   const { img } = await loadImageFromFile(file);
 
-  // ratio cible
   const targetRatio = targetW / targetH;
   const srcW = img.naturalWidth;
   const srcH = img.naturalHeight;
   const srcRatio = srcW / srcH;
 
-  // center crop
   let cropW, cropH, cropX, cropY;
   if (srcRatio > targetRatio) {
-    // trop large -> on coupe sur les côtés
     cropH = srcH;
     cropW = Math.round(srcH * targetRatio);
     cropX = Math.round((srcW - cropW) / 2);
     cropY = 0;
   } else {
-    // trop haut -> on coupe en haut/bas
     cropW = srcW;
     cropH = Math.round(srcW / targetRatio);
     cropX = 0;
@@ -680,17 +594,14 @@ async function makeIdPhotoDataUrl(file, opts = {}){
   ctx.imageSmoothingQuality = "high";
   ctx.drawImage(img, cropX, cropY, cropW, cropH, 0, 0, targetW, targetH);
 
-  // compression progressive si besoin
   let q = quality;
   let out = canvas.toDataURL("image/jpeg", q);
-  while (out.length * 0.75 > maxBytes && q > 0.55) { // estimation base64->bytes
+  while (out.length * 0.75 > maxBytes && q > 0.55) {
     q -= 0.07;
     out = canvas.toDataURL("image/jpeg", q);
   }
-
   return { dataUrl: out, mime: "image/jpeg", width: targetW, height: targetH, qualityUsed: q };
 }
-
 function formatDepartement(value){
   if (!value) return "";
   let v = value.toString().trim().toUpperCase();
@@ -700,13 +611,11 @@ function formatDepartement(value){
   if (/^\d{1,2}$/.test(v)) return v.padStart(2, "0");
   return v;
 }
-
 function eur(n){
   const x = Number(n);
   if (!Number.isFinite(x)) return "—";
   return x.toFixed(2).replace(".", ",") + " €";
 }
-
 function escapeHtml(s){
   return String(s ?? "")
     .replaceAll("&","&amp;")
@@ -716,80 +625,20 @@ function escapeHtml(s){
     .replaceAll("'","&#039;");
 }
 
-/**
- * Compresse un fichier image en JPEG (dataURL) en redimensionnant + ajustant la qualité.
- * - maxW/maxH : dimensions max en pixels
- * - qualityStart : qualité JPEG initiale (0..1)
- * - maxBytes : taille max visée (en octets)
- */
-async function compressImageToJpegDataUrl(file, {
-  maxW = 900,
-  maxH = 1200,
-  qualityStart = 0.88,
-  maxBytes = 400 * 1024, // ~400 Ko
-  minQuality = 0.55
-} = {}) {
-  if (!file || !file.type || !file.type.startsWith("image/")) {
-    throw new Error("Le fichier n'est pas une image.");
+/** Parse query robust (gère + => espace) */
+function getQueryParams_(){
+  const raw = (window.location.search || "").replace(/^\?/, "");
+  const out = new Map();
+  if (!raw) return out;
+  for (const part of raw.split("&")) {
+    if (!part) continue;
+    const [k, v=""] = part.split("=");
+    const key = decodeURIComponent((k || "").replace(/\+/g, " "));
+    const val = decodeURIComponent((v || "").replace(/\+/g, " "));
+    out.set(key, val);
   }
-
-  // 1) Charger l'image
-  const imgUrl = URL.createObjectURL(file);
-  const img = await new Promise((resolve, reject) => {
-    const i = new Image();
-    i.onload = () => resolve(i);
-    i.onerror = reject;
-    i.src = imgUrl;
-  });
-
-  // 2) Calcul du resize (conserve le ratio)
-  const iw = img.naturalWidth || img.width;
-  const ih = img.naturalHeight || img.height;
-
-  let scale = Math.min(maxW / iw, maxH / ih, 1); // jamais upscale
-  const tw = Math.max(1, Math.round(iw * scale));
-  const th = Math.max(1, Math.round(ih * scale));
-
-  // 3) Dessin sur canvas
-  const canvas = document.createElement("canvas");
-  canvas.width = tw;
-  canvas.height = th;
-
-  const ctx = canvas.getContext("2d", { alpha: false });
-  ctx.imageSmoothingEnabled = true;
-  ctx.imageSmoothingQuality = "high";
-  ctx.drawImage(img, 0, 0, tw, th);
-
-  URL.revokeObjectURL(imgUrl);
-
-  // 4) Encoder en JPEG + boucle si trop lourd
-  let quality = qualityStart;
-
-  const toBlob = (q) => new Promise((resolve) => {
-    canvas.toBlob((b) => resolve(b), "image/jpeg", q);
-  });
-
-  let blob = await toBlob(quality);
-
-  // Si c'est encore trop lourd, on baisse la qualité progressivement
-  while (blob && blob.size > maxBytes && quality > minQuality) {
-    quality = Math.max(minQuality, quality - 0.07);
-    blob = await toBlob(quality);
-  }
-
-  if (!blob) throw new Error("Impossible de compresser l'image (blob null).");
-
-  // 5) Blob -> dataURL
-  const dataUrl = await new Promise((resolve, reject) => {
-    const r = new FileReader();
-    r.onload = () => resolve(String(r.result));
-    r.onerror = reject;
-    r.readAsDataURL(blob);
-  });
-
-  return { dataUrl, mime: "image/jpeg", size: blob.size, width: tw, height: th, quality };
+  return out;
 }
-
 
 /** ========= Tarifs JSON ========= */
 async function loadTarifsAndRender(onChangeCotisation){
@@ -799,7 +648,6 @@ async function loadTarifsAndRender(onChangeCotisation){
   try {
     const url = "/parcours/inscriptions/tarifs-2026.json?v=" + Date.now();
     const res = await fetch(url, { cache: "no-store" });
-
     const text = await res.text();
     if (!res.ok) throw new Error(`HTTP ${res.status} en chargeant ${url}\nDébut réponse: ${text.slice(0,120)}`);
 
@@ -951,14 +799,13 @@ function setupSignaturePad(){
 
   const sig = setupSignaturePad();
 
-	const photoInput = document.getElementById("photo_identite");
-	const photoBox = document.getElementById("photoBox");
-	const photoCanvas = document.getElementById("photoCanvas");
-	const clearPhotoBtn = document.getElementById("clearPhoto");
-	const photoInfo = document.getElementById("photoInfo");
-	
-	let photoPrepared = null; // {dataUrl, mime, ...}
+  const photoInput = document.getElementById("photo_identite");
+  const photoBox = document.getElementById("photoBox");
+  const photoCanvas = document.getElementById("photoCanvas");
+  const clearPhotoBtn = document.getElementById("clearPhoto");
+  const photoInfo = document.getElementById("photoInfo");
 
+  let photoPrepared = null; // {dataUrl, mime, ...}
 
   function adhesionType(){
     return form.querySelector('input[name="type_adhesion"]:checked')?.value || "";
@@ -966,7 +813,6 @@ function setupSignaturePad(){
 
   function setPaysUI(){
     const isFrance = (paysSelect.value === "France");
-
     wrapDept.classList.toggle("hidden", !isFrance);
     if (deptInput) deptInput.required = false;
 
@@ -1041,7 +887,6 @@ function setupSignaturePad(){
       cotError.textContent = "";
       return true;
     }
-
     const ok = !!form.querySelector('input[name="cotisation_choice"]:checked');
     if (!ok){
       cotError.style.display = "block";
@@ -1066,8 +911,7 @@ function setupSignaturePad(){
 &nbsp;•&nbsp; <b>${escapeHtml(getRadio(form,"type_adhesion") || "—")}</b><br>
 
 <b>Contact :</b> ${escapeHtml(form.email.value || "—")}
-&nbsp;•&nbsp;
-${escapeHtml(formatPhoneFR(form.telephone.value) || "—")}<br>
+&nbsp;•&nbsp; ${escapeHtml(formatPhoneFR(form.telephone.value) || "—")}<br>
 
 <b>Sport :</b> ${escapeHtml(pratiques.join(", ") || "—")}
 &nbsp;•&nbsp; VAE: <b>${escapeHtml(getRadio(form,"vae") || "—")}</b><br>
@@ -1113,75 +957,66 @@ ${escapeHtml(formatPhoneFR(form.telephone.value) || "—")}<br>
   function getCotisationForPayload(){
     const isFree = (getRadio(form, "reglement") === "Licence fin de saison (gratuit)");
     if (isFree){
-      return {
-        code: cotCode.value || "FREE_LIC_FIN_SAISON",
-        libelle: cotLib.value || "Licence fin de saison (gratuit)",
-        montant: cotMont.value || "0"
-      };
+      return { code: cotCode.value || "FREE_LIC_FIN_SAISON", libelle: cotLib.value || "Licence fin de saison (gratuit)", montant: cotMont.value || "0" };
     }
     const cot = form.querySelector('input[name="cotisation_choice"]:checked');
-    return {
-      code: cot?.dataset.code || "",
-      libelle: cot?.dataset.libelle || "",
-      montant: cot?.dataset.montant || ""
-    };
+    return { code: cot?.dataset.code || "", libelle: cot?.dataset.libelle || "", montant: cot?.dataset.montant || "" };
   }
 
   if (deptInput){
-    deptInput.addEventListener("blur", () => {
-      deptInput.value = formatDepartement(deptInput.value);
-    });
+    deptInput.addEventListener("blur", () => { deptInput.value = formatDepartement(deptInput.value); });
   }
 
-  function prefillFromQuery(form){
-    const params = new URLSearchParams(window.location.search);
-	
-	// Photo pré-remplie (URL trombi)
-	if (params.has("photo_url")) {
-	  const url = params.get("photo_url") || "";
-	  const hidden = document.getElementById("photo_url");
-	  const box = document.getElementById("photoPrefillBox");
-	  const img = document.getElementById("photoPrefillImg");
+  function prefillFromQuery(){
+    const params = getQueryParams_();
 
-	  if (hidden) hidden.value = url;
+    // photo trombi
+    if (params.has("photo_url")) {
+      const url = (params.get("photo_url") || "").trim();
+      const hidden = document.getElementById("photo_url");
+      const box = document.getElementById("photoPrefillBox");
+      const img = document.getElementById("photoPrefillImg");
 
-	  if (img && box && url) {
-		img.src = url + (url.includes("?") ? "&" : "?") + "v=" + Date.now();
-		img.referrerPolicy = "no-referrer";
-		box.classList.remove("hidden");
-	  }
-	}
+      if (hidden) hidden.value = url;
+
+      if (img && box && url) {
+        img.referrerPolicy = "no-referrer";
+        img.src = url + (url.includes("?") ? "&" : "?") + "v=" + Date.now();
+        box.classList.remove("hidden");
+      }
+    }
 
     const setVal = (name, value) => {
       const el = form.querySelector(`[name="${name}"]`);
       if (el && typeof value === "string") el.value = value;
     };
+
     const setRadio = (name, value) => {
       if (!value) return;
-      let r = form.querySelector(`input[type="radio"][name="${name}"][value="${CSS.escape(value)}"]`);
-      if (r) { r.checked = true; return; }
-      const target = value.toString().toLowerCase();
       const radios = Array.from(form.querySelectorAll(`input[type="radio"][name="${name}"]`));
-      r = radios.find(x => (x.value || "").toLowerCase() === target);
-      if (r) r.checked = true;
-    };
-    const setCheckbox = (name, value, checked=true) => {
-      const c = form.querySelector(`input[type="checkbox"][name="${name}"][value="${CSS.escape(value)}"]`);
-      if (c) c.checked = checked;
+      const found = radios.find(r => (r.value || "").toLowerCase() === String(value).toLowerCase());
+      if (found) found.checked = true;
     };
 
+    const setCheckboxValue = (name, value) => {
+      const boxes = Array.from(form.querySelectorAll(`input[type="checkbox"][name="${name}"]`));
+      const found = boxes.find(c => (c.value || "").toLowerCase() === String(value).toLowerCase());
+      if (found) found.checked = true;
+    };
+
+    // type adhesion
     const forceRenouv =
-      params.get("type_adhesion")?.toLowerCase() === "renouvellement" ||
+      (params.get("type_adhesion") || "").toLowerCase() === "renouvellement" ||
       ["1","true","oui","yes"].includes((params.get("renouvellement")||"").toLowerCase()) ||
       params.has("licence");
     if (forceRenouv) setRadio("type_adhesion", "renouvellement");
 
+    // civilite
     if (params.has("civilite")){
-      const c = params.get("civilite") || "";
-      const cl = c.toLowerCase();
-      if (cl === "m" || cl === "monsieur" || cl === "mr") setRadio("civilite", "Monsieur");
-      else if (cl === "f" || cl === "madame" || cl === "mme") setRadio("civilite", "Madame");
-      else setRadio("civilite", c);
+      const c = (params.get("civilite") || "").toLowerCase();
+      if (c === "m" || c === "monsieur" || c === "mr") setRadio("civilite", "Monsieur");
+      else if (c === "f" || c === "madame" || c === "mme") setRadio("civilite", "Madame");
+      else setRadio("civilite", params.get("civilite"));
     }
 
     ["nom","prenom","date_naissance","commune_naissance","departement_naissance","licence","nom_naissance"]
@@ -1196,27 +1031,22 @@ ${escapeHtml(formatPhoneFR(form.telephone.value) || "—")}<br>
           : "France";
       }
     }
-
     setPaysUI();
     if (params.has("pays_naissance_detail")) setVal("pays_naissance_detail", params.get("pays_naissance_detail"));
 
     ["adresse","cp","ville","telephone","email"].forEach(k => { if (params.has(k)) setVal(k, params.get(k)); });
 
+    // pratique (CSV)
     if (params.has("pratique")){
       form.querySelectorAll(`input[type="checkbox"][name="pratique"]`).forEach(c => c.checked = false);
       (params.get("pratique") || "")
         .split(",")
         .map(s => s.trim())
         .filter(Boolean)
-        .forEach(v => {
-          const vv = v.toLowerCase();
-          if (vv === "route") setCheckbox("pratique", "Route", true);
-          else if (vv === "vtt") setCheckbox("pratique", "VTT", true);
-          else if (vv === "gravel") setCheckbox("pratique", "Gravel", true);
-          else setCheckbox("pratique", v, true);
-        });
+        .forEach(v => setCheckboxValue("pratique", v));
     }
 
+    // vae
     if (params.has("vae")){
       const v = (params.get("vae") || "").toLowerCase();
       if (["1","true","oui","yes"].includes(v)) setRadio("vae", "Oui");
@@ -1224,6 +1054,7 @@ ${escapeHtml(formatPhoneFR(form.telephone.value) || "—")}<br>
       else setRadio("vae", params.get("vae"));
     }
 
+    // reglement
     if (params.has("reglement")){
       const r = params.get("reglement") || "";
       const rl = r.toLowerCase();
@@ -1234,17 +1065,28 @@ ${escapeHtml(formatPhoneFR(form.telephone.value) || "—")}<br>
       }
     }
 
+    // sante_ack
     if (params.has("sante_ack")){
       const ack = form.querySelector("#sante_ack");
       const v = (params.get("sante_ack") || "").toLowerCase();
       if (ack) ack.checked = (v === "1" || v === "true" || v === "oui");
     }
 
+    // cotisation_code (après chargement tarifs)
     if (params.has("cotisation_code")){
-      const code = params.get("cotisation_code");
-      const radio = form.querySelector(`input[name="cotisation_choice"][data-code="${CSS.escape(code)}"]`);
-      if (radio) radio.checked = true;
+      const code = params.get("cotisation_code") || "";
+      const radios = Array.from(document.querySelectorAll(`input[name="cotisation_choice"]`));
+      const found = radios.find(r => (r.dataset.code || "").toLowerCase() === code.toLowerCase());
+      if (found) found.checked = true;
     }
+
+    setLicenceUI();
+    applyReglementRules();
+    updateCotisation();
+    validateLicence();
+    validatePratique();
+    validateCotisation();
+    updateRecap();
   }
 
   // listeners
@@ -1255,12 +1097,10 @@ ${escapeHtml(formatPhoneFR(form.telephone.value) || "—")}<br>
   form.querySelectorAll('input[name="pratique"]').forEach(c => c.addEventListener("change", () => { validatePratique(); updateRecap(); }));
   form.querySelectorAll('input[name="vae"]').forEach(r => r.addEventListener("change", updateRecap));
   form.querySelectorAll('input[name="reglement"]').forEach(r => r.addEventListener("change", applyReglementRules));
-
   ["nom","prenom","email","telephone"].forEach(n => {
     const el = form.querySelector(`[name="${n}"]`);
     if (el) el.addEventListener("input", updateRecap);
   });
-
   ["nom","prenom","nom_naissance","commune_naissance","pays_naissance_detail","ville","adresse"].forEach(name=>{
     const input = form.querySelector(`[name="${name}"]`);
     if (!input) return;
@@ -1282,9 +1122,9 @@ ${escapeHtml(formatPhoneFR(form.telephone.value) || "—")}<br>
     cotCode.value = "";
     cotLib.value = "";
     cotMont.value = "";
-		photoPrepared = null;
-		if (photoInput) photoInput.value = "";
-		if (photoBox) photoBox.style.display = "none";
+    photoPrepared = null;
+    if (photoInput) photoInput.value = "";
+    if (photoBox) photoBox.style.display = "none";
     updateRecap();
   });
 
@@ -1300,85 +1140,76 @@ ${escapeHtml(formatPhoneFR(form.telephone.value) || "—")}<br>
     cotCode.value = "";
     cotLib.value = "";
     cotMont.value = "";
-		photoPrepared = null;
-		if (photoInput) photoInput.value = "";
-		if (photoBox) photoBox.style.display = "none";  
+    photoPrepared = null;
+    if (photoInput) photoInput.value = "";
+    if (photoBox) photoBox.style.display = "none";
     updateRecap();
   });
 
-	async function renderPhotoPreview(prepared){
-	  if (!photoCanvas) return;
-	  const ctx = photoCanvas.getContext("2d");
-	
-	  // canvas interne = même taille que l'image préparée
-	  photoCanvas.width = prepared.width;
-	  photoCanvas.height = prepared.height;
-	
-	  const img = new Image();
-	  await new Promise((res, rej) => {
-	    img.onload = res; img.onerror = rej; img.src = prepared.dataUrl;
-	  });
-	
-	  ctx.clearRect(0,0,photoCanvas.width,photoCanvas.height);
-	  ctx.drawImage(img, 0, 0);
-	
-	  const approxBytes = Math.round(prepared.dataUrl.length * 0.75);
-	  if (photoInfo){
-	    photoInfo.textContent = `Recadrée 35×45mm (${prepared.width}×${prepared.height}px) — ~${Math.round(approxBytes/1024)} Ko`;
-	  }
-	}
-	
-	if (photoInput){
-	  photoInput.addEventListener("change", async () => {
-	    const f = photoInput.files && photoInput.files[0];
-	    photoPrepared = null;
-	
-	    if (!f){
-	      if (photoBox) photoBox.style.display = "none";
-	      return;
-	    }
-	
-	    if (!/^image\/(jpeg|png)$/.test(f.type)){
-	      alert("Merci de choisir une image JPEG ou PNG.");
-	      photoInput.value = "";
-	      if (photoBox) photoBox.style.display = "none";
-	      return;
-	    }
-	
-	    try{
-	      // prépare (crop + compression)
-	      photoPrepared = await makeIdPhotoDataUrl(f, {
-	        targetW: 413, targetH: 531, quality: 0.82, maxBytes: 250*1024
-	      });
-	
-	      if (photoBox) photoBox.style.display = "flex";
-	      await renderPhotoPreview(photoPrepared);
-	
-	    } catch(e){
-	      console.error(e);
-	      alert("Impossible de traiter la photo.");
-	      photoInput.value = "";
-	      if (photoBox) photoBox.style.display = "none";
-	      photoPrepared = null;
-	    }
-	  });
-	}
+  async function renderPhotoPreview(prepared){
+    if (!photoCanvas) return;
+    const ctx = photoCanvas.getContext("2d");
+    photoCanvas.width = prepared.width;
+    photoCanvas.height = prepared.height;
 
-	if (clearPhotoBtn){
-	  clearPhotoBtn.addEventListener("click", () => {
-	    if (photoInput) photoInput.value = "";
-	    photoPrepared = null;
-	    if (photoBox) photoBox.style.display = "none";
-	  });
-	}
+    const img = new Image();
+    await new Promise((res, rej) => { img.onload = res; img.onerror = rej; img.src = prepared.dataUrl; });
 
-	const telInput = form.querySelector('input[name="telephone"]');
-	if (telInput){
-	  telInput.addEventListener("blur", () => {
-	    telInput.value = formatPhoneFR(telInput.value);
-	    updateRecap();
-	  });
-	}
+    ctx.clearRect(0,0,photoCanvas.width,photoCanvas.height);
+    ctx.drawImage(img, 0, 0);
+
+    const approxBytes = Math.round(prepared.dataUrl.length * 0.75);
+    if (photoInfo){
+      photoInfo.textContent = `Recadrée 35×45mm (${prepared.width}×${prepared.height}px) — ~${Math.round(approxBytes/1024)} Ko`;
+    }
+  }
+
+  if (photoInput){
+    photoInput.addEventListener("change", async () => {
+      const f = photoInput.files && photoInput.files[0];
+      photoPrepared = null;
+
+      if (!f){
+        if (photoBox) photoBox.style.display = "none";
+        return;
+      }
+
+      if (!/^image\/(jpeg|png)$/.test(f.type)){
+        alert("Merci de choisir une image JPEG ou PNG.");
+        photoInput.value = "";
+        if (photoBox) photoBox.style.display = "none";
+        return;
+      }
+
+      try{
+        photoPrepared = await makeIdPhotoDataUrl(f, { targetW: 413, targetH: 531, quality: 0.82, maxBytes: 250*1024 });
+        if (photoBox) photoBox.style.display = "flex";
+        await renderPhotoPreview(photoPrepared);
+      } catch(e){
+        console.error(e);
+        alert("Impossible de traiter la photo.");
+        photoInput.value = "";
+        if (photoBox) photoBox.style.display = "none";
+        photoPrepared = null;
+      }
+    });
+  }
+
+  if (clearPhotoBtn){
+    clearPhotoBtn.addEventListener("click", () => {
+      if (photoInput) photoInput.value = "";
+      photoPrepared = null;
+      if (photoBox) photoBox.style.display = "none";
+    });
+  }
+
+  const telInput = form.querySelector('input[name="telephone"]');
+  if (telInput){
+    telInput.addEventListener("blur", () => {
+      telInput.value = formatPhoneFR(telInput.value);
+      updateRecap();
+    });
+  }
 
   // submit
   form.addEventListener("submit", async (e) => {
@@ -1390,8 +1221,6 @@ ${escapeHtml(formatPhoneFR(form.telephone.value) || "—")}<br>
     if (!validateCotisation()) return;
     if (!validateLicence() || !validatePratique()) return;
     if (!form.reportValidity()) return;
-
-    const pratiques = getCheckedValues(form, "pratique");
 
     const payload = {
       year: "2026",
@@ -1413,14 +1242,14 @@ ${escapeHtml(formatPhoneFR(form.telephone.value) || "—")}<br>
       telephone: normalizeSpaces(form.telephone.value),
       email: normalizeSpaces(form.email.value),
 
-      pratique: pratiques,
+      pratique: getCheckedValues(form, "pratique"),
       vae: getRadio(form, "vae"),
 
       cotisation: getCotisationForPayload(),
       reglement: getRadio(form, "reglement"),
       sante_ack: !!document.getElementById("sante_ack")?.checked,
 
-	  photo_url: (document.getElementById("photo_url")?.value || "").trim(),
+      photo_url: (document.getElementById("photo_url")?.value || "").trim(),
       signature: null,
       client_timestamp: new Date().toISOString()
     };
@@ -1428,79 +1257,52 @@ ${escapeHtml(formatPhoneFR(form.telephone.value) || "—")}<br>
     if (sig && !sig.isEmpty()) {
       payload.signature = { dataUrl: sig.toDataURL(), mime: "image/png" };
     }
-
-		const photoInput = form.querySelector('input[name="photo_identite"]');
-		if (photoPrepared && photoPrepared.dataUrl){
-		  payload.photo = { dataUrl: photoPrepared.dataUrl, mime: photoPrepared.mime };
-		}
-
+    if (photoPrepared && photoPrepared.dataUrl){
+      payload.photo = { dataUrl: photoPrepared.dataUrl, mime: photoPrepared.mime };
+    }
 
     submitBtn.disabled = true;
     const old = submitBtn.textContent;
     submitBtn.textContent = "Envoi…";
     statusMsg.textContent = "Transmission…";
 
-		statusMsg.textContent = "Transmission…";
+    try {
+      // ✅ Cross-site sans CORS : on ne peut pas lire la réponse, mais ça envoie.
+      await fetch(APPS_SCRIPT_URL, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify(payload)
+      });
 
-		submitBtn.disabled = true;
-		const old = submitBtn.textContent;
-		submitBtn.textContent = "Envoi…";
-		statusMsg.textContent = "Transmission…";
-		
-		try {
-		  // ✅ Envoi cross-origin sans CORS (on ne lit pas la réponse)
-		  await fetch(APPS_SCRIPT_URL, {
-		    method: "POST",
-		    mode: "no-cors",
-		    headers: { "Content-Type": "text/plain;charset=utf-8" },
-		    body: JSON.stringify(payload)
-		  });
-		
-		  // ✅ On considère que c’est parti (puisque côté serveur ça traite + mail)
-		  formPage.classList.add("hidden");
-		  confirmPage.classList.remove("hidden");
-		  confNum.textContent = "—"; // on ne l’a pas côté client sans CORS
-		  confPdf.textContent = "Le PDF arrive par email";
-		  confPdf.href = "#";
-		  confPdf.removeAttribute("target");
-		
-		} catch (err) {
-		  console.error(err);
-		  alert("❌ Échec de l’envoi (réseau). Réessaye.");
-		} finally {
-		  submitBtn.disabled = false;
-		  submitBtn.textContent = old;
-		  statusMsg.textContent = "";
-		}
-    
-		// sécurité anti-blocage (si pas de retour)
-    window.__cvTimeout && clearTimeout(window.__cvTimeout);
-    window.__cvTimeout = setTimeout(() => {
+      formPage.classList.add("hidden");
+      confirmPage.classList.remove("hidden");
+      confNum.textContent = "—";
+      confPdf.textContent = "Le PDF arrive par email";
+      confPdf.href = "#";
+      confPdf.removeAttribute("target");
+
+    } catch (err) {
+      console.error(err);
+      alert("❌ Échec de l’envoi (réseau). Réessaye.");
+    } finally {
       submitBtn.disabled = false;
       submitBtn.textContent = old;
-      statusMsg.textContent = "❌ Pas de réponse du serveur (timeout).";
-      alert("❌ Pas de réponse du serveur. (Vérifie le déploiement Apps Script et l’origin postMessage)");
-    }, 20000);
+      statusMsg.textContent = "";
+    }
   });
 
   // init
   setPaysUI();
   setLicenceUI();
+  updateRecap();
 
   loadTarifsAndRender(cotisationChanged).then(() => {
-    prefillFromQuery(form);
-    applyReglementRules();
-    updateCotisation();
-    validateLicence();
-    validatePratique();
-    validateCotisation();
-    updateRecap();
+    // ✅ IMPORTANT : préremplissage après tarifs
+    prefillFromQuery();
   });
-
-  updateRecap();
 })();
 </script>
+
 </body>
 </html>
-
-
