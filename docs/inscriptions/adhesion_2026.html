@@ -629,27 +629,6 @@ function fileToDataUrl(file) {
   });
 }
 
-function submitViaIframe_(payload){
-  // Crée un formulaire temporaire
-  const f = document.createElement("form");
-  f.method = "POST";
-  f.action = APPS_SCRIPT_URL + "?mode=iframe";
-  f.target = "cvSubmitFrame";
-  f.style.display = "none";
-
-  const inp = document.createElement("input");
-  inp.type = "hidden";
-  inp.name = "payload";
-  inp.value = JSON.stringify(payload);
-
-  f.appendChild(inp);
-  document.body.appendChild(f);
-  f.submit();
-
-  // clean après coup
-  setTimeout(() => f.remove(), 1000);
-}
-
 async function loadImageFromFile(file){
   const dataUrl = await fileToDataUrl(file);
   return await new Promise((resolve, reject) => {
@@ -947,46 +926,6 @@ function setupSignaturePad(){
   const confNum = document.getElementById("confNum");
   const confPdf = document.getElementById("confPdf");
   const backBtn = document.getElementById("backBtn");
-
-window.addEventListener("message", (ev) => {
-  // stop timeout dès qu'on reçoit quelque chose
-  if (window.__cvTimeout) {
-    clearTimeout(window.__cvTimeout);
-    window.__cvTimeout = null;
-  }
-
-  // DEBUG : utile tant que ce n'est pas stable
-  console.log("[cv] message reçu", { origin: ev.origin, data: ev.data });
-
-  // Origines possibles (Apps Script peut répondre depuis googleusercontent)
-	const okOrigin =
-		ev.origin === "https://script.google.com" ||
-		ev.origin === "https://script.googleusercontent.com";
-	if (!okOrigin) return;
-
-  // Certaines réponses peuvent être stringifiées -> on tente JSON.parse
-  let data = ev.data;
-  if (typeof data === "string") {
-    try { data = JSON.parse(data); } catch (e) { /* ignore */ }
-  }
-  if (!data || typeof data !== "object") return;
-
-  // ✅ on stoppe le "Transmission..."
-  submitBtn.disabled = false;
-  submitBtn.textContent = "Envoyer le bulletin";
-  statusMsg.textContent = "";
-
-  if (!data.ok) {
-    console.error("Retour serveur (iframe):", data);
-    alert("❌ " + (data.message || "Erreur lors de l’envoi."));
-    return;
-  }
-
-  formPage.classList.add("hidden");
-  confirmPage.classList.remove("hidden");
-  confNum.textContent = data.adhesionNumber || "(non fourni)";
-  confPdf.href = data.pdfUrl || "#";
-});
 
   const paysSelect = document.getElementById("pays_naissance");
   const wrapDept = document.getElementById("wrap_departement_naissance");
@@ -1503,16 +1442,36 @@ ${escapeHtml(formatPhoneFR(form.telephone.value) || "—")}<br>
 
 		statusMsg.textContent = "Transmission…";
 
-		// timeout (ex: 25s)
-		window.__cvTimeout = setTimeout(() => {
-			submitBtn.disabled = false;
-			submitBtn.textContent = "Envoyer le bulletin";
-			statusMsg.textContent = "";
-			alert("❌ Pas de réponse du serveur (timeout).");
-		}, 25000);
-
-		// ✅ Envoi sans CORS via <form> -> iframe
-		submitViaIframe_(payload);
+		submitBtn.disabled = true;
+		const old = submitBtn.textContent;
+		submitBtn.textContent = "Envoi…";
+		statusMsg.textContent = "Transmission…";
+		
+		try {
+		  // ✅ Envoi cross-origin sans CORS (on ne lit pas la réponse)
+		  await fetch(APPS_SCRIPT_URL, {
+		    method: "POST",
+		    mode: "no-cors",
+		    headers: { "Content-Type": "text/plain;charset=utf-8" },
+		    body: JSON.stringify(payload)
+		  });
+		
+		  // ✅ On considère que c’est parti (puisque côté serveur ça traite + mail)
+		  formPage.classList.add("hidden");
+		  confirmPage.classList.remove("hidden");
+		  confNum.textContent = "—"; // on ne l’a pas côté client sans CORS
+		  confPdf.textContent = "Le PDF arrive par email";
+		  confPdf.href = "#";
+		  confPdf.removeAttribute("target");
+		
+		} catch (err) {
+		  console.error(err);
+		  alert("❌ Échec de l’envoi (réseau). Réessaye.");
+		} finally {
+		  submitBtn.disabled = false;
+		  submitBtn.textContent = old;
+		  statusMsg.textContent = "";
+		}
     
 		// sécurité anti-blocage (si pas de retour)
     window.__cvTimeout && clearTimeout(window.__cvTimeout);
@@ -1541,9 +1500,7 @@ ${escapeHtml(formatPhoneFR(form.telephone.value) || "—")}<br>
   updateRecap();
 })();
 </script>
-<!-- Iframe cachée pour submit sans CORS -->
-<iframe name="cvSubmitFrame" id="cvSubmitFrame" style="display:none;"></iframe>
 </body>
-
 </html>
+
 
