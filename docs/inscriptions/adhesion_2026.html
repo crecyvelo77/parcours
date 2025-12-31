@@ -514,12 +514,12 @@
 <div class="page hidden" id="confirmPage" style="min-height:auto;">
   <h1>✅ Inscription enregistrée</h1>
   <p>Merci, votre inscription a bien été prise en compte.</p>
-  <p><b>N° d’adhésion :</b> <span id="confNum">—</span></p>
   <p class="hint">Le PDF est envoyé par email (vous n’aurez pas forcément un lien direct ici).</p>
-  <p>
-    <a class="btn btn-primary" id="confPdf" href="#" role="button">Le PDF arrive par email</a>
-    <button class="btn btn-ghost" id="backBtn" type="button">Faire une autre inscription</button>
-  </p>
+	<p>
+	  <button class="btn btn-ghost" id="backBtn" type="button">
+	    Faire une autre inscription
+	  </button>
+	</p>
 </div>
 
 <script>
@@ -1277,9 +1277,9 @@ function setupSignaturePad(){
 
       formPage.classList.add("hidden");
       confirmPage.classList.remove("hidden");
-      confNum.textContent = "—";
+      // confNum.textContent = "—";
       confPdf.textContent = "Le PDF arrive par email";
-      confPdf.href = "#";
+      // confPdf.href = "#";
       confPdf.removeAttribute("target");
 
     } catch (err) {
