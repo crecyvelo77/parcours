@@ -515,11 +515,11 @@
   <h1>✅ Inscription enregistrée</h1>
   <p>Merci, votre inscription a bien été prise en compte.</p>
   <p class="hint">Le PDF est envoyé par email.</p>
-	<p>
-	  <button class="btn btn-ghost" id="backBtn" type="button">
-	    Faire une autre inscription
-	  </button>
-	</p>
+  <p>
+    <button class="btn btn-ghost" id="backBtn" type="button">
+      Faire une autre inscription
+    </button>
+  </p>
 </div>
 
 <script>
@@ -625,7 +625,7 @@ function escapeHtml(s){
     .replaceAll("'","&#039;");
 }
 
-/** Parse query robust (gère + => espace) */
+/** Parse query robuste (+ => espace) */
 function getQueryParams_(){
   const raw = (window.location.search || "").replace(/^\?/, "");
   const out = new Map();
@@ -965,11 +965,152 @@ function setupSignaturePad(){
     deptInput.addEventListener("blur", () => { deptInput.value = formatDepartement(deptInput.value); });
   }
 
-  // ✅ TA fonction prefillFromQuery() : inchangée (elle est déjà bonne)
-  // ... (garde ton prefillFromQuery() telle quelle)
-  // IMPORTANT: elle est appelée après chargement tarifs, dans le init en bas.
+  /** ========= PREFILL (2 étapes) ========= */
+  let prefillStage1Done = false;
+  let prefillStage2Done = false;
 
-  // listeners (inchangés)
+  function prefillFromQueryStage1(){
+    if (prefillStage1Done) return;
+    prefillStage1Done = true;
+
+    const params = getQueryParams_();
+    if (!params.size) return;
+
+    // photo trombi
+    if (params.has("photo_url")) {
+      const url = (params.get("photo_url") || "").trim();
+      const hidden = document.getElementById("photo_url");
+      const box = document.getElementById("photoPrefillBox");
+      const img = document.getElementById("photoPrefillImg");
+
+      if (hidden) hidden.value = url;
+
+      if (img && box && url) {
+        img.referrerPolicy = "no-referrer";
+        img.src = url + (url.includes("?") ? "&" : "?") + "v=" + Date.now();
+        box.classList.remove("hidden");
+      }
+    }
+
+    const setVal = (name, value) => {
+      const el = form.querySelector(`[name="${name}"]`);
+      if (el && typeof value === "string") el.value = value;
+    };
+
+    const setRadio = (name, value) => {
+      if (!value) return;
+      const radios = Array.from(form.querySelectorAll(`input[type="radio"][name="${name}"]`));
+      const found = radios.find(r => (r.value || "").toLowerCase() === String(value).toLowerCase());
+      if (found) found.checked = true;
+    };
+
+    const setCheckboxValue = (name, value) => {
+      const boxes = Array.from(form.querySelectorAll(`input[type="checkbox"][name="${name}"]`));
+      const found = boxes.find(c => (c.value || "").toLowerCase() === String(value).toLowerCase());
+      if (found) found.checked = true;
+    };
+
+    // type adhesion
+    const forceRenouv =
+      (params.get("type_adhesion") || "").toLowerCase() === "renouvellement" ||
+      ["1","true","oui","yes"].includes((params.get("renouvellement")||"").toLowerCase()) ||
+      params.has("licence");
+    if (forceRenouv) setRadio("type_adhesion", "renouvellement");
+
+    // civilite
+    if (params.has("civilite")){
+      const c = (params.get("civilite") || "").toLowerCase();
+      if (c === "m" || c === "monsieur" || c === "mr") setRadio("civilite", "Monsieur");
+      else if (c === "f" || c === "madame" || c === "mme") setRadio("civilite", "Madame");
+      else setRadio("civilite", params.get("civilite"));
+    }
+
+    ["nom","prenom","date_naissance","commune_naissance","departement_naissance","licence","nom_naissance"]
+      .forEach(k => { if (params.has(k)) setVal(k, params.get(k)); });
+
+    if (params.has("pays_naissance")){
+      const v = (params.get("pays_naissance") || "").toLowerCase();
+      const sel = form.querySelector(`[name="pays_naissance"]`);
+      if (sel){
+        sel.value = (v === "etranger" || v === "à l’étranger" || v === "a l'etranger" || v === "international")
+          ? "Etranger"
+          : "France";
+      }
+    }
+    setPaysUI();
+    if (params.has("pays_naissance_detail")) setVal("pays_naissance_detail", params.get("pays_naissance_detail"));
+
+    ["adresse","cp","ville","telephone","email"].forEach(k => { if (params.has(k)) setVal(k, params.get(k)); });
+
+    // pratique (CSV)
+    if (params.has("pratique")){
+      form.querySelectorAll(`input[type="checkbox"][name="pratique"]`).forEach(c => c.checked = false);
+      (params.get("pratique") || "")
+        .split(",")
+        .map(s => s.trim())
+        .filter(Boolean)
+        .forEach(v => setCheckboxValue("pratique", v));
+    }
+
+    // vae
+    if (params.has("vae")){
+      const v = (params.get("vae") || "").toLowerCase();
+      if (["1","true","oui","yes"].includes(v)) setRadio("vae", "Oui");
+      else if (["0","false","non","no"].includes(v)) setRadio("vae", "Non");
+      else setRadio("vae", params.get("vae"));
+    }
+
+    // reglement
+    if (params.has("reglement")){
+      const r = params.get("reglement") || "";
+      const rl = r.toLowerCase();
+      if (rl.includes("licence") || rl === "licence_fin_saison" || rl === "free") {
+        setRadio("reglement", "Licence fin de saison (gratuit)");
+      } else {
+        setRadio("reglement", r);
+      }
+    }
+
+    // sante_ack
+    if (params.has("sante_ack")){
+      const ack = form.querySelector("#sante_ack");
+      const v = (params.get("sante_ack") || "").toLowerCase();
+      if (ack) ack.checked = (v === "1" || v === "true" || v === "oui");
+    }
+
+    // UI recalcul immédiat
+    setLicenceUI();
+    applyReglementRules();
+    updateCotisation();
+    validateLicence();
+    validatePratique();
+    validateCotisation();
+    updateRecap();
+  }
+
+  function prefillFromQueryStage2AfterTarifs(){
+    if (prefillStage2Done) return;
+    prefillStage2Done = true;
+
+    const params = getQueryParams_();
+    if (!params.size) return;
+
+    // cotisation_code (après chargement tarifs)
+    if (params.has("cotisation_code")){
+      const code = (params.get("cotisation_code") || "").trim();
+      const radios = Array.from(document.querySelectorAll(`input[name="cotisation_choice"]`));
+      const found = radios.find(r => (r.dataset.code || "").toLowerCase() === code.toLowerCase());
+      if (found) found.checked = true;
+    }
+
+    // Recalcule après sélection potentielle
+    applyReglementRules();
+    updateCotisation();
+    validateCotisation();
+    updateRecap();
+  }
+
+  /** ========= listeners ========= */
   paysSelect.addEventListener("change", () => { setPaysUI(); updateRecap(); });
   form.querySelectorAll('input[name="type_adhesion"]').forEach(r => r.addEventListener("change", () => { setLicenceUI(); validateLicence(); updateRecap(); }));
   form.querySelectorAll('input[name="civilite"]').forEach(r => r.addEventListener("change", updateRecap));
@@ -982,7 +1123,6 @@ function setupSignaturePad(){
     const el = form.querySelector(`[name="${n}"]`);
     if (el) el.addEventListener("input", updateRecap);
   });
-
   ["nom","prenom","nom_naissance","commune_naissance","pays_naissance_detail","ville","adresse"].forEach(name=>{
     const input = form.querySelector(`[name="${name}"]`);
     if (!input) return;
@@ -1007,6 +1147,8 @@ function setupSignaturePad(){
     photoPrepared = null;
     if (photoInput) photoInput.value = "";
     if (photoBox) photoBox.style.display = "none";
+    document.getElementById("photoPrefillBox")?.classList.add("hidden");
+    document.getElementById("photo_url").value = "";
     updateRecap();
   });
 
@@ -1025,12 +1167,77 @@ function setupSignaturePad(){
     photoPrepared = null;
     if (photoInput) photoInput.value = "";
     if (photoBox) photoBox.style.display = "none";
+    document.getElementById("photoPrefillBox")?.classList.add("hidden");
+    document.getElementById("photo_url").value = "";
     updateRecap();
   });
 
-  // ... garde aussi toute ta logique photo (renderPhotoPreview, change, clear) inchangée ...
+  async function renderPhotoPreview(prepared){
+    if (!photoCanvas) return;
+    const ctx = photoCanvas.getContext("2d");
+    photoCanvas.width = prepared.width;
+    photoCanvas.height = prepared.height;
 
-  // ✅ submit (inchangé, MAIS bien fermé)
+    const img = new Image();
+    await new Promise((res, rej) => { img.onload = res; img.onerror = rej; img.src = prepared.dataUrl; });
+
+    ctx.clearRect(0,0,photoCanvas.width,photoCanvas.height);
+    ctx.drawImage(img, 0, 0);
+
+    const approxBytes = Math.round(prepared.dataUrl.length * 0.75);
+    if (photoInfo){
+      photoInfo.textContent = `Recadrée 35×45mm (${prepared.width}×${prepared.height}px) — ~${Math.round(approxBytes/1024)} Ko`;
+    }
+  }
+
+  if (photoInput){
+    photoInput.addEventListener("change", async () => {
+      const f = photoInput.files && photoInput.files[0];
+      photoPrepared = null;
+
+      if (!f){
+        if (photoBox) photoBox.style.display = "none";
+        return;
+      }
+
+      if (!/^image\/(jpeg|png)$/.test(f.type)){
+        alert("Merci de choisir une image JPEG ou PNG.");
+        photoInput.value = "";
+        if (photoBox) photoBox.style.display = "none";
+        return;
+      }
+
+      try{
+        photoPrepared = await makeIdPhotoDataUrl(f, { targetW: 413, targetH: 531, quality: 0.82, maxBytes: 250*1024 });
+        if (photoBox) photoBox.style.display = "flex";
+        await renderPhotoPreview(photoPrepared);
+      } catch(e){
+        console.error(e);
+        alert("Impossible de traiter la photo.");
+        photoInput.value = "";
+        if (photoBox) photoBox.style.display = "none";
+        photoPrepared = null;
+      }
+    });
+  }
+
+  if (clearPhotoBtn){
+    clearPhotoBtn.addEventListener("click", () => {
+      if (photoInput) photoInput.value = "";
+      photoPrepared = null;
+      if (photoBox) photoBox.style.display = "none";
+    });
+  }
+
+  const telInput = form.querySelector('input[name="telephone"]');
+  if (telInput){
+    telInput.addEventListener("blur", () => {
+      telInput.value = formatPhoneFR(telInput.value);
+      updateRecap();
+    });
+  }
+
+  /** ========= submit ========= */
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
     statusMsg.textContent = "";
@@ -1054,23 +1261,31 @@ function setupSignaturePad(){
       pays_naissance: form.pays_naissance.value,
       pays_naissance_detail: normalizeSpaces(form.pays_naissance_detail?.value || ""),
       licence: normalizeSpaces(form.licence?.value || ""),
+
       adresse: normalizeSpaces(form.adresse.value),
       cp: normalizeSpaces(form.cp.value),
       ville: normalizeSpaces(form.ville.value),
       telephone: normalizeSpaces(form.telephone.value),
       email: normalizeSpaces(form.email.value),
+
       pratique: getCheckedValues(form, "pratique"),
       vae: getRadio(form, "vae"),
+
       cotisation: getCotisationForPayload(),
       reglement: getRadio(form, "reglement"),
       sante_ack: !!document.getElementById("sante_ack")?.checked,
+
       photo_url: (document.getElementById("photo_url")?.value || "").trim(),
       signature: null,
       client_timestamp: new Date().toISOString()
     };
 
-    if (sig && !sig.isEmpty()) payload.signature = { dataUrl: sig.toDataURL(), mime: "image/png" };
-    if (photoPrepared && photoPrepared.dataUrl) payload.photo = { dataUrl: photoPrepared.dataUrl, mime: photoPrepared.mime };
+    if (sig && !sig.isEmpty()) {
+      payload.signature = { dataUrl: sig.toDataURL(), mime: "image/png" };
+    }
+    if (photoPrepared && photoPrepared.dataUrl){
+      payload.photo = { dataUrl: photoPrepared.dataUrl, mime: photoPrepared.mime };
+    }
 
     submitBtn.disabled = true;
     const old = submitBtn.textContent;
@@ -1095,16 +1310,21 @@ function setupSignaturePad(){
 
     formPage.classList.add("hidden");
     confirmPage.classList.remove("hidden");
-  }); // ✅ FIN submit handler
+  });
 
-  // ✅ INIT : c’est ça qui remet tarifs + préremplissage
+  /** ========= INIT ========= */
   setPaysUI();
   setLicenceUI();
   updateRecap();
 
+  // ✅ Préremplissage immédiat (même avant les tarifs)
+  prefillFromQueryStage1();
+
+  // ✅ Tarifs puis préremplissage étape 2 (cotisation_code)
   loadTarifsAndRender(cotisationChanged).then(() => {
-    prefillFromQuery(); // ✅ préremplissage après tarifs
+    prefillFromQueryStage2AfterTarifs();
   });
+
 })();
 </script>
 
