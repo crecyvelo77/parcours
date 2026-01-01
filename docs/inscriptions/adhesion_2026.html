@@ -514,12 +514,12 @@
 <div class="page hidden" id="confirmPage" style="min-height:auto;">
   <h1>✅ Inscription enregistrée</h1>
   <p>Merci, votre inscription a bien été prise en compte.</p>
-  <p class="hint">Le PDF est envoyé par email.</p>
-	<p>
-	  <button class="btn btn-ghost" id="backBtn" type="button">
-	    Faire une autre inscription
-	  </button>
-	</p>
+  <p><b>N° d’adhésion :</b> <span id="confNum">—</span></p>
+  <p class="hint">Le PDF est envoyé par email (vous n’aurez pas forcément un lien direct ici).</p>
+  <p>
+    <a class="btn btn-primary" id="confPdf" href="#" role="button">Le PDF arrive par email</a>
+    <button class="btn btn-ghost" id="backBtn" type="button">Faire une autre inscription</button>
+  </p>
 </div>
 
 <script>
@@ -1266,45 +1266,31 @@ function setupSignaturePad(){
     submitBtn.textContent = "Envoi…";
     statusMsg.textContent = "Transmission…";
 
-	let sent = false;
-	
-	try {
-	  // ✅ Cross-site sans CORS : réponse illisible (opaque), donc on ne peut pas valider.
-	  // Mais la requête part quand même.
-	  await fetch(APPS_SCRIPT_URL, {
-	    method: "POST",
-	    mode: "no-cors",
-	    headers: { "Content-Type": "text/plain;charset=utf-8" },
-	    body: JSON.stringify(payload)
-	  });
-	
-	  // Si fetch ne jette pas, on considère "envoyé" (au moins côté navigateur).
-	  sent = true;
-	
-	} catch (err) {
-	  console.error(err);
-	
-	  // Ici, c’est quasi uniquement des erreurs "avant départ" (offline, DNS, extension, etc.)
-	  // Tu peux garder un message, mais plus soft :
-	  alert("⚠️ Envoi non confirmé (réseau). Si vous êtes hors-ligne, réessayez. Sinon, le bulletin a peut-être bien été transmis.");
-	} finally {
-	  // ✅ Dans tous les cas, on sort l’UI de l’état "Transmission..."
-	  submitBtn.disabled = false;
-	  submitBtn.textContent = old;
-	  statusMsg.textContent = "";
-	}
-	
-	// ✅ On affiche la confirmation même si on ne peut pas lire la réponse.
-	// (Option: seulement si sent===true, mais je te conseille de l’afficher dans tous les cas)
-	formPage.classList.add("hidden");
-	confirmPage.classList.remove("hidden");
-	
-	// Pas de n° adhésion, pas de lien PDF
-	// confNum.textContent = "—";
-	confPdf.textContent = "OK";
-	confPdf.classList.add("hidden");     // ou supprime le bouton dans le HTML
-	confPdf.removeAttribute("target");
+    try {
+      // ✅ Cross-site sans CORS : on ne peut pas lire la réponse, mais ça envoie.
+      await fetch(APPS_SCRIPT_URL, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify(payload)
+      });
 
+      formPage.classList.add("hidden");
+      confirmPage.classList.remove("hidden");
+      confNum.textContent = "—";
+      confPdf.textContent = "Le PDF arrive par email";
+      confPdf.href = "#";
+      confPdf.removeAttribute("target");
+
+    } catch (err) {
+      console.error(err);
+      alert("❌ Échec de l’envoi (réseau). Réessaye.");
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = old;
+      statusMsg.textContent = "";
+    }
+  });
 
   // init
   setPaysUI();
