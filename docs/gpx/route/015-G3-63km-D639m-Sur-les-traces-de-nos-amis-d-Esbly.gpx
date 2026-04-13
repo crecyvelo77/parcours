@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gpx creator="Garmin Connect" version="1.1" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/11.xsd" xmlns:ns3="http://www.garmin.com/xmlschemas/TrackPointExtension/v1" xmlns="http://www.topografix.com/GPX/1/1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ns2="http://www.garmin.com/xmlschemas/GpxExtensions/v3">
 	<metadata>
-		<name>015-G3-63 km-D 639 m-Sur les traces de nos amis dâ€™Esbly</name>
+		<name>015-G3-63 km-D 639 m-Sur les traces de nos amis d’Esbly</name>
 		<link href="connect.garmin.com">
 			<text>Garmin Connect</text>
 		</link>
 		<time>2025-09-14T08:00:00</time>
 	</metadata>
 	<trk>
-		<name>015-G3-63 km-D 639 m-Sur les traces de nos amis dâ€™Esbly</name>
+		<name>015-G3-63 km-D 639 m-Sur les traces de nos amis d’Esbly</name>
 		<trkseg>
 			<trkpt lat="48.858189107850194" lon="2.9072861652821302">
 				<ele>48.58</ele>

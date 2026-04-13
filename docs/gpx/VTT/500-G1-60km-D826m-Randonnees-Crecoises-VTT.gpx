@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gpx creator="Garmin Connect" version="1.1" schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd http://www.garmin.com/xmlschemas/GpxExtensions/v3 http://www.garmin.com/xmlschemas/GpxExtensionsv3.xsd http://www.garmin.com/xmlschemas/TrackPointExtension/v1 http://www.garmin.com/xmlschemas/TrackPointExtensionv1.xsd http://www.garmin.com/xmlschemas/PowerExtension/v1 http://www.garmin.com/xmlschemas/PowerExtensionv1.xsd http://www.topografix.com/GPX/gpx_style/0/2 http://www.topografix.com/GPX/gpx_style/0/2/gpx_style.xsd" xmlns="http://www.topografix.com/GPX/1/1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd http://www.garmin.com/xmlschemas/GpxExtensions/v3 http://www.garmin.com/xmlschemas/GpxExtensionsv3.xsd http://www.garmin.com/xmlschemas/TrackPointExtension/v1 http://www.garmin.com/xmlschemas/TrackPointExtensionv1.xsd http://www.garmin.com/xmlschemas/PowerExtension/v1 http://www.garmin.com/xmlschemas/PowerExtensionv1.xsd http://www.topografix.com/GPX/gpx_style/0/2 http://www.topografix.com/GPX/gpx_style/0/2/gpx_style.xsd" xmlns:gpxtpx="http://www.garmin.com/xmlschemas/TrackPointExtension/v1" xmlns:gpxx="http://www.garmin.com/xmlschemas/GpxExtensions/v3" xmlns:gpxpx="http://www.garmin.com/xmlschemas/PowerExtension/v1" xmlns:gpx_style="http://www.topografix.com/GPX/gpx_style/0/2">
   <metadata>
-    <name>500-G1-60 km-D 972 m-RandonnÃ©es CrÃ©Ã§oises VTT</name>
+    <name>500-G1-60 km-D 972 m-Randonnées Créçoises VTT</name>
     <author>
       <name>gpx.studio</name>
       <link href="https://gpx.studio"/>
@@ -13,12 +13,12 @@
   </metadata>
   <wpt lat="48.85954103079531" lon="2.90926059560763">
     <ele>0</ele>
-    <name>TraversÃ©e D934</name>
+    <name>Traversée D934</name>
     <type>DANGER</type>
   </wpt>
   <wpt lat="48.86470241156873" lon="2.94377805873677">
     <ele>0</ele>
-    <name>TraversÃ©e D21</name>
+    <name>Traversée D21</name>
     <type>DANGER</type>
   </wpt>
   <wpt lat="48.85957757713529" lon="2.94334108820576">
@@ -28,17 +28,17 @@
   </wpt>
   <wpt lat="48.85010539233938" lon="2.93595723737817">
     <ele>0</ele>
-    <name>TraversÃ©e D934</name>
+    <name>Traversée D934</name>
     <type>DANGER</type>
   </wpt>
   <wpt lat="48.82486349497546" lon="2.93761121994482">
     <ele>0</ele>
-    <name>Ã  droite</name>
+    <name>à droite</name>
     <type>INFO</type>
   </wpt>
   <wpt lat="48.82498762628758" lon="2.93824116521375">
     <ele>0</ele>
-    <name>Ã  droite</name>
+    <name>à droite</name>
     <type>INFO</type>
   </wpt>
   <wpt lat="48.82562814246434" lon="2.95449595983845">
@@ -53,12 +53,12 @@
   </wpt>
   <wpt lat="48.8083901759178" lon="2.92814277826427">
     <ele>0</ele>
-    <name>TraversÃ©e D20</name>
+    <name>Traversée D20</name>
     <type>DANGER</type>
   </wpt>
   <wpt lat="48.80865467464818" lon="2.9257364729208">
     <ele>0</ele>
-    <name>TraversÃ©e D20E1</name>
+    <name>Traversée D20E1</name>
     <type>DANGER</type>
   </wpt>
   <wpt lat="48.80077299481712" lon="2.90314941325983">
@@ -68,16 +68,16 @@
   </wpt>
   <wpt lat="48.84671879830024" lon="2.89486676400161">
     <ele>0</ele>
-    <name>TraversÃ©e D235</name>
+    <name>Traversée D235</name>
     <type>DANGER</type>
   </wpt>
   <wpt lat="48.85264614030913" lon="2.89858949555914">
     <ele>0</ele>
-    <name>TraversÃ©e D235</name>
+    <name>Traversée D235</name>
     <type>DANGER</type>
   </wpt>
   <trk>
-    <name>500-G1-60 km-D 972 m-RandonnÃ©es CrÃ©Ã§oises VTT</name>
+    <name>500-G1-60 km-D 972 m-Randonnées Créçoises VTT</name>
     <trkseg>
       <trkpt lat="48.857608241960406" lon="2.9151680879294872">
         <ele>41.8</ele>

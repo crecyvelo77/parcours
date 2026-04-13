@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gpx creator="Garmin Connect" version="1.1" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/11.xsd" xmlns:ns3="http://www.garmin.com/xmlschemas/TrackPointExtension/v1" xmlns="http://www.topografix.com/GPX/1/1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ns2="http://www.garmin.com/xmlschemas/GpxExtensions/v3">
 	<metadata>
-		<name>014-G2-102 km-D 1134 m-Le chÃ¢teau de la Trousse</name>
+		<name>014-G2-102 km-D 1134 m-Le ch�teau de la Trousse</name>
 		<link href="connect.garmin.com">
 			<text>Garmin Connect</text>
 		</link>
 		<time>2024-05-28T08:00:00</time>
 	</metadata>
 	<trk>
-		<name>014-G2-102 km-D 1134 m-Le chÃ¢teau de la Trousse</name>
+		<name>014-G2-102 km-D 1134 m-Le ch�teau de la Trousse</name>
 		<trkseg>
 			<trkpt lat="48.85816496796906" lon="2.906999923288822">
 				<ele>49.8</ele>

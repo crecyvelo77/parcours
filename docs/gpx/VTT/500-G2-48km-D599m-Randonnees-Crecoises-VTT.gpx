@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gpx creator="Garmin Connect" version="1.1" schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd http://www.garmin.com/xmlschemas/GpxExtensions/v3 http://www.garmin.com/xmlschemas/GpxExtensionsv3.xsd http://www.garmin.com/xmlschemas/TrackPointExtension/v1 http://www.garmin.com/xmlschemas/TrackPointExtensionv1.xsd http://www.garmin.com/xmlschemas/PowerExtension/v1 http://www.garmin.com/xmlschemas/PowerExtensionv1.xsd http://www.topografix.com/GPX/gpx_style/0/2 http://www.topografix.com/GPX/gpx_style/0/2/gpx_style.xsd" xmlns="http://www.topografix.com/GPX/1/1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd http://www.garmin.com/xmlschemas/GpxExtensions/v3 http://www.garmin.com/xmlschemas/GpxExtensionsv3.xsd http://www.garmin.com/xmlschemas/TrackPointExtension/v1 http://www.garmin.com/xmlschemas/TrackPointExtensionv1.xsd http://www.garmin.com/xmlschemas/PowerExtension/v1 http://www.garmin.com/xmlschemas/PowerExtensionv1.xsd http://www.topografix.com/GPX/gpx_style/0/2 http://www.topografix.com/GPX/gpx_style/0/2/gpx_style.xsd" xmlns:gpxtpx="http://www.garmin.com/xmlschemas/TrackPointExtension/v1" xmlns:gpxx="http://www.garmin.com/xmlschemas/GpxExtensions/v3" xmlns:gpxpx="http://www.garmin.com/xmlschemas/PowerExtension/v1" xmlns:gpx_style="http://www.topografix.com/GPX/gpx_style/0/2">
   <metadata>
-    <name>500-G2-47 km-D 684 m-RandonnÃ©es CrÃ©Ã§oises VTT</name>
+    <name>500-G2-47 km-D 684 m-Randonnées Créçoises VTT</name>
     <author>
       <name>gpx.studio</name>
       <link href="https://gpx.studio"/>
@@ -28,7 +28,7 @@
   </wpt>
   <wpt lat="48.85913305947243" lon="2.93853120697533">
     <ele>0</ele>
-    <name>Serrez Ã  droite</name>
+    <name>Serrez à droite</name>
     <type>GENERIC</type>
   </wpt>
   <wpt lat="48.85030270129739" lon="2.93565189555977">
@@ -43,21 +43,21 @@
   </wpt>
   <wpt lat="48.84665133712952" lon="2.89491102667481">
     <ele>0</ele>
-    <name>TraversÃ©e route</name>
+    <name>Traversée route</name>
     <type>DANGER</type>
   </wpt>
   <wpt lat="48.85265323699144" lon="2.8985158254018">
     <ele>0</ele>
-    <name>TraversÃ©e route</name>
+    <name>Traversée route</name>
     <type>DANGER</type>
   </wpt>
   <wpt lat="48.85743170162593" lon="2.91541776128799">
     <ele>0</ele>
-    <name>Passerelle vÃ©lo</name>
+    <name>Passerelle vélo</name>
     <type>BRIDGE</type>
   </wpt>
   <trk>
-    <name>500-G2-47 km-D 684 m-RandonnÃ©es CrÃ©Ã§oises VTT</name>
+    <name>500-G2-47 km-D 684 m-Randonnées Créçoises VTT</name>
     <trkseg>
       <trkpt lat="48.858329923823476" lon="2.9162099584937096">
         <ele>51.88</ele>

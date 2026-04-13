@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gpx creator="Garmin Connect" version="1.1" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/11.xsd" xmlns:ns3="http://www.garmin.com/xmlschemas/TrackPointExtension/v1" xmlns="http://www.topografix.com/GPX/1/1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ns2="http://www.garmin.com/xmlschemas/GpxExtensions/v3">
 	<metadata>
-		<name>101b-G3-70 km-D 754 m-Le circuit de Oissery-inversÃ©</name>
+		<name>101b-G3-70 km-D 754 m-Le circuit de Oissery-inversé</name>
 		<link href="connect.garmin.com">
 			<text>Garmin Connect</text>
 		</link>
 		<time>2023-10-03T08:00:00</time>
 	</metadata>
 	<trk>
-		<name>101b-G3-70 km-D 754 m-Le circuit de Oissery-inversÃ©</name>
+		<name>101b-G3-70 km-D 754 m-Le circuit de Oissery-inversé</name>
 		<trkseg>
 			<trkpt lat="48.85798995383084" lon="2.9069197922945023">
 				<ele>50.0</ele>

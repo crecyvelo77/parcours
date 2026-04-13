@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gpx creator="Garmin Connect" version="1.1" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/11.xsd" xmlns:ns3="http://www.garmin.com/xmlschemas/TrackPointExtension/v1" xmlns="http://www.topografix.com/GPX/1/1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ns2="http://www.garmin.com/xmlschemas/GpxExtensions/v3">
 	<metadata>
-		<name>406-G1,G2-145 km-D 1402 m-ChÃ¢teau de Pierrefonds</name>
+		<name>406-G1,G2-145 km-D 1402 m-Ch�teau de Pierrefonds</name>
 		<link href="connect.garmin.com">
 			<text>Garmin Connect</text>
 		</link>
 		<time>2021-07-02T08:00:00</time>
 	</metadata>
 	<trk>
-		<name>406-G1,G2-145 km-D 1402 m-ChÃ¢teau de Pierrefonds</name>
+		<name>406-G1,G2-145 km-D 1402 m-Ch�teau de Pierrefonds</name>
 		<trkseg>
 			<trkpt lat="48.85822883807123" lon="2.907154904678464">
 				<ele>48.0</ele>

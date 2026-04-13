@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gpx creator="Garmin Connect" version="1.1" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/11.xsd" xmlns:ns3="http://www.garmin.com/xmlschemas/TrackPointExtension/v1" xmlns="http://www.topografix.com/GPX/1/1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ns2="http://www.garmin.com/xmlschemas/GpxExtensions/v3">
 	<metadata>
-		<name>009-G2-96 km-D 678 m-Saint BarthÃ©lÃ©my</name>
+		<name>009-G2-96 km-D 678 m-Saint Barthélémy</name>
 		<link href="connect.garmin.com">
 			<text>Garmin Connect</text>
 		</link>
 		<time>2018-12-29T08:00:00</time>
 	</metadata>
 	<trk>
-		<name>009-G2-96 km-D 678 m-Saint BarthÃ©lÃ©my</name>
+		<name>009-G2-96 km-D 678 m-Saint Barthélémy</name>
 		<trkseg>
 			<trkpt lat="48.85823965072632" lon="2.907235622406006">
 				<ele>51.27</ele>
