@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gpx creator="Garmin Connect" version="1.1" schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/11.xsd" xmlns="http://www.topografix.com/GPX/1/1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd http://www.garmin.com/xmlschemas/GpxExtensions/v3 http://www.garmin.com/xmlschemas/GpxExtensionsv3.xsd http://www.garmin.com/xmlschemas/TrackPointExtension/v1 http://www.garmin.com/xmlschemas/TrackPointExtensionv1.xsd http://www.garmin.com/xmlschemas/PowerExtension/v1 http://www.garmin.com/xmlschemas/PowerExtensionv1.xsd http://www.topografix.com/GPX/gpx_style/0/2 http://www.topografix.com/GPX/gpx_style/0/2/gpx_style.xsd" xmlns:gpxtpx="http://www.garmin.com/xmlschemas/TrackPointExtension/v1" xmlns:gpxx="http://www.garmin.com/xmlschemas/GpxExtensions/v3" xmlns:gpxpx="http://www.garmin.com/xmlschemas/PowerExtension/v1" xmlns:gpx_style="http://www.topografix.com/GPX/gpx_style/0/2">
   <metadata>
-    <name>104-G3-71 km-D 510 m-La vallée de l’Yerres</name>
+    <name>104-G3-71 km-D 510 m-La vallÃ©e de lâ€™Yerres</name>
     <author>
       <name>gpx.studio</name>
       <link href="https://gpx.studio"/>
@@ -9,10 +9,10 @@
     <link href="connect.garmin.com">
       <text>Garmin Connect</text>
     </link>
-    <time>2026-01-02T10:39:11.000Z</time>
+		<time>2026-01-02T08:00:00</time>
   </metadata>
   <trk>
-    <name>104-G3-71 km-D 510 m-La vallée de l’Yerres</name>
+    <name>104-G3-71 km-D 510 m-La vallÃ©e de lâ€™Yerres</name>
     <trkseg>
       <trkpt lat="48.85805994272232" lon="2.9069497995078564">
         <ele>50.93</ele>
