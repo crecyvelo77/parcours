@@ -158,26 +158,27 @@ root.querySelector('#ow-size-find')?.addEventListener('click',()=>{
   "use strict";
   if (window.parent === window) return;
 
+  // On mesure UNIQUEMENT le contenu, jamais documentElement.scrollHeight :
+  // ce dernier peut prendre la hauteur de l'iframe et créer une boucle.
+  var content = document.getElementById("cvowayo");
+  if (!content) return;
+
   var lastHeight = 0;
   var scheduled = false;
 
   function reportHeight(force) {
     scheduled = false;
-    var html = document.documentElement;
-    var body = document.body;
-    var height = Math.ceil(Math.max(
-      html ? html.scrollHeight : 0,
-      body ? body.scrollHeight : 0
-    )) + 4;
+    var height = Math.ceil(content.getBoundingClientRect().height);
+    if (!Number.isFinite(height) || height < 1) return;
+    // 2 px de tolérance pour éviter les micro-variations de rendu.
+    if (!force && Math.abs(height - lastHeight) < 2) return;
 
-    if (height > 0 && (force || Math.abs(height - lastHeight) > 1)) {
-      lastHeight = height;
-      window.parent.postMessage({
-        source: "crecyvelo-owayo",
-        type: "resize",
-        height: height
-      }, "*");
-    }
+    lastHeight = height;
+    window.parent.postMessage({
+      source: "crecyvelo-owayo",
+      type: "resize",
+      height: height
+    }, "*");
   }
 
   function scheduleReport() {
@@ -188,8 +189,7 @@ root.querySelector('#ow-size-find')?.addEventListener('click',()=>{
 
   if (window.ResizeObserver) {
     var observer = new ResizeObserver(scheduleReport);
-    observer.observe(document.documentElement);
-    if (document.body) observer.observe(document.body);
+    observer.observe(content);
   }
 
   window.addEventListener("load", scheduleReport);
@@ -200,11 +200,11 @@ root.querySelector('#ow-size-find')?.addEventListener('click',()=>{
     document.fonts.ready.then(scheduleReport);
   }
 
-  document.addEventListener("load", function (event) {
+  document.addEventListener("load", function(event) {
     if (event.target && event.target.tagName === "IMG") scheduleReport();
   }, true);
 
-  window.addEventListener("message", function (event) {
+  window.addEventListener("message", function(event) {
     if (event.data && event.data.source === "crecyvelo-owayo-parent" &&
         event.data.type === "request-height") {
       reportHeight(true);
