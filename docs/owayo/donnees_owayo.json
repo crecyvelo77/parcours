@@ -43,7 +43,7 @@
         },
         {
           "size": "M-5",
-          "qty": 5
+          "qty": 4
         },
         {
           "size": "M-6",
@@ -70,7 +70,7 @@
           "qty": 2
         }
       ],
-      "qty": 39
+      "qty": 38
     },
     {
       "name": "Maillot de cyclisme manches courtes C5w Pro (femme)",
@@ -528,7 +528,7 @@
       "kind": "hanches"
     }
   ],
-  "total_stock": 48,
+  "total_stock": 47,
   "updated": "18 novembre 2026",
   "products": [
     {
@@ -540,7 +540,7 @@
         "20": 52.0
       },
       "group": "Maillots",
-      "stock_qty": 39,
+      "stock_qty": 38,
       "asset_names": [
         "assets/maillot-de-cyclisme-c3-basic-manches-courtes-face.png",
         "assets/maillot-de-cyclisme-c3-basic-manches-courtes-dos.png"

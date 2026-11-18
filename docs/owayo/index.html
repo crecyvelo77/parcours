@@ -36,14 +36,15 @@ footer{border-top:1px solid #d9e4ed;text-align:center;color:#698092;font-size:12
 @media(max-width:640px){.site{padding:0 13px 40px}.hero-inner,.nav-inner{padding-left:14px;padding-right:14px}.hero{padding:27px 0}.section{padding-top:32px}.product-grid{grid-template-columns:1fr;gap:13px}.product-images{height:235px}.product h3{min-height:0}.price strong{font-size:16px}.panel,.size-card{padding:14px}.filters{max-width:100%}.search{min-width:180px}.stock-item{padding:12px}.section-head p{font-size:13px}}
 @media print{.nav,.toolbar,.sizing-tool,.scroll-hint{display:none!important}.hero{background:white;color:#13273b;padding:0}.hero p,.hero .eyebrow{color:#263f55}.site{max-width:none}.product-grid{grid-template-columns:repeat(2,1fr)}.product{break-inside:avoid}.section{page-break-before:always}.size-card{break-inside:avoid}.size-table{min-width:0;font-size:8px}.size-table td,.size-table th{padding:5px 3px}.table-scroll{overflow:visible}.size-table td:first-child,.size-table th:first-child{min-width:90px}}
 
-/* CRECYVELO RESPONSIVE SIZE TABLES - no horizontal scrolling */
+/* CV77: filtres, tailles adaptatives, absence de défilement horizontal */
+.product[hidden], #ow-no-products[hidden] { display:none!important; }
 .size-card .scroll-hint{display:none}
 .size-card .table-scroll{overflow:visible;max-width:100%}
-.size-card .size-table{width:100%;min-width:0;table-layout:fixed;font-size:clamp(9px,0.9vw,12px)}
-.size-card .size-table td,.size-card .size-table th{padding:9px 2px;white-space:nowrap;overflow:visible}
+.size-card .size-table{width:100%;min-width:0;table-layout:fixed;font-size:clamp(9px,.9vw,12px)}
+.size-card .size-table td,.size-card .size-table th{padding:9px 2px;white-space:nowrap}
 .size-card .size-table tr > :first-child{
   position:static;left:auto;min-width:0;width:155px;
-  padding:9px 7px;white-space:normal;line-height:1.3;
+  padding:9px 7px;white-space:normal;line-height:1.3
 }
 .size-mobile-grid{display:none}
 @media(max-width:720px){
@@ -60,13 +61,11 @@ footer{border-top:1px solid #d9e4ed;text-align:center;color:#698092;font-size:12
   .size-card .size-table{font-size:8px}
   .size-card .size-table tr > :first-child{width:100px}
 }
-/* CV77 visibility fix for filter buttons */
-.product[hidden], #ow-no-products[hidden] { display:none !important; }
 </style></head><body>
 <div id="cvowayo">
 <header class="hero"><div class="hero-inner"><div class="eyebrow">Crécyvélo 77 · Tenues du club</div>
 <h1>Gamme de vêtements 2027</h1><p>Découvrez les tenues aux couleurs du club, les tarifs selon les quantités, les stocks disponibles et le guide des tailles Owayo.</p>
-<div class="stat-list"><span class="pill">11 modèles illustrés</span><span class="pill">48 pièces en stock</span><span class="pill">5 guides des tailles</span></div></div></header>
+<div class="stat-list"><span class="pill">11 modèles illustrés</span><span class="pill">47 pièces en stock</span><span class="pill">5 guides des tailles</span></div></div></header>
 <nav class="nav" aria-label="Sections"><div class="nav-inner"><a href="#tarifs">Tarifs & photos</a><a href="#stock">Stock disponible</a><a href="#tailles">Guide des tailles</a></div></nav>
 <main class="site">
 <section id="tarifs" class="section"><div class="section-head"><h2>Tarifs et modèles</h2><p>Photos des tenues du club, vues de face et de dos. Les trois tarifs correspondent aux quantités de commande indiquées dans le classeur.</p></div>
@@ -74,7 +73,7 @@ footer{border-top:1px solid #d9e4ed;text-align:center;color:#698092;font-size:12
 <div class="product-grid"><article class="product" data-title="Maillot de cyclisme C3 Basic manches courtes" data-group="Maillots">
           <div class="product-images"><figure><img src="assets/maillot-de-cyclisme-c3-basic-manches-courtes-face.png" alt="Maillot de cyclisme C3 Basic manches courtes — face" loading="lazy"><figcaption>Face</figcaption></figure><figure><img src="assets/maillot-de-cyclisme-c3-basic-manches-courtes-dos.png" alt="Maillot de cyclisme C3 Basic manches courtes — dos" loading="lazy"><figcaption>Dos</figcaption></figure></div>
           <div class="product-body"><div class="group-tag">Maillots</div><h3>Maillot de cyclisme C3 Basic manches courtes</h3>
-          <div class="price-grid"><div class="price"><small>1 pièce</small><strong>66,00 €</strong></div><div class="price"><small>10 pièces</small><strong>57,00 €</strong></div><div class="price"><small>20 pièces</small><strong>52,00 €</strong></div></div><div class="stock-indicator in-stock"><i class="dot"></i>39 pièce(s) en stock</div></div></article><article class="product" data-title="Maillot de cyclisme manches courtes C5w Pro (femme)" data-group="Maillots">
+          <div class="price-grid"><div class="price"><small>1 pièce</small><strong>66,00 €</strong></div><div class="price"><small>10 pièces</small><strong>57,00 €</strong></div><div class="price"><small>20 pièces</small><strong>52,00 €</strong></div></div><div class="stock-indicator in-stock"><i class="dot"></i>38 pièce(s) en stock</div></div></article><article class="product" data-title="Maillot de cyclisme manches courtes C5w Pro (femme)" data-group="Maillots">
           <div class="product-images"><figure><img src="assets/maillot-de-cyclisme-manches-courtes-c5w-pro-femme-face.png" alt="Maillot de cyclisme manches courtes C5w Pro (femme) — face" loading="lazy"><figcaption>Face</figcaption></figure><figure><img src="assets/maillot-de-cyclisme-manches-courtes-c5w-pro-femme-dos.png" alt="Maillot de cyclisme manches courtes C5w Pro (femme) — dos" loading="lazy"><figcaption>Dos</figcaption></figure></div>
           <div class="product-body"><div class="group-tag">Maillots</div><h3>Maillot de cyclisme manches courtes C5w Pro (femme)</h3>
           <div class="price-grid"><div class="price"><small>1 pièce</small><strong>79,00 €</strong></div><div class="price"><small>10 pièces</small><strong>72,00 €</strong></div><div class="price"><small>20 pièces</small><strong>66,00 €</strong></div></div><div class="stock-indicator in-stock"><i class="dot"></i>4 pièce(s) en stock</div></div></article><article class="product" data-title="Coupe-vent sans filet d&#x27;aération dorsal CVW5 Pro" data-group="Vestes et coupe-vent">
@@ -107,8 +106,8 @@ footer{border-top:1px solid #d9e4ed;text-align:center;color:#698092;font-size:12
           <div class="price-grid"><div class="price"><small>1 pièce</small><strong>119,00 €</strong></div><div class="price"><small>10 pièces</small><strong>116,00 €</strong></div><div class="price"><small>20 pièces</small><strong>109,00 €</strong></div></div><div class="stock-indicator "><i class="dot"></i>Aucun stock indiqué</div></div></article></div><p class="empty" id="ow-no-products" hidden>Aucun vêtement ne correspond à cette recherche.</p>
 <p class="note">Tarifs issus de la feuille « Tarifs Owayo avec photos » du classeur 2027. Les prix sont présentés par quantités de 1, 10 et 20 pièces et sont à reconfirmer avant commande.</p></section>
 <section id="stock" class="section"><div class="section-head"><h2>Stock disponible</h2><p>Quantités disponibles par vêtement et taille, selon la feuille « Valeur Stock ». Ce relevé correspond à la dernière extraction du classeur, et non à un stock mis à jour en temps réel.</p></div>
-<div class="kpis"><div class="kpi"><strong>48</strong><span>pièces dans le classeur</span></div><div class="kpi"><strong>7</strong><span>références en stock</span></div></div>
-<div class="stock-items"><article class="stock-item"><div class="stock-item-head"><h3>Combinaison manches courtes CT7 Epic</h3><span class="qty-badge">1 pièce(s)</span></div><div class="size-chips"><span class="size-chip"><span>L-8</span><strong>1</strong></span></div></article><article class="stock-item"><div class="stock-item-head"><h3>Coupe-vent sans filet d&#x27;aération dorsal CVW5 Pro</h3><span class="qty-badge">1 pièce(s)</span></div><div class="size-chips"><span class="size-chip"><span>L-7</span><strong>1</strong></span></div></article><article class="stock-item"><div class="stock-item-head"><h3>Cuissard court CP2 sport, fond race</h3><span class="qty-badge">1 pièce(s)</span></div><div class="size-chips"><span class="size-chip"><span>XL-cuissard</span><strong>1</strong></span></div></article><article class="stock-item"><div class="stock-item-head"><h3>Maillot de cyclisme C3 Basic manches courtes</h3><span class="qty-badge">39 pièce(s)</span></div><div class="size-chips"><span class="size-chip"><span>S-3</span><strong>1</strong></span><span class="size-chip"><span>S-4</span><strong>3</strong></span><span class="size-chip"><span>M-5</span><strong>5</strong></span><span class="size-chip"><span>M-6</span><strong>8</strong></span><span class="size-chip"><span>L-7</span><strong>6</strong></span><span class="size-chip"><span>L-8</span><strong>6</strong></span><span class="size-chip"><span>XL-9</span><strong>4</strong></span><span class="size-chip"><span>XL-10</span><strong>4</strong></span><span class="size-chip"><span>XXL-11</span><strong>2</strong></span></div></article><article class="stock-item"><div class="stock-item-head"><h3>Maillot de cyclisme manches courtes C5w Pro (femme)</h3><span class="qty-badge">4 pièce(s)</span></div><div class="size-chips"><span class="size-chip"><span>S-3</span><strong>1</strong></span><span class="size-chip"><span>S-4</span><strong>1</strong></span><span class="size-chip"><span>M-5</span><strong>1</strong></span><span class="size-chip"><span>M-6</span><strong>1</strong></span></div></article><article class="stock-item"><div class="stock-item-head"><h3>Maillot de cyclisme mi-saison manches longues CW5 Pro</h3><span class="qty-badge">1 pièce(s)</span></div><div class="size-chips"><span class="size-chip"><span>L-7</span><strong>1</strong></span></div></article><article class="stock-item"><div class="stock-item-head"><h3>Veste de cyclisme softshell CJS5 Pro</h3><span class="qty-badge">1 pièce(s)</span></div><div class="size-chips"><span class="size-chip"><span>L-7</span><strong>1</strong></span></div></article></div><p class="note">Les coûts d'achat et la valorisation financière du stock ne sont pas publiés sur cette page. Demandez une confirmation au club avant de réserver un vêtement.</p></section>
+<div class="kpis"><div class="kpi"><strong>47</strong><span>pièces dans le classeur</span></div><div class="kpi"><strong>7</strong><span>références en stock</span></div></div>
+<div class="stock-items"><article class="stock-item"><div class="stock-item-head"><h3>Combinaison manches courtes CT7 Epic</h3><span class="qty-badge">1 pièce(s)</span></div><div class="size-chips"><span class="size-chip"><span>L-8</span><strong>1</strong></span></div></article><article class="stock-item"><div class="stock-item-head"><h3>Coupe-vent sans filet d&#x27;aération dorsal CVW5 Pro</h3><span class="qty-badge">1 pièce(s)</span></div><div class="size-chips"><span class="size-chip"><span>L-7</span><strong>1</strong></span></div></article><article class="stock-item"><div class="stock-item-head"><h3>Cuissard court CP2 sport, fond race</h3><span class="qty-badge">1 pièce(s)</span></div><div class="size-chips"><span class="size-chip"><span>XL-cuissard</span><strong>1</strong></span></div></article><article class="stock-item"><div class="stock-item-head"><h3>Maillot de cyclisme C3 Basic manches courtes</h3><span class="qty-badge">38 pièce(s)</span></div><div class="size-chips"><span class="size-chip"><span>S-3</span><strong>1</strong></span><span class="size-chip"><span>S-4</span><strong>3</strong></span><span class="size-chip"><span>M-5</span><strong>4</strong></span><span class="size-chip"><span>M-6</span><strong>8</strong></span><span class="size-chip"><span>L-7</span><strong>6</strong></span><span class="size-chip"><span>L-8</span><strong>6</strong></span><span class="size-chip"><span>XL-9</span><strong>4</strong></span><span class="size-chip"><span>XL-10</span><strong>4</strong></span><span class="size-chip"><span>XXL-11</span><strong>2</strong></span></div></article><article class="stock-item"><div class="stock-item-head"><h3>Maillot de cyclisme manches courtes C5w Pro (femme)</h3><span class="qty-badge">4 pièce(s)</span></div><div class="size-chips"><span class="size-chip"><span>S-3</span><strong>1</strong></span><span class="size-chip"><span>S-4</span><strong>1</strong></span><span class="size-chip"><span>M-5</span><strong>1</strong></span><span class="size-chip"><span>M-6</span><strong>1</strong></span></div></article><article class="stock-item"><div class="stock-item-head"><h3>Maillot de cyclisme mi-saison manches longues CW5 Pro</h3><span class="qty-badge">1 pièce(s)</span></div><div class="size-chips"><span class="size-chip"><span>L-7</span><strong>1</strong></span></div></article><article class="stock-item"><div class="stock-item-head"><h3>Veste de cyclisme softshell CJS5 Pro</h3><span class="qty-badge">1 pièce(s)</span></div><div class="size-chips"><span class="size-chip"><span>L-7</span><strong>1</strong></span></div></article></div><p class="note">Les coûts d'achat et la valorisation financière du stock ne sont pas publiés sur cette page. Demandez une confirmation au club avant de réserver un vêtement.</p></section>
 <section id="tailles" class="section"><div class="section-head"><h2>Guide des tailles Owayo</h2><p>Tailles Owayo numériques, correspondances internationales et mesures en centimètres. Les cinq tableaux conservent la présentation horizontale du guide.</p></div>
 <div class="sizing-tool"><h3>Quelle taille me correspond ?</h3><p>Choisissez une famille et saisissez votre tour de poitrine ou de hanches en centimètres. Le résultat est indicatif : un essayage reste recommandé.</p>
 <div class="sizing-fields"><label>Catégorie<select id="ow-size-category"><option value="Maillots unisexes">Maillots unisexes (poitrine)</option><option value="Hauts hommes">Hauts hommes (poitrine)</option><option value="Hauts femmes">Hauts femmes (poitrine)</option><option value="Bas hommes">Bas hommes (hanches)</option><option value="Bas femmes">Bas femmes (hanches)</option></select></label>
@@ -152,123 +151,88 @@ root.querySelector('#ow-size-find')?.addEventListener('click',()=>{
 });
 })();</script>
 
-<!-- CRECYVELO IFRAME AUTOHEIGHT -->
+<!-- CV77 hauteur automatique sans boucle + navigation Blogger -->
 <script>
 (function () {
-  "use strict";
+  'use strict';
   if (window.parent === window) return;
-
-  // On mesure UNIQUEMENT le contenu, jamais documentElement.scrollHeight :
-  // ce dernier peut prendre la hauteur de l'iframe et créer une boucle.
-  var content = document.getElementById("cvowayo");
+  // Mesurer uniquement le vrai contenu : ne pas utiliser html.scrollHeight.
+  var content = document.getElementById('cvowayo');
   if (!content) return;
-
   var lastHeight = 0;
   var scheduled = false;
-
   function reportHeight(force) {
     scheduled = false;
     var height = Math.ceil(content.getBoundingClientRect().height);
     if (!Number.isFinite(height) || height < 1) return;
-    // 2 px de tolérance pour éviter les micro-variations de rendu.
     if (!force && Math.abs(height - lastHeight) < 2) return;
-
     lastHeight = height;
-    window.parent.postMessage({
-      source: "crecyvelo-owayo",
-      type: "resize",
-      height: height
-    }, "*");
+    window.parent.postMessage({source:'crecyvelo-owayo',type:'resize',height:height}, '*');
   }
-
   function scheduleReport() {
     if (scheduled) return;
     scheduled = true;
-    window.requestAnimationFrame(function () { reportHeight(false); });
+    window.requestAnimationFrame(function(){reportHeight(false);});
   }
-
   if (window.ResizeObserver) {
     var observer = new ResizeObserver(scheduleReport);
     observer.observe(content);
   }
-
-  window.addEventListener("load", scheduleReport);
-  window.addEventListener("resize", scheduleReport);
-  document.addEventListener("DOMContentLoaded", scheduleReport);
-
-  if (document.fonts && document.fonts.ready) {
-    document.fonts.ready.then(scheduleReport);
-  }
-
-  document.addEventListener("load", function(event) {
-    if (event.target && event.target.tagName === "IMG") scheduleReport();
-  }, true);
-
-  window.addEventListener("message", function(event) {
-    if (event.data && event.data.source === "crecyvelo-owayo-parent" &&
-        event.data.type === "request-height") {
-      reportHeight(true);
-    }
+  window.addEventListener('load',scheduleReport);
+  window.addEventListener('resize',scheduleReport);
+  document.addEventListener('DOMContentLoaded',scheduleReport);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(scheduleReport);
+  document.addEventListener('load',function(evt){
+    if(evt.target && evt.target.tagName==='IMG')scheduleReport();
+  },true);
+  window.addEventListener('message',function(evt){
+    if(evt.data && evt.data.source==='crecyvelo-owayo-parent' && evt.data.type==='request-height') reportHeight(true);
   });
-
+  document.querySelectorAll('.nav a[href^="#"]').forEach(function(link){
+    link.addEventListener('click',function(evt){
+      var id=link.getAttribute('href').slice(1);
+      var target=document.getElementById(id);
+      if(!target)return;
+      evt.preventDefault();
+      var top=Math.round(target.getBoundingClientRect().top+window.scrollY);
+      window.parent.postMessage({source:'crecyvelo-owayo',type:'navigate',top:top,section:id}, '*');
+    });
+  });
   scheduleReport();
 })();
 </script>
 
-<!-- CRECYVELO RESPONSIVE SIZE CARDS -->
+<!-- CV77 grilles des tailles sur petits écrans -->
 <script>
 (function(){
-  "use strict";
-  document.querySelectorAll(".size-card").forEach(function(card){
-    var table=card.querySelector(".size-table");
-    var wrapper=card.querySelector(".table-scroll");
+  'use strict';
+  document.querySelectorAll('.size-card').forEach(function(card){
+    var table=card.querySelector('.size-table');
+    var wrapper=card.querySelector('.table-scroll');
     if(!table||!wrapper||table.rows.length<3)return;
     var headings=Array.from(table.rows[0].cells);
     var international=Array.from(table.rows[1].cells);
     var measures=Array.from(table.rows[2].cells);
-    var label=(measures[0]?.textContent||"Mensuration").trim();
-    var grid=document.createElement("div");
-    grid.className="size-mobile-grid";
-    grid.setAttribute("role","list");
-    grid.setAttribute("aria-label","Tailles "+(card.querySelector("h3")?.textContent||"Owayo"));
+    var label=(measures[0]?.textContent||'Mensuration').trim();
+    var grid=document.createElement('div');
+    grid.className='size-mobile-grid';
+    grid.setAttribute('role','list');
+    grid.setAttribute('aria-label','Tailles '+(card.querySelector('h3')?.textContent||'Owayo'));
     for(var i=1;i<headings.length;i++){
-      var item=document.createElement("div");
-      item.className="size-mobile-item";
-      item.setAttribute("role","listitem");
-      var title=document.createElement("strong");
-      title.textContent="Taille Owayo "+headings[i].textContent.trim();
-      var intl=document.createElement("span");
-      intl.textContent="International : "+(international[i]?.textContent||"—").trim();
-      var measure=document.createElement("span");
-      measure.className="size-measure";
-      measure.textContent=label+" : "+(measures[i]?.textContent||"—").trim()+" cm";
+      var item=document.createElement('div');
+      item.className='size-mobile-item';
+      item.setAttribute('role','listitem');
+      var title=document.createElement('strong');
+      title.textContent='Taille Owayo '+headings[i].textContent.trim();
+      var intl=document.createElement('span');
+      intl.textContent='International : '+(international[i]?.textContent||'—').trim();
+      var measure=document.createElement('span');
+      measure.className='size-measure';
+      measure.textContent=label+' : '+(measures[i]?.textContent||'—').trim()+' cm';
       item.append(title,intl,measure);
       grid.appendChild(item);
     }
-    wrapper.insertAdjacentElement("afterend",grid);
-  });
-})();
-</script>
-<!-- CV77 iframe section navigation -->
-<script>
-(function(){
-  "use strict";
-  if (window.parent === window) return;
-  document.querySelectorAll('.nav a[href^="#"]').forEach(function(link){
-    link.addEventListener('click', function(event){
-      var id=link.getAttribute('href').slice(1);
-      var target=document.getElementById(id);
-      if(!target) return;
-      event.preventDefault();
-      // La page est intégralement visible dans l'iframe : seul le parent doit défiler.
-      var iframeOffset=Math.round(target.getBoundingClientRect().top+window.scrollY);
-      window.parent.postMessage({
-        source:'crecyvelo-owayo',
-        type:'navigate',
-        top:iframeOffset,
-        section:id
-      },'*');
-    });
+    wrapper.insertAdjacentElement('afterend',grid);
   });
 })();
 </script>
