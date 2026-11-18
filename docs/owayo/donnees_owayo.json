@@ -51,7 +51,7 @@
         },
         {
           "size": "L-7",
-          "qty": 6
+          "qty": 5
         },
         {
           "size": "L-8",
@@ -70,7 +70,7 @@
           "qty": 2
         }
       ],
-      "qty": 38
+      "qty": 37
     },
     {
       "name": "Maillot de cyclisme manches courtes C5w Pro (femme)",
@@ -81,7 +81,7 @@
         },
         {
           "size": "S-4",
-          "qty": 1
+          "qty": 2
         },
         {
           "size": "M-5",
@@ -92,7 +92,7 @@
           "qty": 1
         }
       ],
-      "qty": 4
+      "qty": 5
     },
     {
       "name": "Maillot de cyclisme mi-saison manches longues CW5 Pro",
@@ -542,7 +542,7 @@
         "20": 52.0
       },
       "group": "Maillots",
-      "stock_qty": 38,
+      "stock_qty": 37,
       "asset_names": [
         "assets/maillot-de-cyclisme-c3-basic-manches-courtes-face.png",
         "assets/maillot-de-cyclisme-c3-basic-manches-courtes-dos.png"
@@ -557,7 +557,7 @@
         "20": 66.0
       },
       "group": "Maillots",
-      "stock_qty": 4,
+      "stock_qty": 5,
       "asset_names": [
         "assets/maillot-de-cyclisme-manches-courtes-c5w-pro-femme-face.png",
         "assets/maillot-de-cyclisme-manches-courtes-c5w-pro-femme-dos.png"
