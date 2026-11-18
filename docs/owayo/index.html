@@ -35,6 +35,31 @@ footer{border-top:1px solid #d9e4ed;text-align:center;color:#698092;font-size:12
 @media(max-width:1050px){.product-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.product-images{height:220px}.stock-items{grid-template-columns:1fr}}
 @media(max-width:640px){.site{padding:0 13px 40px}.hero-inner,.nav-inner{padding-left:14px;padding-right:14px}.hero{padding:27px 0}.section{padding-top:32px}.product-grid{grid-template-columns:1fr;gap:13px}.product-images{height:235px}.product h3{min-height:0}.price strong{font-size:16px}.panel,.size-card{padding:14px}.filters{max-width:100%}.search{min-width:180px}.stock-item{padding:12px}.section-head p{font-size:13px}}
 @media print{.nav,.toolbar,.sizing-tool,.scroll-hint{display:none!important}.hero{background:white;color:#13273b;padding:0}.hero p,.hero .eyebrow{color:#263f55}.site{max-width:none}.product-grid{grid-template-columns:repeat(2,1fr)}.product{break-inside:avoid}.section{page-break-before:always}.size-card{break-inside:avoid}.size-table{min-width:0;font-size:8px}.size-table td,.size-table th{padding:5px 3px}.table-scroll{overflow:visible}.size-table td:first-child,.size-table th:first-child{min-width:90px}}
+
+/* CRECYVELO RESPONSIVE SIZE TABLES - no horizontal scrolling */
+.size-card .scroll-hint{display:none}
+.size-card .table-scroll{overflow:visible;max-width:100%}
+.size-card .size-table{width:100%;min-width:0;table-layout:fixed;font-size:clamp(9px,0.9vw,12px)}
+.size-card .size-table td,.size-card .size-table th{padding:9px 2px;white-space:nowrap;overflow:visible}
+.size-card .size-table tr > :first-child{
+  position:static;left:auto;min-width:0;width:155px;
+  padding:9px 7px;white-space:normal;line-height:1.3;
+}
+.size-mobile-grid{display:none}
+@media(max-width:720px){
+  .size-card .table-scroll{display:none}
+  .size-mobile-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:9px}
+  .size-mobile-item{border:1px solid #d9e6f0;background:#f3f8fc;border-radius:10px;padding:10px 12px;display:flex;flex-direction:column;gap:4px}
+  .size-mobile-item strong{font-size:13px;color:#16436b}
+  .size-mobile-item span{font-size:12px;color:#27475f;line-height:1.4}
+  .size-mobile-item .size-measure{color:#405e72}
+}
+@media print{
+  .size-card .table-scroll{display:block!important}
+  .size-mobile-grid{display:none!important}
+  .size-card .size-table{font-size:8px}
+  .size-card .size-table tr > :first-child{width:100px}
+}
 </style></head><body>
 <div id="cvowayo">
 <header class="hero"><div class="hero-inner"><div class="eyebrow">Crécyvélo 77 · Tenues du club</div>
@@ -185,6 +210,41 @@ root.querySelector('#ow-size-find')?.addEventListener('click',()=>{
   });
 
   scheduleReport();
+})();
+</script>
+
+<!-- CRECYVELO RESPONSIVE SIZE CARDS -->
+<script>
+(function(){
+  "use strict";
+  document.querySelectorAll(".size-card").forEach(function(card){
+    var table=card.querySelector(".size-table");
+    var wrapper=card.querySelector(".table-scroll");
+    if(!table||!wrapper||table.rows.length<3)return;
+    var headings=Array.from(table.rows[0].cells);
+    var international=Array.from(table.rows[1].cells);
+    var measures=Array.from(table.rows[2].cells);
+    var label=(measures[0]?.textContent||"Mensuration").trim();
+    var grid=document.createElement("div");
+    grid.className="size-mobile-grid";
+    grid.setAttribute("role","list");
+    grid.setAttribute("aria-label","Tailles "+(card.querySelector("h3")?.textContent||"Owayo"));
+    for(var i=1;i<headings.length;i++){
+      var item=document.createElement("div");
+      item.className="size-mobile-item";
+      item.setAttribute("role","listitem");
+      var title=document.createElement("strong");
+      title.textContent="Taille Owayo "+headings[i].textContent.trim();
+      var intl=document.createElement("span");
+      intl.textContent="International : "+(international[i]?.textContent||"—").trim();
+      var measure=document.createElement("span");
+      measure.className="size-measure";
+      measure.textContent=label+" : "+(measures[i]?.textContent||"—").trim()+" cm";
+      item.append(title,intl,measure);
+      grid.appendChild(item);
+    }
+    wrapper.insertAdjacentElement("afterend",grid);
+  });
 })();
 </script>
 </body></html>
