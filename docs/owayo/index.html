@@ -124,4 +124,67 @@ root.querySelector('#ow-size-find')?.addEventListener('click',()=>{
  const x=hits[0];res.textContent='Taille Owayo '+x.owayo+' (correspondance internationale '+x.intl+') · '+x.measure+' cm. À confirmer par essayage.';
 });
 })();</script>
+
+<!-- CRECYVELO IFRAME AUTOHEIGHT -->
+<script>
+(function () {
+  "use strict";
+  if (window.parent === window) return;
+
+  var lastHeight = 0;
+  var scheduled = false;
+
+  function reportHeight(force) {
+    scheduled = false;
+    var html = document.documentElement;
+    var body = document.body;
+    var height = Math.ceil(Math.max(
+      html ? html.scrollHeight : 0,
+      body ? body.scrollHeight : 0
+    )) + 4;
+
+    if (height > 0 && (force || Math.abs(height - lastHeight) > 1)) {
+      lastHeight = height;
+      window.parent.postMessage({
+        source: "crecyvelo-owayo",
+        type: "resize",
+        height: height
+      }, "*");
+    }
+  }
+
+  function scheduleReport() {
+    if (scheduled) return;
+    scheduled = true;
+    window.requestAnimationFrame(function () { reportHeight(false); });
+  }
+
+  if (window.ResizeObserver) {
+    var observer = new ResizeObserver(scheduleReport);
+    observer.observe(document.documentElement);
+    if (document.body) observer.observe(document.body);
+  }
+
+  window.addEventListener("load", scheduleReport);
+  window.addEventListener("resize", scheduleReport);
+  document.addEventListener("DOMContentLoaded", scheduleReport);
+
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(scheduleReport);
+  }
+
+  document.addEventListener("load", function (event) {
+    if (event.target && event.target.tagName === "IMG") scheduleReport();
+  }, true);
+
+  window.addEventListener("message", function (event) {
+    if (event.data && event.data.source === "crecyvelo-owayo-parent" &&
+        event.data.type === "request-height") {
+      reportHeight(true);
+    }
+  });
+
+  scheduleReport();
+})();
+</script>
 </body></html>
