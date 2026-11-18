@@ -60,6 +60,8 @@ footer{border-top:1px solid #d9e4ed;text-align:center;color:#698092;font-size:12
   .size-card .size-table{font-size:8px}
   .size-card .size-table tr > :first-child{width:100px}
 }
+/* CV77 visibility fix for filter buttons */
+.product[hidden], #ow-no-products[hidden] { display:none !important; }
 </style></head><body>
 <div id="cvowayo">
 <header class="hero"><div class="hero-inner"><div class="eyebrow">Crécyvélo 77 · Tenues du club</div>
@@ -244,6 +246,29 @@ root.querySelector('#ow-size-find')?.addEventListener('click',()=>{
       grid.appendChild(item);
     }
     wrapper.insertAdjacentElement("afterend",grid);
+  });
+})();
+</script>
+<!-- CV77 iframe section navigation -->
+<script>
+(function(){
+  "use strict";
+  if (window.parent === window) return;
+  document.querySelectorAll('.nav a[href^="#"]').forEach(function(link){
+    link.addEventListener('click', function(event){
+      var id=link.getAttribute('href').slice(1);
+      var target=document.getElementById(id);
+      if(!target) return;
+      event.preventDefault();
+      // La page est intégralement visible dans l'iframe : seul le parent doit défiler.
+      var iframeOffset=Math.round(target.getBoundingClientRect().top+window.scrollY);
+      window.parent.postMessage({
+        source:'crecyvelo-owayo',
+        type:'navigate',
+        top:iframeOffset,
+        section:id
+      },'*');
+    });
   });
 })();
 </script>
