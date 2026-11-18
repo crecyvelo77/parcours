@@ -1,0 +1,700 @@
+{
+  "stock": [
+    {
+      "name": "Combinaison manches courtes CT7 Epic",
+      "sizes": [
+        {
+          "size": "L-8",
+          "qty": 1
+        }
+      ],
+      "qty": 1
+    },
+    {
+      "name": "Coupe-vent sans filet d'aération dorsal CVW5 Pro",
+      "sizes": [
+        {
+          "size": "L-7",
+          "qty": 1
+        }
+      ],
+      "qty": 1
+    },
+    {
+      "name": "Cuissard court CP2 sport, fond race",
+      "sizes": [
+        {
+          "size": "XL-cuissard",
+          "qty": 1
+        }
+      ],
+      "qty": 1
+    },
+    {
+      "name": "Maillot de cyclisme C3 Basic manches courtes",
+      "sizes": [
+        {
+          "size": "S-3",
+          "qty": 1
+        },
+        {
+          "size": "S-4",
+          "qty": 3
+        },
+        {
+          "size": "M-5",
+          "qty": 5
+        },
+        {
+          "size": "M-6",
+          "qty": 8
+        },
+        {
+          "size": "L-7",
+          "qty": 6
+        },
+        {
+          "size": "L-8",
+          "qty": 6
+        },
+        {
+          "size": "XL-9",
+          "qty": 4
+        },
+        {
+          "size": "XL-10",
+          "qty": 4
+        },
+        {
+          "size": "XXL-11",
+          "qty": 2
+        }
+      ],
+      "qty": 39
+    },
+    {
+      "name": "Maillot de cyclisme manches courtes C5w Pro (femme)",
+      "sizes": [
+        {
+          "size": "S-3",
+          "qty": 1
+        },
+        {
+          "size": "S-4",
+          "qty": 1
+        },
+        {
+          "size": "M-5",
+          "qty": 1
+        },
+        {
+          "size": "M-6",
+          "qty": 1
+        }
+      ],
+      "qty": 4
+    },
+    {
+      "name": "Maillot de cyclisme mi-saison manches longues CW5 Pro",
+      "sizes": [
+        {
+          "size": "L-7",
+          "qty": 1
+        }
+      ],
+      "qty": 1
+    },
+    {
+      "name": "Veste de cyclisme softshell CJS5 Pro",
+      "sizes": [
+        {
+          "size": "L-7",
+          "qty": 1
+        }
+      ],
+      "qty": 1
+    }
+  ],
+  "sizes": [
+    {
+      "name": "Maillots unisexes",
+      "models": "C3, CL3, M6, ML6",
+      "items": [
+        {
+          "owayo": "2",
+          "intl": "XS",
+          "measure": "82-86",
+          "min": 82.0,
+          "max": 86.0
+        },
+        {
+          "owayo": "3",
+          "intl": "S",
+          "measure": "86-90",
+          "min": 86.0,
+          "max": 90.0
+        },
+        {
+          "owayo": "4",
+          "intl": "S",
+          "measure": "90-94",
+          "min": 90.0,
+          "max": 94.0
+        },
+        {
+          "owayo": "5",
+          "intl": "M",
+          "measure": "94-98",
+          "min": 94.0,
+          "max": 98.0
+        },
+        {
+          "owayo": "6",
+          "intl": "M",
+          "measure": "98-102",
+          "min": 98.0,
+          "max": 102.0
+        },
+        {
+          "owayo": "7",
+          "intl": "L",
+          "measure": "102-106",
+          "min": 102.0,
+          "max": 106.0
+        },
+        {
+          "owayo": "8",
+          "intl": "L",
+          "measure": "106-110",
+          "min": 106.0,
+          "max": 110.0
+        },
+        {
+          "owayo": "9",
+          "intl": "XL",
+          "measure": "110-114",
+          "min": 110.0,
+          "max": 114.0
+        },
+        {
+          "owayo": "10",
+          "intl": "XL",
+          "measure": "114-118",
+          "min": 114.0,
+          "max": 118.0
+        },
+        {
+          "owayo": "11",
+          "intl": "XXL",
+          "measure": "118-122",
+          "min": 118.0,
+          "max": 122.0
+        },
+        {
+          "owayo": "12",
+          "intl": "XXL",
+          "measure": "122-126",
+          "min": 122.0,
+          "max": 126.0
+        }
+      ],
+      "measure": "Tour de poitrine (A) en cm",
+      "kind": "poitrine"
+    },
+    {
+      "name": "Hauts hommes",
+      "models": "Maillots : C5, CL5, CT5, CW5, C7 (jusqu'à la taille 10), M5, ML5 - Vestes et gilets : CJW5, CVW5, CJS5, CVS5",
+      "items": [
+        {
+          "owayo": "2",
+          "intl": "XS",
+          "measure": "82-86",
+          "min": 82.0,
+          "max": 86.0
+        },
+        {
+          "owayo": "3",
+          "intl": "S",
+          "measure": "86-90",
+          "min": 86.0,
+          "max": 90.0
+        },
+        {
+          "owayo": "4",
+          "intl": "S",
+          "measure": "90-94",
+          "min": 90.0,
+          "max": 94.0
+        },
+        {
+          "owayo": "5",
+          "intl": "M",
+          "measure": "94-98",
+          "min": 94.0,
+          "max": 98.0
+        },
+        {
+          "owayo": "6",
+          "intl": "M",
+          "measure": "98-102",
+          "min": 98.0,
+          "max": 102.0
+        },
+        {
+          "owayo": "7",
+          "intl": "L",
+          "measure": "102-106",
+          "min": 102.0,
+          "max": 106.0
+        },
+        {
+          "owayo": "8",
+          "intl": "L",
+          "measure": "106-110",
+          "min": 106.0,
+          "max": 110.0
+        },
+        {
+          "owayo": "9",
+          "intl": "XL",
+          "measure": "110-114",
+          "min": 110.0,
+          "max": 114.0
+        },
+        {
+          "owayo": "10",
+          "intl": "XL",
+          "measure": "114-118",
+          "min": 114.0,
+          "max": 118.0
+        },
+        {
+          "owayo": "11",
+          "intl": "XXL",
+          "measure": "118-122",
+          "min": 118.0,
+          "max": 122.0
+        },
+        {
+          "owayo": "12",
+          "intl": "XXL",
+          "measure": "122-126",
+          "min": 122.0,
+          "max": 126.0
+        }
+      ],
+      "measure": "Tour de poitrine (A) en cm",
+      "kind": "poitrine"
+    },
+    {
+      "name": "Hauts femmes",
+      "models": "C5w, CL5w, CW5w, CT5w",
+      "items": [
+        {
+          "owayo": "1",
+          "intl": "XS",
+          "measure": "74-78",
+          "min": 74.0,
+          "max": 78.0
+        },
+        {
+          "owayo": "2",
+          "intl": "XS",
+          "measure": "78-82",
+          "min": 78.0,
+          "max": 82.0
+        },
+        {
+          "owayo": "3",
+          "intl": "S",
+          "measure": "82-86",
+          "min": 82.0,
+          "max": 86.0
+        },
+        {
+          "owayo": "4",
+          "intl": "S",
+          "measure": "86-90",
+          "min": 86.0,
+          "max": 90.0
+        },
+        {
+          "owayo": "5",
+          "intl": "M",
+          "measure": "90-94",
+          "min": 90.0,
+          "max": 94.0
+        },
+        {
+          "owayo": "6",
+          "intl": "M",
+          "measure": "94-98",
+          "min": 94.0,
+          "max": 98.0
+        },
+        {
+          "owayo": "7",
+          "intl": "L",
+          "measure": "98-104",
+          "min": 98.0,
+          "max": 104.0
+        },
+        {
+          "owayo": "8",
+          "intl": "L",
+          "measure": "104-110",
+          "min": 104.0,
+          "max": 110.0
+        },
+        {
+          "owayo": "9",
+          "intl": "XL",
+          "measure": "110-116",
+          "min": 110.0,
+          "max": 116.0
+        },
+        {
+          "owayo": "10",
+          "intl": "XL",
+          "measure": "116-122",
+          "min": 116.0,
+          "max": 122.0
+        }
+      ],
+      "measure": "Tour de poitrine (A) en cm",
+      "kind": "poitrine"
+    },
+    {
+      "name": "Bas hommes",
+      "models": "CP5, CPL5, CPLW5, CP6",
+      "items": [
+        {
+          "owayo": "2",
+          "intl": "XS",
+          "measure": "86-90",
+          "min": 86.0,
+          "max": 90.0
+        },
+        {
+          "owayo": "3",
+          "intl": "S",
+          "measure": "90-94",
+          "min": 90.0,
+          "max": 94.0
+        },
+        {
+          "owayo": "4",
+          "intl": "S",
+          "measure": "94-98",
+          "min": 94.0,
+          "max": 98.0
+        },
+        {
+          "owayo": "5",
+          "intl": "M",
+          "measure": "98-102",
+          "min": 98.0,
+          "max": 102.0
+        },
+        {
+          "owayo": "6",
+          "intl": "M",
+          "measure": "102-106",
+          "min": 102.0,
+          "max": 106.0
+        },
+        {
+          "owayo": "7",
+          "intl": "L",
+          "measure": "106-110",
+          "min": 106.0,
+          "max": 110.0
+        },
+        {
+          "owayo": "8",
+          "intl": "L",
+          "measure": "110-114",
+          "min": 110.0,
+          "max": 114.0
+        },
+        {
+          "owayo": "9",
+          "intl": "XL",
+          "measure": "114-118",
+          "min": 114.0,
+          "max": 118.0
+        },
+        {
+          "owayo": "10",
+          "intl": "XL",
+          "measure": "118-122",
+          "min": 118.0,
+          "max": 122.0
+        },
+        {
+          "owayo": "11",
+          "intl": "XXL",
+          "measure": "122-126",
+          "min": 122.0,
+          "max": 126.0
+        },
+        {
+          "owayo": "12",
+          "intl": "XXL",
+          "measure": "126-130",
+          "min": 126.0,
+          "max": 130.0
+        }
+      ],
+      "measure": "Tour de hanches (B) en cm",
+      "kind": "hanches"
+    },
+    {
+      "name": "Bas femmes",
+      "models": "CP5w, CP6w",
+      "items": [
+        {
+          "owayo": "1",
+          "intl": "XS",
+          "measure": "82-86",
+          "min": 82.0,
+          "max": 86.0
+        },
+        {
+          "owayo": "2",
+          "intl": "XS",
+          "measure": "86-90",
+          "min": 86.0,
+          "max": 90.0
+        },
+        {
+          "owayo": "3",
+          "intl": "S",
+          "measure": "90-94",
+          "min": 90.0,
+          "max": 94.0
+        },
+        {
+          "owayo": "4",
+          "intl": "S",
+          "measure": "94-98",
+          "min": 94.0,
+          "max": 98.0
+        },
+        {
+          "owayo": "5",
+          "intl": "M",
+          "measure": "98-102",
+          "min": 98.0,
+          "max": 102.0
+        },
+        {
+          "owayo": "6",
+          "intl": "M",
+          "measure": "102-106",
+          "min": 102.0,
+          "max": 106.0
+        },
+        {
+          "owayo": "7",
+          "intl": "L",
+          "measure": "106-112",
+          "min": 106.0,
+          "max": 112.0
+        },
+        {
+          "owayo": "8",
+          "intl": "L",
+          "measure": "112-118",
+          "min": 112.0,
+          "max": 118.0
+        },
+        {
+          "owayo": "9",
+          "intl": "XL",
+          "measure": "118-124",
+          "min": 118.0,
+          "max": 124.0
+        },
+        {
+          "owayo": "10",
+          "intl": "XL",
+          "measure": "124-130",
+          "min": 124.0,
+          "max": 130.0
+        }
+      ],
+      "measure": "Tour de hanches (B) en cm",
+      "kind": "hanches"
+    }
+  ],
+  "total_stock": 48,
+  "updated": "18 novembre 2026",
+  "products": [
+    {
+      "name": "Maillot de cyclisme C3 Basic manches courtes",
+      "slug": "maillot-de-cyclisme-c3-basic-manches-courtes",
+      "prices": {
+        "1": 66.0,
+        "10": 57.0,
+        "20": 52.0
+      },
+      "group": "Maillots",
+      "stock_qty": 39,
+      "asset_names": [
+        "assets/maillot-de-cyclisme-c3-basic-manches-courtes-face.png",
+        "assets/maillot-de-cyclisme-c3-basic-manches-courtes-dos.png"
+      ]
+    },
+    {
+      "name": "Maillot de cyclisme manches courtes C5w Pro (femme)",
+      "slug": "maillot-de-cyclisme-manches-courtes-c5w-pro-femme",
+      "prices": {
+        "1": 79.0,
+        "10": 72.0,
+        "20": 66.0
+      },
+      "group": "Maillots",
+      "stock_qty": 4,
+      "asset_names": [
+        "assets/maillot-de-cyclisme-manches-courtes-c5w-pro-femme-face.png",
+        "assets/maillot-de-cyclisme-manches-courtes-c5w-pro-femme-dos.png"
+      ]
+    },
+    {
+      "name": "Coupe-vent sans filet d'aération dorsal CVW5 Pro",
+      "slug": "coupe-vent-sans-filet-d-aeration-dorsal-cvw5-pro",
+      "prices": {
+        "1": 91.0,
+        "10": 85.0,
+        "20": 83.0
+      },
+      "group": "Vestes et coupe-vent",
+      "stock_qty": 1,
+      "asset_names": [
+        "assets/coupe-vent-sans-filet-d-aeration-dorsal-cvw5-pro-face.png",
+        "assets/coupe-vent-sans-filet-d-aeration-dorsal-cvw5-pro-dos.png"
+      ]
+    },
+    {
+      "name": "Coupe-vent avec filet d'aération dorsal CVW5 Pro V",
+      "slug": "coupe-vent-avec-filet-d-aeration-dorsal-cvw5-pro-v",
+      "prices": {
+        "1": 94.0,
+        "10": 88.0,
+        "20": 86.0
+      },
+      "group": "Vestes et coupe-vent",
+      "stock_qty": 0,
+      "asset_names": [
+        "assets/coupe-vent-avec-filet-d-aeration-dorsal-cvw5-pro-v-face.png",
+        "assets/coupe-vent-avec-filet-d-aeration-dorsal-cvw5-pro-v-dos.png"
+      ]
+    },
+    {
+      "name": "Maillot de cyclisme CL3 Basic manches longues",
+      "slug": "maillot-de-cyclisme-cl3-basic-manches-longues",
+      "prices": {
+        "1": 69.0,
+        "10": 61.0,
+        "20": 55.0
+      },
+      "group": "Maillots",
+      "stock_qty": 0,
+      "asset_names": [
+        "assets/maillot-de-cyclisme-cl3-basic-manches-longues-face.png",
+        "assets/maillot-de-cyclisme-cl3-basic-manches-longues-dos.png"
+      ]
+    },
+    {
+      "name": "Maillot de cyclisme mi-saison manches longues CW5 Pro",
+      "slug": "maillot-de-cyclisme-mi-saison-manches-longues-cw5-pro",
+      "prices": {
+        "1": 93.0,
+        "10": 87.0,
+        "20": 81.0
+      },
+      "group": "Maillots",
+      "stock_qty": 1,
+      "asset_names": [
+        "assets/maillot-de-cyclisme-mi-saison-manches-longues-cw5-pro-face.png",
+        "assets/maillot-de-cyclisme-mi-saison-manches-longues-cw5-pro-dos.png"
+      ]
+    },
+    {
+      "name": "Veste de cyclisme softshell CJS5 Pro",
+      "slug": "veste-de-cyclisme-softshell-cjs5-pro",
+      "prices": {
+        "1": 126.0,
+        "10": 124.0,
+        "20": 120.0
+      },
+      "group": "Vestes et coupe-vent",
+      "stock_qty": 1,
+      "asset_names": [
+        "assets/veste-de-cyclisme-softshell-cjs5-pro-face.png",
+        "assets/veste-de-cyclisme-softshell-cjs5-pro-dos.png"
+      ]
+    },
+    {
+      "name": "Cuissard court CP2 sport, fond race",
+      "slug": "cuissard-court-cp2-sport-fond-race",
+      "prices": {
+        "1": 80.0,
+        "10": 73.0,
+        "20": 67.0
+      },
+      "group": "Cuissards et collants",
+      "stock_qty": 1,
+      "asset_names": [
+        "assets/cuissard-court-cp2-sport-fond-race-face.png",
+        "assets/cuissard-court-cp2-sport-fond-race-dos.png"
+      ]
+    },
+    {
+      "name": "Collant hiver CPW5 Pro, fond race",
+      "slug": "collant-hiver-cpw5-pro-fond-race",
+      "prices": {
+        "1": 101.0,
+        "10": 96.0,
+        "20": 90.0
+      },
+      "group": "Cuissards et collants",
+      "stock_qty": 0,
+      "asset_names": [
+        "assets/collant-hiver-cpw5-pro-fond-race-face.png",
+        "assets/collant-hiver-cpw5-pro-fond-race-dos.png"
+      ]
+    },
+    {
+      "name": "Combinaison manches courtes CT7 Epic",
+      "slug": "combinaison-manches-courtes-ct7-epic",
+      "prices": {
+        "1": 114.0,
+        "10": 110.0,
+        "20": 103.0
+      },
+      "group": "Combinaisons",
+      "stock_qty": 1,
+      "asset_names": [
+        "assets/combinaison-manches-courtes-ct7-epic-face.png",
+        "assets/combinaison-manches-courtes-ct7-epic-dos.png"
+      ]
+    },
+    {
+      "name": "Combinaison manches longues CTL7 Epic",
+      "slug": "combinaison-manches-longues-ctl7-epic",
+      "prices": {
+        "1": 119.0,
+        "10": 116.0,
+        "20": 109.0
+      },
+      "group": "Combinaisons",
+      "stock_qty": 0,
+      "asset_names": [
+        "assets/combinaison-manches-longues-ctl7-epic-face.png",
+        "assets/combinaison-manches-longues-ctl7-epic-dos.png"
+      ]
+    }
+  ]
+}
