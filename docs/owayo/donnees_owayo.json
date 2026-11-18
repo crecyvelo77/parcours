@@ -124,78 +124,78 @@
           "owayo": "2",
           "intl": "XS",
           "measure": "82-86",
-          "min": 82,
-          "max": 86
+          "min": 82.0,
+          "max": 86.0
         },
         {
           "owayo": "3",
           "intl": "S",
           "measure": "86-90",
-          "min": 86,
-          "max": 90
+          "min": 86.0,
+          "max": 90.0
         },
         {
           "owayo": "4",
           "intl": "S",
           "measure": "90-94",
-          "min": 90,
-          "max": 94
+          "min": 90.0,
+          "max": 94.0
         },
         {
           "owayo": "5",
           "intl": "M",
           "measure": "94-98",
-          "min": 94,
-          "max": 98
+          "min": 94.0,
+          "max": 98.0
         },
         {
           "owayo": "6",
           "intl": "M",
           "measure": "98-102",
-          "min": 98,
-          "max": 102
+          "min": 98.0,
+          "max": 102.0
         },
         {
           "owayo": "7",
           "intl": "L",
           "measure": "102-106",
-          "min": 102,
-          "max": 106
+          "min": 102.0,
+          "max": 106.0
         },
         {
           "owayo": "8",
           "intl": "L",
           "measure": "106-110",
-          "min": 106,
-          "max": 110
+          "min": 106.0,
+          "max": 110.0
         },
         {
           "owayo": "9",
           "intl": "XL",
           "measure": "110-114",
-          "min": 110,
-          "max": 114
+          "min": 110.0,
+          "max": 114.0
         },
         {
           "owayo": "10",
           "intl": "XL",
           "measure": "114-118",
-          "min": 114,
-          "max": 118
+          "min": 114.0,
+          "max": 118.0
         },
         {
           "owayo": "11",
           "intl": "XXL",
           "measure": "118-122",
-          "min": 118,
-          "max": 122
+          "min": 118.0,
+          "max": 122.0
         },
         {
           "owayo": "12",
           "intl": "XXL",
           "measure": "122-126",
-          "min": 122,
-          "max": 126
+          "min": 122.0,
+          "max": 126.0
         }
       ],
       "measure": "Tour de poitrine (A) en cm",
@@ -209,78 +209,78 @@
           "owayo": "2",
           "intl": "XS",
           "measure": "82-86",
-          "min": 82,
-          "max": 86
+          "min": 82.0,
+          "max": 86.0
         },
         {
           "owayo": "3",
           "intl": "S",
           "measure": "86-90",
-          "min": 86,
-          "max": 90
+          "min": 86.0,
+          "max": 90.0
         },
         {
           "owayo": "4",
           "intl": "S",
           "measure": "90-94",
-          "min": 90,
-          "max": 94
+          "min": 90.0,
+          "max": 94.0
         },
         {
           "owayo": "5",
           "intl": "M",
           "measure": "94-98",
-          "min": 94,
-          "max": 98
+          "min": 94.0,
+          "max": 98.0
         },
         {
           "owayo": "6",
           "intl": "M",
           "measure": "98-102",
-          "min": 98,
-          "max": 102
+          "min": 98.0,
+          "max": 102.0
         },
         {
           "owayo": "7",
           "intl": "L",
           "measure": "102-106",
-          "min": 102,
-          "max": 106
+          "min": 102.0,
+          "max": 106.0
         },
         {
           "owayo": "8",
           "intl": "L",
           "measure": "106-110",
-          "min": 106,
-          "max": 110
+          "min": 106.0,
+          "max": 110.0
         },
         {
           "owayo": "9",
           "intl": "XL",
           "measure": "110-114",
-          "min": 110,
-          "max": 114
+          "min": 110.0,
+          "max": 114.0
         },
         {
           "owayo": "10",
           "intl": "XL",
           "measure": "114-118",
-          "min": 114,
-          "max": 118
+          "min": 114.0,
+          "max": 118.0
         },
         {
           "owayo": "11",
           "intl": "XXL",
           "measure": "118-122",
-          "min": 118,
-          "max": 122
+          "min": 118.0,
+          "max": 122.0
         },
         {
           "owayo": "12",
           "intl": "XXL",
           "measure": "122-126",
-          "min": 122,
-          "max": 126
+          "min": 122.0,
+          "max": 126.0
         }
       ],
       "measure": "Tour de poitrine (A) en cm",
@@ -294,71 +294,71 @@
           "owayo": "1",
           "intl": "XS",
           "measure": "74-78",
-          "min": 74,
-          "max": 78
+          "min": 74.0,
+          "max": 78.0
         },
         {
           "owayo": "2",
           "intl": "XS",
           "measure": "78-82",
-          "min": 78,
-          "max": 82
+          "min": 78.0,
+          "max": 82.0
         },
         {
           "owayo": "3",
           "intl": "S",
           "measure": "82-86",
-          "min": 82,
-          "max": 86
+          "min": 82.0,
+          "max": 86.0
         },
         {
           "owayo": "4",
           "intl": "S",
           "measure": "86-90",
-          "min": 86,
-          "max": 90
+          "min": 86.0,
+          "max": 90.0
         },
         {
           "owayo": "5",
           "intl": "M",
           "measure": "90-94",
-          "min": 90,
-          "max": 94
+          "min": 90.0,
+          "max": 94.0
         },
         {
           "owayo": "6",
           "intl": "M",
           "measure": "94-98",
-          "min": 94,
-          "max": 98
+          "min": 94.0,
+          "max": 98.0
         },
         {
           "owayo": "7",
           "intl": "L",
           "measure": "98-104",
-          "min": 98,
-          "max": 104
+          "min": 98.0,
+          "max": 104.0
         },
         {
           "owayo": "8",
           "intl": "L",
           "measure": "104-110",
-          "min": 104,
-          "max": 110
+          "min": 104.0,
+          "max": 110.0
         },
         {
           "owayo": "9",
           "intl": "XL",
           "measure": "110-116",
-          "min": 110,
-          "max": 116
+          "min": 110.0,
+          "max": 116.0
         },
         {
           "owayo": "10",
           "intl": "XL",
           "measure": "116-122",
-          "min": 116,
-          "max": 122
+          "min": 116.0,
+          "max": 122.0
         }
       ],
       "measure": "Tour de poitrine (A) en cm",
@@ -372,78 +372,78 @@
           "owayo": "2",
           "intl": "XS",
           "measure": "86-90",
-          "min": 86,
-          "max": 90
+          "min": 86.0,
+          "max": 90.0
         },
         {
           "owayo": "3",
           "intl": "S",
           "measure": "90-94",
-          "min": 90,
-          "max": 94
+          "min": 90.0,
+          "max": 94.0
         },
         {
           "owayo": "4",
           "intl": "S",
           "measure": "94-98",
-          "min": 94,
-          "max": 98
+          "min": 94.0,
+          "max": 98.0
         },
         {
           "owayo": "5",
           "intl": "M",
           "measure": "98-102",
-          "min": 98,
-          "max": 102
+          "min": 98.0,
+          "max": 102.0
         },
         {
           "owayo": "6",
           "intl": "M",
           "measure": "102-106",
-          "min": 102,
-          "max": 106
+          "min": 102.0,
+          "max": 106.0
         },
         {
           "owayo": "7",
           "intl": "L",
           "measure": "106-110",
-          "min": 106,
-          "max": 110
+          "min": 106.0,
+          "max": 110.0
         },
         {
           "owayo": "8",
           "intl": "L",
           "measure": "110-114",
-          "min": 110,
-          "max": 114
+          "min": 110.0,
+          "max": 114.0
         },
         {
           "owayo": "9",
           "intl": "XL",
           "measure": "114-118",
-          "min": 114,
-          "max": 118
+          "min": 114.0,
+          "max": 118.0
         },
         {
           "owayo": "10",
           "intl": "XL",
           "measure": "118-122",
-          "min": 118,
-          "max": 122
+          "min": 118.0,
+          "max": 122.0
         },
         {
           "owayo": "11",
           "intl": "XXL",
           "measure": "122-126",
-          "min": 122,
-          "max": 126
+          "min": 122.0,
+          "max": 126.0
         },
         {
           "owayo": "12",
           "intl": "XXL",
           "measure": "126-130",
-          "min": 126,
-          "max": 130
+          "min": 126.0,
+          "max": 130.0
         }
       ],
       "measure": "Tour de hanches (B) en cm",
@@ -457,71 +457,71 @@
           "owayo": "1",
           "intl": "XS",
           "measure": "82-86",
-          "min": 82,
-          "max": 86
+          "min": 82.0,
+          "max": 86.0
         },
         {
           "owayo": "2",
           "intl": "XS",
           "measure": "86-90",
-          "min": 86,
-          "max": 90
+          "min": 86.0,
+          "max": 90.0
         },
         {
           "owayo": "3",
           "intl": "S",
           "measure": "90-94",
-          "min": 90,
-          "max": 94
+          "min": 90.0,
+          "max": 94.0
         },
         {
           "owayo": "4",
           "intl": "S",
           "measure": "94-98",
-          "min": 94,
-          "max": 98
+          "min": 94.0,
+          "max": 98.0
         },
         {
           "owayo": "5",
           "intl": "M",
           "measure": "98-102",
-          "min": 98,
-          "max": 102
+          "min": 98.0,
+          "max": 102.0
         },
         {
           "owayo": "6",
           "intl": "M",
           "measure": "102-106",
-          "min": 102,
-          "max": 106
+          "min": 102.0,
+          "max": 106.0
         },
         {
           "owayo": "7",
           "intl": "L",
           "measure": "106-112",
-          "min": 106,
-          "max": 112
+          "min": 106.0,
+          "max": 112.0
         },
         {
           "owayo": "8",
           "intl": "L",
           "measure": "112-118",
-          "min": 112,
-          "max": 118
+          "min": 112.0,
+          "max": 118.0
         },
         {
           "owayo": "9",
           "intl": "XL",
           "measure": "118-124",
-          "min": 118,
-          "max": 124
+          "min": 118.0,
+          "max": 124.0
         },
         {
           "owayo": "10",
           "intl": "XL",
           "measure": "124-130",
-          "min": 124,
-          "max": 130
+          "min": 124.0,
+          "max": 130.0
         }
       ],
       "measure": "Tour de hanches (B) en cm",
@@ -530,14 +530,16 @@
   ],
   "total_stock": 47,
   "updated": "18 novembre 2026",
+  "date_tarifs": "2026-11-18",
+  "date_stocks": "2026-11-18",
   "products": [
     {
       "name": "Maillot de cyclisme C3 Basic manches courtes",
       "slug": "maillot-de-cyclisme-c3-basic-manches-courtes",
       "prices": {
-        "1": 66,
-        "10": 57,
-        "20": 52
+        "1": 66.0,
+        "10": 57.0,
+        "20": 52.0
       },
       "group": "Maillots",
       "stock_qty": 38,
@@ -550,9 +552,9 @@
       "name": "Maillot de cyclisme manches courtes C5w Pro (femme)",
       "slug": "maillot-de-cyclisme-manches-courtes-c5w-pro-femme",
       "prices": {
-        "1": 79,
-        "10": 72,
-        "20": 66
+        "1": 79.0,
+        "10": 72.0,
+        "20": 66.0
       },
       "group": "Maillots",
       "stock_qty": 4,
@@ -565,9 +567,9 @@
       "name": "Coupe-vent sans filet d'aération dorsal CVW5 Pro",
       "slug": "coupe-vent-sans-filet-d-aeration-dorsal-cvw5-pro",
       "prices": {
-        "1": 91,
-        "10": 85,
-        "20": 83
+        "1": 91.0,
+        "10": 85.0,
+        "20": 83.0
       },
       "group": "Vestes et coupe-vent",
       "stock_qty": 1,
@@ -580,9 +582,9 @@
       "name": "Coupe-vent avec filet d'aération dorsal CVW5 Pro V",
       "slug": "coupe-vent-avec-filet-d-aeration-dorsal-cvw5-pro-v",
       "prices": {
-        "1": 94,
-        "10": 88,
-        "20": 86
+        "1": 94.0,
+        "10": 88.0,
+        "20": 86.0
       },
       "group": "Vestes et coupe-vent",
       "stock_qty": 0,
@@ -595,9 +597,9 @@
       "name": "Maillot de cyclisme CL3 Basic manches longues",
       "slug": "maillot-de-cyclisme-cl3-basic-manches-longues",
       "prices": {
-        "1": 69,
-        "10": 61,
-        "20": 55
+        "1": 69.0,
+        "10": 61.0,
+        "20": 55.0
       },
       "group": "Maillots",
       "stock_qty": 0,
@@ -610,9 +612,9 @@
       "name": "Maillot de cyclisme mi-saison manches longues CW5 Pro",
       "slug": "maillot-de-cyclisme-mi-saison-manches-longues-cw5-pro",
       "prices": {
-        "1": 93,
-        "10": 87,
-        "20": 81
+        "1": 93.0,
+        "10": 87.0,
+        "20": 81.0
       },
       "group": "Maillots",
       "stock_qty": 1,
@@ -625,9 +627,9 @@
       "name": "Veste de cyclisme softshell CJS5 Pro",
       "slug": "veste-de-cyclisme-softshell-cjs5-pro",
       "prices": {
-        "1": 126,
-        "10": 124,
-        "20": 120
+        "1": 126.0,
+        "10": 124.0,
+        "20": 120.0
       },
       "group": "Vestes et coupe-vent",
       "stock_qty": 1,
@@ -640,9 +642,9 @@
       "name": "Cuissard court CP2 sport, fond race",
       "slug": "cuissard-court-cp2-sport-fond-race",
       "prices": {
-        "1": 80,
-        "10": 73,
-        "20": 67
+        "1": 80.0,
+        "10": 73.0,
+        "20": 67.0
       },
       "group": "Cuissards et collants",
       "stock_qty": 1,
@@ -655,9 +657,9 @@
       "name": "Collant hiver CPW5 Pro, fond race",
       "slug": "collant-hiver-cpw5-pro-fond-race",
       "prices": {
-        "1": 101,
-        "10": 96,
-        "20": 90
+        "1": 101.0,
+        "10": 96.0,
+        "20": 90.0
       },
       "group": "Cuissards et collants",
       "stock_qty": 0,
@@ -670,9 +672,9 @@
       "name": "Combinaison manches courtes CT7 Epic",
       "slug": "combinaison-manches-courtes-ct7-epic",
       "prices": {
-        "1": 114,
-        "10": 110,
-        "20": 103
+        "1": 114.0,
+        "10": 110.0,
+        "20": 103.0
       },
       "group": "Combinaisons",
       "stock_qty": 1,
@@ -685,9 +687,9 @@
       "name": "Combinaison manches longues CTL7 Epic",
       "slug": "combinaison-manches-longues-ctl7-epic",
       "prices": {
-        "1": 119,
-        "10": 116,
-        "20": 109
+        "1": 119.0,
+        "10": 116.0,
+        "20": 109.0
       },
       "group": "Combinaisons",
       "stock_qty": 0,
@@ -696,7 +698,5 @@
         "assets/combinaison-manches-longues-ctl7-epic-dos.png"
       ]
     }
-  ],
-  "date_tarifs": "2026-11-18",
-  "date_stocks": "2026-11-18"
+  ]
 }
